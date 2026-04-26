@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Filoxenia by Hustle Hours</title>
+  <meta name="description" content="Δύο εβδομάδες στη Silicon Valley, δωρεάν, για τους επόμενους builders της Ελλάδας." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Roboto+Flex:opsz,slnt,wdth,wght@8..144,-10..0,25..151,100..1000&display=swap" rel="stylesheet" />
+
+  <style>
+  /* ─── TOKENS ──────────────────────────────────────────────────── */
+  :root {
+    --bg:          #09090F;
+    --bg-1:        #111120;
+    --bg-2:        #17172A;
+    --bg-3:        #1C1C30;
+
+    --gold:        #D4A843;
+    --gold-bright: #F0C55A;
+    --gold-dim:    rgba(212,168,67,0.12);
+    --gold-border: rgba(212,168,67,0.22);
+
+    --mint:        #3DFFC0;
+    --mint-dim:    rgba(61,255,192,0.08);
+    --mint-border: rgba(61,255,192,0.2);
+
+    --text:        #F2EDE0;
+    --text-2:      #B0AEBB;
+    --text-3:      #5A5A70;
+
+    --border:      rgba(255,255,255,0.07);
+    --border-2:    rgba(255,255,255,0.04);
+
+    --font-display: "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
+    --font-serif:   "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
+    --font-sans:    "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
+    --font-mono:    'JetBrains Mono', 'Courier New', monospace;
+
+    --r: 8px;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* ─── RESET ───────────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+  body {
+    background: transparent;
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { text-decoration: none; color: inherit; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+
+  /* ─── GRAIN OVERLAY ───────────────────────────────────────────── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ─── REVEAL ──────────────────────────────────────────────────── */
+  .r { opacity: 0; transform: translateY(24px); transition: opacity 0.55s var(--ease), transform 0.55s var(--ease); }
+  .r.on { opacity: 1; transform: none; }
+  .r1 { transition-delay: 0.08s; }
+  .r2 { transition-delay: 0.16s; }
+  .r3 { transition-delay: 0.26s; }
+  .r4 { transition-delay: 0.38s; }
+  .r5 { transition-delay: 0.50s; }
+
+  /* ─── NAV ─────────────────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+    padding: 1.1rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: background 300ms, backdrop-filter 300ms, border-color 300ms;
+  }
+  nav.scrolled {
+    background: rgba(7,7,13,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    display: flex; flex-direction: column; line-height: 1.1;
+  }
+  .nav-logo .sup {
+    font-family: var(--font-mono);
+    font-size: 0.6rem; font-weight: 500;
+    letter-spacing: 0.105em; text-transform: uppercase;
+    color: var(--gold);
+  }
+  .nav-logo .name {
+    font-family: var(--font-display);
+    font-size: 1.25rem; letter-spacing: 0.035em;
+    color: var(--text);
+  }
+  .nav-link {
+    font-family: var(--font-mono);
+    font-size: 0.7rem; letter-spacing: 0.07em;
+    color: var(--text-2);
+    display: flex; align-items: center; gap: 0.4rem;
+    transition: color 200ms;
+  }
+  .nav-link:hover { color: var(--text); }
+  .nav-link svg { width: 12px; height: 12px; }
+
+  /* ─── HERO ────────────────────────────────────────────────────── */
+  #hero {
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 72px;
+    position: relative;
+    overflow: hidden;
+    background-image: url('https://images.unsplash.com/photo-1449034446853-66c86144b0ad?auto=format&fit=crop&w=1920&q=85');
+    background-size: cover;
+    background-position: center 40%;
+  }
+  .hero-def {
+    position: relative;
+    z-index: 2;
+    max-width: 640px;
+    width: 100%;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  /* Dark overlay — full coverage for readability */
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0; z-index: 1;
+    pointer-events: none;
+    background: rgba(5,3,15,0.72);
+  }
+  .hero-content {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 3rem 1.5rem 1rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* meta pill above title */
+  .hero-meta {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    border: 1px solid var(--gold-border);
+    background: var(--gold-dim);
+    border-radius: 100px;
+    padding: 0.35rem 1rem;
+    margin-bottom: 2.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem; letter-spacing: 0.084em; text-transform: uppercase;
+    color: var(--gold);
+  }
+  .hero-meta svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+  /* Big outlined FILOXENIA */
+  .hero-title-wrap {
+    position: relative;
+    margin-bottom: 1.5rem;
+    line-height: 1;
+  }
+  .hero-title-outline {
+    font-family: var(--font-display);
+    font-size: clamp(5.5rem, 18vw, 16rem);
+    letter-spacing: 0.028em;
+    color: #FFFFFF;
+    -webkit-text-stroke: none;
+    text-shadow: 0 2px 40px rgba(0,0,0,0.5);
+    display: block;
+    user-select: none;
+    line-height: 0.92;
+    font-weight: 700;
+  }
+  .hero-title-fill {
+    font-family: var(--font-serif);
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    font-style: italic;
+    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 0.035em;
+    margin-top: 0.75rem;
+    display: block;
+  }
+
+  .hero-cta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: center;
+  }
+  .btn-gold {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--gold); color: #07070D;
+    font-family: var(--font-sans); font-size: 0.875rem; font-weight: 700;
+    letter-spacing: 0.021em;
+    padding: 0.875rem 2rem; border-radius: 6px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    transition: background 200ms, transform 200ms, box-shadow 200ms;
+    cursor: pointer;
+  }
+  .btn-gold:hover { background: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(212,168,67,0.35); }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(8px);
+    color: #FFFFFF;
+    font-family: var(--font-sans); font-size: 0.875rem; font-weight: 500;
+    padding: 0.875rem 1.5rem; border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.45);
+    transition: color 200ms, border-color 200ms, background 200ms;
+    cursor: pointer;
+  }
+  .btn-ghost:hover { background: rgba(0,0,0,0.55); border-color: rgba(255,255,255,0.7); }
+  .btn-gold svg, .btn-ghost svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+  /* ─── MARQUEE ─────────────────────────────────────────────────── */
+  .marquee-wrap {
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 0.85rem 0;
+    background: rgba(17,17,32,0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    position: relative;
+  }
+  .marquee-track {
+    display: flex; gap: 3rem; width: max-content;
+    animation: scroll-left 28s linear infinite;
+  }
+  .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+  @keyframes scroll-left {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .marquee-item {
+    font-family: var(--font-mono);
+    font-size: 0.65rem; letter-spacing: 0.126em; text-transform: uppercase;
+    color: var(--text-3);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .marquee-item.highlight { color: var(--gold); }
+  .marquee-item.mint { color: var(--mint); }
+  .marquee-sep { color: var(--text-3); flex-shrink: 0; font-size: 0.5rem; }
+
+  /* ─── SECTION UTILITY ─────────────────────────────────────────── */
+  .section-wrap { padding: 6rem 2rem; max-width: 1120px; margin: 0 auto; }
+  .section-wrap.narrow { max-width: 760px; }
+  .section-wrap.full { max-width: none; padding-left: 0; padding-right: 0; }
+
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem; font-weight: 500;
+    letter-spacing: 0.126em; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .label::before {
+    content: '';
+    display: block; width: 20px; height: 1px;
+    background: var(--gold-border);
+  }
+
+  h2.title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    letter-spacing: 0.021em; line-height: 1;
+    color: var(--text);
+    margin-bottom: 2rem;
+  }
+  h2.title em {
+    font-family: var(--font-serif);
+    font-style: italic; font-size: 0.85em;
+    color: var(--gold-bright);
+  }
+
+  .body-text {
+    font-size: 1.0625rem; line-height: 1.8;
+    color: rgba(242,237,224,0.88);
+  }
+  .body-text p { margin-bottom: 1.4rem; }
+  .body-text p:last-child { margin-bottom: 0; }
+  .body-text strong { color: var(--text); font-weight: 600; }
+
+  /* ─── ORIGIN ──────────────────────────────────────────────────── */
+  #origin {
+    background: transparent;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  #origin > .section-wrap {
+    position: relative;
+    z-index: 1;
+  }
+  .origin-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .origin-left {
+    position: sticky; top: 100px;
+  }
+  .origin-num {
+    font-family: var(--font-display);
+    font-size: clamp(6rem, 12vw, 10rem);
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--text-3);
+    letter-spacing: 0.014em;
+    margin-bottom: 2rem;
+  }
+  /* Photo pair in origin left column */
+  .origin-photos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  /* ── TiltedCard ─────────────────────────────────────────────── */
+  .tilted-card-figure {
+    position: relative;
+    perspective: 800px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .tilted-card-figure:first-child { margin-top: 1.5rem; }
+  .tilted-card-inner {
+    position: relative;
+    transform-style: preserve-3d;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    width: 100%;
+    height: 100%;
+    transition: transform 0.1s ease-out, box-shadow 0.3s ease;
+  }
+  .tilted-card-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .tilted-card-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 0.6rem 0.75rem;
+    background: linear-gradient(to top, rgba(5,3,15,0.85) 0%, transparent 100%);
+    font-family: var(--font-mono);
+    font-size: 0.58rem; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--gold);
+    transform: translateZ(30px);
+  }
+  .tilted-card-caption {
+    pointer-events: none;
+    position: absolute;
+    border-radius: 4px;
+    background: rgba(212,168,67,0.95);
+    color: #07070D;
+    padding: 4px 10px;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.042em;
+    text-transform: uppercase;
+    opacity: 0;
+    z-index: 10;
+    white-space: nowrap;
+    pointer-events: none;
+    transition: opacity 0.15s;
+  }
+  @media (max-width: 640px) {
+    .tilted-card-caption { display: none; }
+  }
+  /* Wide photo below the two portraits */
+  .origin-photo-wide {
+    margin-top: 0.75rem;
+  }
+  .origin-photo-wide-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .origin-photo-wide-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    display: block;
+    transition: transform 400ms var(--ease);
+  }
+  .origin-photo-wide-img:hover img { transform: scale(1.03); }
+  .origin-photo-caption {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.056em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-top: 0.6rem;
+    text-align: center;
+  }
+
+  /* Placeholder shown when no image is provided */
+  .origin-photo.placeholder {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 0.5rem;
+    border: 1px dashed rgba(212,168,67,0.2);
+  }
+  .origin-photo.placeholder svg { color: var(--text-3); width: 28px; height: 28px; }
+  .origin-photo.placeholder span {
+    font-family: var(--font-mono); font-size: 0.58rem;
+    letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-3);
+    text-align: center; padding: 0 0.5rem;
+  }
+
+  .origin-story-label {
+    font-family: var(--font-sans);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: -0.007em;
+    color: var(--gold);
+    margin-bottom: 1.75rem;
+    line-height: 1.2;
+  }
+
+  .origin-right .pull {
+    font-family: var(--font-serif);
+    font-size: clamp(1.2rem, 2.5vw, 1.65rem);
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.5;
+    border-left: 2px solid var(--gold);
+    padding-left: 1.5rem;
+    margin: 2.5rem 0;
+  }
+
+  /* ─── STATEMENT SECTION ───────────────────────────────────────── */
+  #statement {
+    padding: 5rem 2rem;
+    background: transparent;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .statement-inner { max-width: 1000px; margin: 0 auto; }
+  .statement-prefix {
+    font-family: var(--font-mono);
+    font-size: 0.65rem; letter-spacing: 0.105em; text-transform: uppercase;
+    color: var(--text-3); margin-bottom: 3rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .statement-prefix::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* Rotating text line */
+  .statement-rotate-line {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    letter-spacing: 0.021em;
+    line-height: 1.3;
+    color: var(--text);
+    padding: 0.6rem 0 1.2rem;
+    border-bottom: 1px solid var(--border-2);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.22em;
+  }
+  .statement-static {
+    white-space: nowrap;
+  }
+  .rt-word {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    background: var(--gold);
+    color: #07070D;
+    border-radius: 6px;
+    padding: 0.04em 0.28em 0.08em;
+    min-height: 1.15em;
+    min-width: 2em;
+  }
+  .rt-clip {
+    display: inline-block;
+    overflow: hidden;
+    line-height: 1.15;
+    padding-bottom: 0.08em;
+  }
+  .rt-char { display: inline-block; }
+
+  /* ─── DEFINITION ──────────────────────────────────────────────── */
+  #definition {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .def-grid {
+    display: flex;
+    justify-content: center;
+  }
+  .def-left {
+    padding: 5rem 4rem;
+    max-width: 680px;
+    width: 100%;
+    text-align: center;
+  }
+  .tp-container {
+    width: 100%;
+    height: clamp(80px, 14vw, 140px);
+    margin-bottom: 0.5rem;
+    position: relative;
+  }
+  .tp-title {
+    font-family: 'Roboto Flex', sans-serif;
+    text-transform: uppercase;
+    font-weight: 100;
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    user-select: none;
+    white-space: nowrap;
+    position: absolute;
+    top: 0; left: 0;
+    text-shadow: 0 2px 40px rgba(0,0,0,0.5);
+  }
+  .tp-flex {
+    display: flex;
+    justify-content: space-between;
+  }
+  .def-phonetic {
+    font-family: var(--font-mono);
+    font-size: 0.85rem; color: rgba(255,255,255,0.7); letter-spacing: 0.056em;
+    margin-bottom: 0.75rem;
+  }
+  .def-pos {
+    font-family: var(--font-serif);
+    font-style: italic; font-size: 1rem;
+    color: var(--gold); margin-bottom: 2rem;
+  }
+  .def-text {
+    font-family: var(--font-sans);
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+    max-width: 560px;
+  }
+  .def-origin {
+    margin-top: 2.5rem; padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    font-family: var(--font-mono);
+    font-size: 0.72rem; letter-spacing: 0.07em; text-transform: uppercase;
+    color: rgba(255,255,255,0.45); line-height: 1.9;
+  }
+  .def-origin span { color: rgba(255,255,255,0.65); }
+
+  /* ─── BENTO ───────────────────────────────────────────────────── */
+  #includes {
+    padding: 6rem 2rem;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+  .includes-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 3rem; gap: 2rem;
+  }
+  .includes-header .label { margin-bottom: 0.5rem; }
+
+  /* ─── CAROUSEL ───────────────────────────────────────────────── */
+  .carr-outer {
+    position: relative;
+    overflow: hidden;
+    margin-top: 3rem;
+    padding: 1rem 0 2rem;
+  }
+  .carr-track {
+    display: flex;
+    gap: 20px;
+    cursor: grab;
+    user-select: none;
+    will-change: transform;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+  }
+  .carr-track:active { cursor: grabbing; }
+  .carr-item {
+    flex-shrink: 0;
+    width: 300px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    background: rgba(17,17,32,0.72);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    overflow: hidden;
+    position: relative;
+    transition: border-color 250ms;
+    will-change: transform;
+  }
+  .carr-item.featured {
+    background: linear-gradient(135deg, rgba(212,168,67,0.12) 0%, rgba(17,17,32,0.72) 60%);
+  }
+  .carr-item.mint {
+    background: linear-gradient(135deg, rgba(61,255,192,0.07) 0%, rgba(17,17,32,0.72) 60%);
+  }
+  .carr-badge {
+    font-family: var(--font-mono);
+    font-size: 0.58rem; letter-spacing: 0.07em; text-transform: uppercase;
+    padding: 0.22rem 0.6rem; border-radius: 100px;
+    background: var(--gold-dim); color: var(--gold);
+    border: 1px solid var(--gold-border);
+    width: fit-content;
+  }
+  .carr-badge.mint-b {
+    background: var(--mint-dim); color: var(--mint);
+    border-color: var(--mint-border);
+  }
+  .carr-icon-wrap {
+    width: 40px; height: 40px;
+    background: rgba(23,23,42,0.9);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .carr-icon-wrap svg { width: 20px; height: 20px; color: var(--gold); }
+  .carr-icon-wrap.mint-i svg { color: var(--mint); }
+  .carr-big-num {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--gold); letter-spacing: 0.028em; line-height: 1;
+  }
+  .carr-title {
+    font-family: var(--font-sans);
+    font-size: 1.75rem; font-weight: 700;
+    color: var(--text); margin: 0.75rem 0 0.6rem;
+  }
+  .carr-desc {
+    font-size: 1.2rem; line-height: 1.7;
+    color: var(--text-2); flex: 1;
+  }
+  .carr-dots {
+    display: flex; justify-content: center; gap: 8px;
+    margin-top: 1.75rem;
+  }
+  .carr-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    cursor: pointer; transition: background 150ms, transform 150ms;
+    border: none; padding: 0;
+  }
+  .carr-dot.active {
+    background: var(--gold);
+    transform: scale(1.25);
+  }
+
+  /* ─── FOR WHOM ────────────────────────────────────────────────── */
+  #forwho {
+    background: transparent;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .forwho-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .forwho-left { position: sticky; top: 100px; }
+  .age-block {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    border: 1px solid var(--gold-border);
+    border-radius: var(--r);
+    background: var(--gold-dim);
+  }
+  .age-block .age-label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem; letter-spacing: 0.084em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.5rem; display: block;
+  }
+  .age-block .age-range {
+    font-family: var(--font-display);
+    font-size: 3.5rem; letter-spacing: 0.028em;
+    color: var(--gold-bright); line-height: 1;
+  }
+  .age-block .age-sub {
+    font-size: 0.8rem; color: var(--gold); margin-top: 0.4rem;
+    font-style: italic;
+  }
+
+  .forwho-list { list-style: none; }
+  .forwho-item {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-start; gap: 1rem;
+    transition: padding-left 200ms;
+  }
+  .forwho-item:hover { padding-left: 6px; }
+  .forwho-item:last-child { border-bottom: none; }
+  .forwho-item .idx {
+    font-family: var(--font-mono);
+    font-size: 0.6rem; color: var(--text-3);
+    letter-spacing: 0.056em; padding-top: 0.3rem;
+    flex-shrink: 0; min-width: 1.5rem;
+  }
+  .forwho-item .txt {
+    font-size: 1rem; line-height: 1.55;
+    color: rgba(242,237,224,0.88);
+  }
+  .forwho-item .txt strong { color: var(--text); font-weight: 600; }
+
+  .forwho-note {
+    margin-top: 3rem; padding: 1.5rem;
+    background: rgba(23,23,42,0.7);
+    border-radius: var(--r);
+    border: 1px solid var(--border);
+  }
+  .forwho-note p {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem; line-height: 1.6;
+    color: rgba(242,237,224,0.82);
+  }
+  .forwho-note strong { color: var(--text); font-style: normal; }
+
+  /* ─── BRAIN BANNER ────────────────────────────────────────────── */
+
+  /* ─── CTA ─────────────────────────────────────────────────────── */
+  #cta {
+    padding: 8rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  #cta::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 55% 55% at 50% 40%, rgba(212,168,67,0.07) 0%, transparent 65%),
+      radial-gradient(ellipse 30% 40% at 80% 80%, rgba(61,255,192,0.03) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .cta-inner { max-width: 680px; margin: 0 auto; position: relative; }
+  .cta-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.75rem;
+    display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+  }
+  .cta-eyebrow::before, .cta-eyebrow::after {
+    content: ''; display: block; height: 1px; width: 32px;
+    background: var(--gold-border);
+  }
+  .cta-title {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    letter-spacing: 0.028em; line-height: 1.05;
+    color: var(--text); margin-bottom: 0.5rem;
+  }
+  .cta-subtitle {
+    font-family: var(--font-serif);
+    font-size: clamp(1rem, 2.2vw, 1.35rem);
+    font-style: italic; color: var(--text-2);
+    margin-bottom: 3rem; line-height: 1.5;
+  }
+  .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  /* ─── FOOTER ──────────────────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 2rem;
+    max-width: 1120px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1.25rem;
+  }
+  .footer-brand {
+    font-family: var(--font-mono);
+    font-size: 0.7rem; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--text-3);
+  }
+  .footer-brand span { color: var(--gold); }
+  .footer-links { display: flex; gap: 2rem; list-style: none; }
+  .footer-links a {
+    font-family: var(--font-mono);
+    font-size: 0.65rem; letter-spacing: 0.056em; text-transform: uppercase;
+    color: var(--text-3); transition: color 200ms;
+  }
+  .footer-links a:hover { color: var(--text-2); }
+
+  /* ─── FOCUS ───────────────────────────────────────────────────── */
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 3px; }
+
+  /* ─── RESPONSIVE ──────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .origin-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .origin-left { position: static; }
+    .origin-num { font-size: 5rem; margin-bottom: 0; }
+    .origin-photos { grid-template-columns: 1fr 1fr; max-width: 320px; }
+
+    .def-left { padding: 3rem 1.5rem; }
+
+    .forwho-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .forwho-left { position: static; }
+
+  }
+
+  @media (max-width: 600px) {
+    .section-wrap { padding: 4rem 1.25rem; }
+    #includes { padding: 4rem 1.25rem; }
+.includes-header { flex-direction: column; align-items: flex-start; }
+    .forwho-item:hover { padding-left: 0; }
+    nav { padding: 0.9rem 1.25rem; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+  /* ─── VARIABLE PROXIMITY ─────────────────────────────────────── */
+  .sr-word {
+    display: inline-block;
+    will-change: opacity, filter;
+  }
+
+  /* ─── SCROLL REVEAL ──────────────────────────────────────────── */
+  .scroll-reveal-text {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    letter-spacing: 0.021em;
+    line-height: 1.15;
+    color: var(--gold);
+    padding: 1.2rem 0 0.6rem;
+    font-weight: 700;
+  }
+  .scroll-reveal-text .sr-word {
+    display: inline-block;
+    opacity: 0;
+  }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+</head>
+<body>
+
+<!-- ─────── NAV ─────────────────────────────────────────── -->
+<nav id="nav" aria-label="Κύρια πλοήγηση">
+  <a href="/" class="nav-logo">
+    <span class="sup">Hustle Hours</span>
+    <span class="name">FILOXENIA</span>
+  </a>
+  <a href="https://hustlehours.com" class="nav-link" aria-label="Επιστροφή στο Hustle Hours">
+    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path d="M8 9L5 6l3-3" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    hustlehours.com
+  </a>
+</nav>
+
+<!-- ─────── HERO ─────────────────────────────────────────── -->
+<section id="hero" aria-labelledby="hero-h">
+
+  <div class="hero-def">
+    <div class="tp-container" id="tp-filoxenia" role="heading" aria-level="1" aria-label="ΦΙΛΟΞΕΝΊΑ"></div>
+    <div class="def-phonetic">/filo·kse·ˈni·a/</div>
+    <div class="def-pos">ουσιαστικό, θηλυκό</div>
+    <p class="def-text">Η επιθυμία να ανοίγεις το σπίτι σου, το δίκτυό σου, τον χρόνο σου σε κάποιον που ξεκινάει από εκεί που ξεκίνησες κι εσύ.</p>
+    <p class="def-text">Να θυμάσαι πόσο μόνος ένιωθες όταν δεν ήξερες από πού να αρχίσεις και να λες: «εσύ δεν χρειάζεται να δυσκολευτείς το ίδιο.»</p>
+    <div class="def-origin">
+      Ελληνική λέξη · Αρχαία ρίζα<br>
+      <span>φίλος (φίλος) + ξένος (ξένος)</span><br>
+      <span>Κυριολεκτικά: "αγάπη για τον ξένο"</span>
+    </div>
+  </div>
+
+
+</section>
+
+<!-- ─────── ORIGIN ───────────────────────────────────────── -->
+<section id="origin" aria-labelledby="origin-h">
+  <div class="section-wrap">
+    <div class="origin-grid">
+
+      <div class="origin-left r">
+        <div class="origin-num" aria-hidden="true">01</div>
+        <div class="origin-photos">
+          <figure class="tilted-card-figure" data-tilted style="aspect-ratio:3/4;" data-caption="Ντίνος">
+            <div class="tilted-card-inner">
+              <img class="tilted-card-img" src="dinos-takis.jpeg" alt="Ντίνος" style="object-position:18% center;" />
+              <div class="tilted-card-overlay">Ντίνος</div>
+            </div>
+            <div class="tilted-card-caption">Ντίνος</div>
+          </figure>
+          <figure class="tilted-card-figure" data-tilted style="aspect-ratio:3/4;margin-top:1.5rem;" data-caption="Τάκης">
+            <div class="tilted-card-inner">
+              <img class="tilted-card-img" src="dinos-takis.jpeg" alt="Τάκης" style="object-position:82% center;" />
+              <div class="tilted-card-overlay">Τάκης</div>
+            </div>
+            <div class="tilted-card-caption">Τάκης</div>
+          </figure>
+        </div>
+
+        <!-- Second photo full width -->
+        <div class="origin-photo-wide">
+          <div class="origin-photo-wide-img">
+            <img src="dinos-takis-2.jpeg" alt="Ντίνος και Τάκης στο podcast" />
+          </div>
+          <p class="origin-photo-caption">Two young kids with big dreams</p>
+        </div>
+      </div>
+
+      <div class="origin-right">
+        <h2 id="origin-h" class="origin-story-label r" data-vp>Quick story time:</h2>
+
+        <div class="body-text" id="vp-origin-body">
+          <p class="r r2">
+            Ο Ντίνος και ο Τάκης όταν ήταν 19 χρονών είχαν τότε μια ιδέα που έμοιαζε απίθανη... Να μετακομίσουν στο Σαν Φρανσίσκο. Όχι για διακοπές, αλλά για να βρεθούν στην καρδιά της τεχνολογίας. Εκεί που ξεκινούν όλα.
+          </p>
+
+          <p class="r r3">
+            Χωρίς access, χωρίς network, χωρίς λεφτά, χωρίς κανέναν που να ξέρει τι είναι YC ή accelerator. Εμείς δεν είχαμε τίποτα από αυτά. Είχαμε όμως <strong>μια εμμονή που δεν έσβηνε.</strong>
+          </p>
+
+          <p class="r r4">
+            Τρία χρόνια αργότερα, με αποτυχίες, λάθη, emails που δεν απαντήθηκαν ποτέ, πόρτες που έκλεισαν και λίγες που τελικά άνοιξαν — η ομάδα μας βρίσκεται πλέον permanently στη Silicon Valley.
+          </p>
+
+          <p class="r r4">
+            Αλλά όσο περισσότερο ζούμε εδώ, τόσο περισσότερο μας πονάει κάτι: <strong>δεν θα έπρεπε να είναι τόσο δύσκολο</strong> για ένα νέο παιδί από την Ελλάδα να έρθει σε επαφή με αυτόν τον κόσμο.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── STATEMENT ────────────────────────────────────── -->
+<section id="statement" aria-labelledby="statement-h">
+  <div class="statement-inner">
+    <p class="statement-prefix r">Η αλήθεια</p>
+    <h2 id="statement-h" class="sr-only">Τι τους λείπει</h2>
+    <div class="statement-rotate-line r" aria-live="polite">
+      <span class="statement-static">Δεν μας λείπει η</span>
+      <span class="rt-word" id="rt-word" aria-label="εξυπνάδα"><span class="rt-clip" id="rt-clip"></span></span>
+    </div>
+    <div class="scroll-reveal-container" id="scroll-reveal-access">
+      <p class="scroll-reveal-text">Μας λείπει η πρόσβαση και οι παραστάσεις...</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─────── BENTO ─────────────────────────────────────────── -->
+<section aria-labelledby="includes-h">
+  <div id="includes">
+    <div class="includes-header r">
+      <div>
+        <p class="label" style="margin-bottom:0.5rem;">Τι περιλαμβάνει</p>
+        <h2 id="includes-h" class="title" style="margin-bottom:0;">Η <em>φιλοξενία</em> μας</h2>
+      </div>
+      <p style="font-size:0.875rem; color:var(--text-2); max-width:240px; line-height:1.6;">
+        100% δωρεάν για τους επιλεγμένους. Τίποτα κρυφό, τίποτα που πληρώνεται.
+      </p>
+    </div>
+
+    <div class="carr-outer" id="carr-outer">
+      <div class="carr-track" id="carr-track"></div>
+    </div>
+    <div class="carr-dots" id="carr-dots"></div>
+  </div>
+</section>
+
+<!-- ─────── BRAIN BANNER ──────────────────────────────────── -->
+
+<!-- ─────── FOR WHOM ─────────────────────────────────────── -->
+<section id="forwho" aria-labelledby="forwho-h">
+  <div class="section-wrap">
+    <div class="forwho-grid">
+
+      <div class="forwho-left r">
+        <p class="label">Για ποιον</p>
+        <h2 id="forwho-h" class="title">Μήπως<br>μιλάμε<br><em>για σένα</em>;</h2>
+
+        <div class="age-block" aria-label="Ηλικία 15 έως 25 ετών">
+          <span class="age-label">Ηλικία</span>
+          <div class="age-range">15–25</div>
+          <p class="age-sub">χρονών, από οπουδήποτε στην Ελλάδα</p>
+        </div>
+      </div>
+
+      <div class="forwho-right">
+        <ul class="forwho-list" aria-label="Χαρακτηριστικά υποψηφίων">
+          <li class="forwho-item r">
+            <span class="idx" aria-hidden="true">01</span>
+            <span class="txt">Νιώθεις ότι σκέφτεσαι διαφορετικά και στην Ελλάδα <strong>σε κοιτάνε λίγο περίεργα</strong> για τις φιλοδοξίες σου</span>
+          </li>
+          <li class="forwho-item r r1">
+            <span class="idx" aria-hidden="true">02</span>
+            <span class="txt">Γράφεις κώδικα, χτίζεις projects, <strong>αποτυγχάνεις και ξαναδοκιμάζεις</strong> — γιατί δεν μπορείς να σταματήσεις</span>
+          </li>
+          <li class="forwho-item r r2">
+            <span class="idx" aria-hidden="true">03</span>
+            <span class="txt">Βαριέσαι τις μικρές κουβέντες και θέλεις να βρεθείς σε δωμάτιο με <strong>ανθρώπους που παίζουν σε άλλο επίπεδο</strong></span>
+          </li>
+          <li class="forwho-item r r3">
+            <span class="idx" aria-hidden="true">04</span>
+            <span class="txt">Δεν κυνηγάς τίτλους, status και επιφανειακή επιβεβαίωση — <strong>θέλεις να λύσεις πραγματικά προβλήματα</strong></span>
+          </li>
+          <li class="forwho-item r r4">
+            <span class="idx" aria-hidden="true">05</span>
+            <span class="txt">Είσαι έτοιμος να γυρίσεις πίσω <strong>διαφορετικός</strong> — και να κάνεις κάτι με αυτό που θα ζήσεις</span>
+          </li>
+        </ul>
+
+        <div class="forwho-note r r4">
+          <p>
+            Δεν είστε περίεργοι. Απλώς ίσως βρίσκεστε ακόμα <strong>στο λάθος δωμάτιο</strong>. Εμείς θέλουμε να σας φέρουμε σε ένα δωμάτιο όπου η φιλοδοξία είναι η κοινή γλώσσα.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─────── CTA ────────────────────────────────────────────── -->
+<section id="apply" aria-labelledby="cta-h">
+  <div id="cta">
+    <div class="cta-inner">
+      <p class="cta-eyebrow r">Η πρόσκληση</p>
+      <h2 id="cta-h" class="cta-title r r1">
+        Η ΠΟΡΤΑ<br>ΕΙΝΑΙ<br>ΑΝΟΙΧΤΗ.
+      </h2>
+      <p class="cta-subtitle r r2">
+        Κάποτε θέλαμε απλώς κάποιος να μας ανοίξει μια πόρτα.<br>
+        Τώρα που βρισκόμαστε εδώ, ήρθε η σειρά μας.
+      </p>
+      <div class="cta-buttons r r3">
+        <a href="https://hustlehours.com" class="btn-gold" aria-label="Κάνε αίτηση για το Filoxenia">
+          Κάνε αίτηση τώρα
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="https://hustlehours.com" class="btn-ghost" aria-label="Μάθε περισσότερα για το Hustle Hours">
+          Hustle Hours →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── FOOTER ────────────────────────────────────────── -->
+<footer>
+  <p class="footer-brand">
+    <span>Filoxenia</span> × Hustle Hours &nbsp;·&nbsp; Μια ελληνική αξία, για το μέλλον της τεχνολογίας.
+  </p>
+  <ul class="footer-links">
+    <li><a href="https://hustlehours.com">hustlehours.com</a></li>
+    <li><a href="#apply">Αίτηση</a></li>
+  </ul>
+</footer>
+
+<!-- Visually hidden for a11y -->
+<style>.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}</style>
+
+<!-- ─────── SCRIPTS ───────────────────────────────────────── -->
+<script>
+  // ── Silk WebGL Background ──────────────────────────────────────
+  function createSilk(container, { speed=5, scale=1, color='#7B7481', noiseIntensity=1.5, rotation=0 } = {}) {
+    const canvas = document.createElement('canvas');
+    canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;';
+    container.insertBefore(canvas, container.firstChild);
+
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (!gl) return;
+
+    const hexRGB = h => {
+      h = h.replace('#','');
+      return [parseInt(h.slice(0,2),16)/255, parseInt(h.slice(2,4),16)/255, parseInt(h.slice(4,6),16)/255];
+    };
+
+    const VERT = `
+      attribute vec2 aPos;
+      attribute vec2 aUv;
+      varying vec2 vUv;
+      varying vec3 vPosition;
+      void main(){
+        vUv = aUv;
+        vPosition = vec3(aPos, 0.0);
+        gl_Position = vec4(aPos, 0.0, 1.0);
+      }
+    `;
+
+    const FRAG = `
+      precision mediump float;
+      varying vec2 vUv;
+      varying vec3 vPosition;
+      uniform float uTime;
+      uniform vec3  uColor;
+      uniform float uSpeed;
+      uniform float uScale;
+      uniform float uRotation;
+      uniform float uNoiseIntensity;
+
+      const float e = 2.71828182845904523536;
+
+      float noise(vec2 texCoord){
+        float G = e;
+        vec2 r = (G * sin(G * texCoord));
+        return fract(r.x * r.y * (1.0 + texCoord.x));
+      }
+
+      vec2 rotateUvs(vec2 uv, float angle){
+        float c = cos(angle);
+        float s = sin(angle);
+        mat2 rot = mat2(c, -s, s, c);
+        return rot * uv;
+      }
+
+      void main(){
+        float rnd     = noise(gl_FragCoord.xy);
+        vec2  uv      = rotateUvs(vUv * uScale, uRotation);
+        vec2  tex     = uv * uScale;
+        float tOffset = uSpeed * uTime;
+
+        tex.y += 0.03 * sin(8.0 * tex.x - tOffset);
+
+        float pattern = 0.6 +
+          0.4 * sin(5.0 * (tex.x + tex.y +
+            cos(3.0 * tex.x + 5.0 * tex.y) +
+            0.02 * tOffset) +
+            sin(20.0 * (tex.x + tex.y - 0.1 * tOffset)));
+
+        vec4 col = vec4(uColor, 1.0) * vec4(pattern) - rnd / 15.0 * uNoiseIntensity;
+        col.a = 1.0;
+        gl_FragColor = col;
+      }
+    `;
+
+    const mkShader = (type, src) => {
+      const s = gl.createShader(type);
+      gl.shaderSource(s, src); gl.compileShader(s); return s;
+    };
+    const prog = gl.createProgram();
+    gl.attachShader(prog, mkShader(gl.VERTEX_SHADER, VERT));
+    gl.attachShader(prog, mkShader(gl.FRAGMENT_SHADER, FRAG));
+    gl.linkProgram(prog);
+    gl.useProgram(prog);
+
+    // Full-screen quad
+    const buf = (data) => { const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW); return b; };
+    const bindAttr = (name, b, size) => { const loc = gl.getAttribLocation(prog, name); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 0, 0); };
+
+    bindAttr('aPos', buf(new Float32Array([-1,-1, 1,-1, 1,1, -1,-1, 1,1, -1,1])), 2);
+    bindAttr('aUv',  buf(new Float32Array([0,0,  1,0,  1,1,  0,0,  1,1,  0,1])),  2);
+
+    const U = name => gl.getUniformLocation(prog, name);
+    const uTime = U('uTime');
+    gl.uniform3f(U('uColor'),         ...hexRGB(color));
+    gl.uniform1f(U('uSpeed'),         speed);
+    gl.uniform1f(U('uScale'),         scale);
+    gl.uniform1f(U('uRotation'),      rotation);
+    gl.uniform1f(U('uNoiseIntensity'),noiseIntensity);
+
+    const resize = () => {
+      const r = container.getBoundingClientRect();
+      canvas.width  = r.width  * (window.devicePixelRatio || 1);
+      canvas.height = r.height * (window.devicePixelRatio || 1);
+      gl.viewport(0, 0, canvas.width, canvas.height);
+    };
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    let t = 0, last = 0;
+    const loop = ts => {
+      t += 0.1 * Math.min((ts - last) / 1000, 0.05);
+      last = ts;
+      gl.uniform1f(uTime, t);
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+      requestAnimationFrame(loop);
+    };
+    requestAnimationFrame(loop);
+  }
+
+  // Mount one full-page fixed Silk canvas behind everything
+  const silkCanvas = document.createElement('canvas');
+  silkCanvas.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1;';
+  document.body.prepend(silkCanvas);
+  // Reuse createSilk internals — pass a fake container whose firstChild is null
+  (function() {
+    const container = { insertBefore: () => {} }; // no-op, we manage the canvas manually
+    // Just call the GL setup directly on silkCanvas
+    const gl = silkCanvas.getContext('webgl') || silkCanvas.getContext('experimental-webgl');
+    if (!gl) return;
+    const speed = 5, scale = 1, color = '#021a10', noiseIntensity = 1.5, rotation = 0;
+    const hexRGB = h => { h = h.replace('#',''); return [parseInt(h.slice(0,2),16)/255, parseInt(h.slice(2,4),16)/255, parseInt(h.slice(4,6),16)/255]; };
+    const VERT = `attribute vec2 aPos;attribute vec2 aUv;varying vec2 vUv;varying vec3 vPosition;void main(){vUv=aUv;vPosition=vec3(aPos,0.0);gl_Position=vec4(aPos,0.0,1.0);}`;
+    const [r,g,b] = hexRGB(color);
+    const FRAG = `precision highp float;uniform float uTime;uniform vec2 uRes;uniform float uSpeed;uniform float uScale;uniform float uNoise;uniform float uRotation;varying vec2 vUv;varying vec3 vPosition;
+    float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+    float noise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);return mix(mix(hash(i),hash(i+vec2(1,0)),u.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),u.x),u.y);}
+    float fbm(vec2 p){float v=0.0;float a=0.5;for(int i=0;i<6;i++){v+=a*noise(p);p=p*2.0+vec2(1.7,9.2);a*=0.5;}return v;}
+    void main(){
+      vec2 uv=(gl_FragCoord.xy/uRes)*2.0-1.0;
+      uv.x*=uRes.x/uRes.y;
+      float c=cos(uRotation);float s=sin(uRotation);
+      uv=vec2(c*uv.x-s*uv.y,s*uv.x+c*uv.y);
+      vec2 p=uv*uScale;
+      float t=uTime*uSpeed*0.05;
+      float n1=fbm(p+vec2(t,t*0.7));
+      float n2=fbm(p+vec2(-t*0.8,t*0.3)+vec2(n1*uNoise));
+      float n3=fbm(p+vec2(n2*uNoise,-n1*uNoise*0.5)+vec2(t*0.4,-t*0.6));
+      float silk=fbm(p+vec2(n3*uNoise*1.2,n2*uNoise*0.8));
+      vec3 baseColor=vec3(${r.toFixed(4)},${g.toFixed(4)},${b.toFixed(4)});
+      vec3 col=baseColor*(0.4+silk*1.4);
+      col+=baseColor*0.3*smoothstep(0.3,0.8,n2);
+      gl_FragColor=vec4(col,1.0);
+    }`;
+    const mkShader = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; };
+    const prog = gl.createProgram();
+    gl.attachShader(prog, mkShader(gl.VERTEX_SHADER, VERT));
+    gl.attachShader(prog, mkShader(gl.FRAGMENT_SHADER, FRAG));
+    gl.linkProgram(prog); gl.useProgram(prog);
+    const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,0,0, 1,-1,1,0, -1,1,0,1, 1,1,1,1]), gl.STATIC_DRAW);
+    const aPos = gl.getAttribLocation(prog,'aPos'); gl.enableVertexAttribArray(aPos); gl.vertexAttribPointer(aPos,2,gl.FLOAT,false,16,0);
+    const aUv  = gl.getAttribLocation(prog,'aUv');  gl.enableVertexAttribArray(aUv);  gl.vertexAttribPointer(aUv, 2,gl.FLOAT,false,16,8);
+    const uTime=gl.getUniformLocation(prog,'uTime'), uRes=gl.getUniformLocation(prog,'uRes'),
+          uSpeed=gl.getUniformLocation(prog,'uSpeed'), uScale=gl.getUniformLocation(prog,'uScale'),
+          uNoise=gl.getUniformLocation(prog,'uNoise'), uRot=gl.getUniformLocation(prog,'uRotation');
+    const resize = () => {
+      const dpr = window.devicePixelRatio||1;
+      silkCanvas.width = window.innerWidth*dpr; silkCanvas.height = window.innerHeight*dpr;
+      gl.viewport(0,0,silkCanvas.width,silkCanvas.height);
+    };
+    resize(); window.addEventListener('resize', resize);
+    let t0 = null;
+    const loop = ts => {
+      if (!t0) t0 = ts;
+      const t = (ts - t0) * 0.001;
+      gl.uniform1f(uTime, t); gl.uniform2f(uRes, silkCanvas.width, silkCanvas.height);
+      gl.uniform1f(uSpeed, speed); gl.uniform1f(uScale, scale);
+      gl.uniform1f(uNoise, noiseIntensity); gl.uniform1f(uRot, rotation);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      requestAnimationFrame(loop);
+    };
+    requestAnimationFrame(loop);
+  })();
+
+  // Navbar scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40), { passive: true });
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.r');
+  const io = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } }),
+    { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
+  );
+  revealEls.forEach(el => io.observe(el));
+
+  // Immediately reveal hero elements (above fold)
+  document.querySelectorAll('#hero .hero-def > *').forEach((el, i) => {
+    el.style.opacity = '0'; el.style.transform = 'translateY(18px)';
+    setTimeout(() => { el.style.transition = 'opacity 600ms ease, transform 600ms ease'; el.style.opacity = '1'; el.style.transform = 'none'; }, 120 + i * 130);
+  });
+  document.querySelectorAll('#hero .r').forEach((el, i) => {
+    setTimeout(() => { el.classList.add('on'); }, 80 + i * 130);
+  });
+
+  // RotatingText for #statement section
+  (function() {
+    const words = ['εξυπνάδα', 'δουλειά', 'ελπίδα'];
+    const clip = document.getElementById('rt-clip');
+    const wordEl = document.getElementById('rt-word');
+    if (!clip || !wordEl) return;
+
+    let current = 0;
+    let running = false;
+
+    function buildChars(word) {
+      clip.innerHTML = '';
+      [...word].forEach(ch => {
+        const span = document.createElement('span');
+        span.className = 'rt-char';
+        span.textContent = ch;
+        clip.appendChild(span);
+      });
+      return Array.from(clip.children);
+    }
+
+    function animateIn(chars) {
+      return new Promise(resolve => {
+        const total = chars.length;
+        chars.forEach((ch, i) => {
+          const delay = (total - 1 - i) * 28;
+          ch.animate(
+            [
+              { transform: 'translateY(110%)', opacity: 0 },
+              { transform: 'translateY(0)',    opacity: 1 }
+            ],
+            { duration: 380, delay, easing: 'cubic-bezier(0.22,1,0.36,1)', fill: 'forwards' }
+          );
+        });
+        setTimeout(resolve, 380 + (total - 1) * 28 + 1200);
+      });
+    }
+
+    function animateOut(chars) {
+      return new Promise(resolve => {
+        const total = chars.length;
+        chars.forEach((ch, i) => {
+          const delay = i * 22;
+          ch.animate(
+            [
+              { transform: 'translateY(0)',     opacity: 1 },
+              { transform: 'translateY(-110%)', opacity: 0 }
+            ],
+            { duration: 260, delay, easing: 'cubic-bezier(0.55,0,1,0.45)', fill: 'forwards' }
+          );
+        });
+        setTimeout(resolve, 260 + (total - 1) * 22);
+      });
+    }
+
+    async function cycle() {
+      if (running) return;
+      running = true;
+      while (true) {
+        const word = words[current];
+        wordEl.setAttribute('aria-label', word);
+        const chars = buildChars(word);
+        await animateIn(chars);
+        await animateOut(chars);
+        current = (current + 1) % words.length;
+      }
+    }
+
+    // Start when section scrolls into view
+    const stmtSection = document.getElementById('statement');
+    const stmtStartObserver = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        stmtStartObserver.disconnect();
+        cycle();
+      }
+    }, { threshold: 0.3 });
+    if (stmtSection) stmtStartObserver.observe(stmtSection);
+  })();
+
+  // ScrollReveal for "Τους λείπει η πρόσβαση."
+  // Waits for GSAP + ScrollTrigger to load (they're deferred)
+  window.addEventListener('load', function() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const container = document.getElementById('scroll-reveal-access');
+    if (!container) return;
+    const textEl = container.querySelector('.scroll-reveal-text');
+    if (!textEl) return;
+
+    // Split text into word spans
+    const raw = textEl.textContent;
+    textEl.innerHTML = raw
+      .split(/(\s+)/)
+      .map(part => part.match(/^\s+$/) ? part : `<span class="sr-word">${part}</span>`)
+      .join('');
+
+    const wordEls = textEl.querySelectorAll('.sr-word');
+    const baseOpacity = 0;
+    const blurStrength = 8;
+    const baseRotation = 4;
+
+    const rotateLine = document.querySelector('.statement-rotate-line');
+
+    // Container rotation scrub — starts after rotating line is seen
+    gsap.fromTo(container,
+      { transformOrigin: '0% 50%', rotate: baseRotation },
+      {
+        ease: 'none',
+        rotate: 0,
+        scrollTrigger: {
+          trigger: rotateLine || container,
+          start: 'top center',
+          endTrigger: container,
+          end: 'bottom center',
+          scrub: true
+        }
+      }
+    );
+
+    // Word opacity scrub — starts only after rotating line has passed
+    gsap.fromTo(wordEls,
+      { opacity: baseOpacity },
+      {
+        ease: 'none',
+        opacity: 1,
+        stagger: 0.05,
+        scrollTrigger: {
+          trigger: rotateLine || container,
+          start: 'top center',
+          endTrigger: container,
+          end: 'bottom center',
+          scrub: true
+        }
+      }
+    );
+
+    // Word blur scrub — same timing as opacity
+    gsap.fromTo(wordEls,
+      { filter: `blur(${blurStrength}px)` },
+      {
+        ease: 'none',
+        filter: 'blur(0px)',
+        stagger: 0.05,
+        scrollTrigger: {
+          trigger: rotateLine || container,
+          start: 'top center',
+          endTrigger: container,
+          end: 'bottom center',
+          scrub: true
+        }
+      }
+    );
+  });
+
+  // ── TiltedCard ────────────────────────────────────────────────
+  document.querySelectorAll('[data-tilted]').forEach(figure => {
+    const inner   = figure.querySelector('.tilted-card-inner');
+    const caption = figure.querySelector('.tilted-card-caption');
+    const AMPLITUDE  = 14;
+    const SCALE_HOVER = 1.08;
+    const DAMPING = 0.12; // spring-like lerp factor
+
+    let targetRX = 0, targetRY = 0, targetScale = 1;
+    let currentRX = 0, currentRY = 0, currentScale = 1;
+    let captionX = 0, captionY = 0;
+    let lastCaptionY = 0;
+    let captionRotate = 0, targetCaptionRotate = 0;
+    let captionOpacity = 0, targetCaptionOpacity = 0;
+    let rafId = null;
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function tick() {
+      currentRX    = lerp(currentRX,    targetRX,    DAMPING);
+      currentRY    = lerp(currentRY,    targetRY,    DAMPING);
+      currentScale = lerp(currentScale, targetScale, DAMPING);
+      captionRotate  = lerp(captionRotate,  targetCaptionRotate,  0.18);
+      captionOpacity = lerp(captionOpacity, targetCaptionOpacity, 0.14);
+
+      inner.style.transform =
+        `rotateX(${currentRX.toFixed(3)}deg) rotateY(${currentRY.toFixed(3)}deg) scale(${currentScale.toFixed(4)})`;
+      inner.style.boxShadow = currentScale > 1.01
+        ? `0 ${20 * (currentScale - 1) * 10}px ${40 * (currentScale - 1) * 10}px rgba(0,0,0,0.45)`
+        : '';
+
+      if (caption) {
+        caption.style.left    = captionX + 'px';
+        caption.style.top     = captionY + 'px';
+        caption.style.opacity = captionOpacity.toFixed(3);
+        caption.style.transform = `rotate(${captionRotate.toFixed(2)}deg)`;
+      }
+
+      const stillMoving =
+        Math.abs(currentRX - targetRX) > 0.01 ||
+        Math.abs(currentRY - targetRY) > 0.01 ||
+        Math.abs(currentScale - targetScale) > 0.001 ||
+        Math.abs(captionOpacity - targetCaptionOpacity) > 0.005;
+
+      if (stillMoving) rafId = requestAnimationFrame(tick);
+      else rafId = null;
+    }
+
+    function startTick() {
+      if (!rafId) rafId = requestAnimationFrame(tick);
+    }
+
+    figure.addEventListener('mousemove', e => {
+      const rect = figure.getBoundingClientRect();
+      const offsetX = e.clientX - rect.left - rect.width  / 2;
+      const offsetY = e.clientY - rect.top  - rect.height / 2;
+
+      targetRX = (offsetY / (rect.height / 2)) * -AMPLITUDE;
+      targetRY = (offsetX / (rect.width  / 2)) *  AMPLITUDE;
+
+      const velocityY = (e.clientY - rect.top) - lastCaptionY;
+      targetCaptionRotate = -velocityY * 0.5;
+      lastCaptionY = e.clientY - rect.top;
+
+      if (caption) {
+        captionX = e.clientX - rect.left;
+        captionY = e.clientY - rect.top;
+      }
+      startTick();
+    });
+
+    figure.addEventListener('mouseenter', () => {
+      targetScale = SCALE_HOVER;
+      targetCaptionOpacity = 1;
+      startTick();
+    });
+
+    figure.addEventListener('mouseleave', () => {
+      targetRX = 0; targetRY = 0;
+      targetScale = 1;
+      targetCaptionOpacity = 0;
+      targetCaptionRotate = 0;
+      startTick();
+    });
+  });
+
+  // ── ScrollReveal for origin section ──────────────────────────
+  window.addEventListener('load', function() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+    const originTargets = [
+      document.querySelector('[data-vp]'),
+      ...Array.from(document.querySelectorAll('#vp-origin-body p, #vp-origin-body .pull'))
+    ].filter(Boolean);
+
+    originTargets.forEach(el => {
+      // Walk only direct text nodes and inline elements, wrap words
+      function wrapWords(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const text = node.textContent;
+          if (!text.trim()) return;
+          const frag = document.createDocumentFragment();
+          text.split(/(\s+)/).forEach(part => {
+            if (/^\s+$/.test(part)) {
+              frag.appendChild(document.createTextNode(part));
+            } else {
+              const span = document.createElement('span');
+              span.className = 'sr-word';
+              span.style.opacity = '0';
+              span.style.filter  = 'blur(8px)';
+              span.style.display = 'inline-block';
+              span.textContent = part;
+              frag.appendChild(span);
+            }
+          });
+          node.parentNode.replaceChild(frag, node);
+        } else if (node.nodeType === Node.ELEMENT_NODE && node.nodeName !== 'SPAN') {
+          Array.from(node.childNodes).forEach(wrapWords);
+        }
+      }
+      wrapWords(el);
+
+      const wordEls = el.querySelectorAll('.sr-word');
+
+      gsap.fromTo(el,
+        { transformOrigin: '0% 50%', rotate: 3 },
+        { ease: 'none', rotate: 0,
+          scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom bottom', scrub: true }
+        }
+      );
+
+      gsap.fromTo(wordEls,
+        { opacity: 0 },
+        { ease: 'none', opacity: 1, stagger: 0.05,
+          scrollTrigger: { trigger: el, start: 'top bottom-=20%', end: 'bottom bottom', scrub: true }
+        }
+      );
+
+      gsap.fromTo(wordEls,
+        { filter: 'blur(8px)' },
+        { ease: 'none', filter: 'blur(0px)', stagger: 0.05,
+          scrollTrigger: { trigger: el, start: 'top bottom-=20%', end: 'bottom bottom', scrub: true }
+        }
+      );
+    });
+
+  });
+
+  // ── TextPressure ─────────────────────────────────────────────
+  (function() {
+    const container = document.getElementById('tp-filoxenia');
+    if (!container) return;
+
+    const TEXT = 'ΦΙΛΟΞΕΝΙΑ';
+    const chars = [...TEXT];
+
+    const h1 = document.createElement('h1');
+    h1.className = 'tp-title tp-flex';
+    h1.setAttribute('aria-hidden', 'true');
+
+    const spans = chars.map(ch => {
+      const s = document.createElement('span');
+      s.textContent = ch;
+      s.style.cssText = 'display:inline-block;color:#ffffff;';
+      h1.appendChild(s);
+      return s;
+    });
+    container.appendChild(h1);
+
+    function setSize() {
+      const w = container.getBoundingClientRect().width;
+      const fs = Math.max(48, w / (chars.length / 2));
+      h1.style.fontSize = fs + 'px';
+      h1.style.lineHeight = '1';
+    }
+    setSize();
+    window.addEventListener('resize', setSize);
+
+    const mouse  = { x: 0, y: 0 };
+    const cursor = { x: 0, y: 0 };
+
+    // Init to center of container
+    const r0 = container.getBoundingClientRect();
+    mouse.x = cursor.x = r0.left + r0.width  / 2;
+    mouse.y = cursor.y = r0.top  + r0.height / 2;
+
+    window.addEventListener('mousemove', e => { cursor.x = e.clientX; cursor.y = e.clientY; });
+    window.addEventListener('touchmove', e => { cursor.x = e.touches[0].clientX; cursor.y = e.touches[0].clientY; }, { passive: true });
+
+    function getAttr(d, maxDist, minVal, maxVal) {
+      return Math.max(minVal, maxVal - Math.abs(maxVal * d / maxDist) + minVal);
+    }
+
+    function animate() {
+      mouse.x += (cursor.x - mouse.x) / 15;
+      mouse.y += (cursor.y - mouse.y) / 15;
+
+      const tr = h1.getBoundingClientRect();
+      const maxDist = tr.width / 2;
+
+      spans.forEach(span => {
+        const sr = span.getBoundingClientRect();
+        const dx = mouse.x - (sr.left + sr.width  / 2);
+        const dy = mouse.y - (sr.top  + sr.height / 2);
+        const d  = Math.sqrt(dx * dx + dy * dy);
+
+        const wght = Math.floor(getAttr(d, maxDist, 100, 900));
+        const wdth = Math.floor(getAttr(d, maxDist, 25,  151));
+        const slnt = -(getAttr(d, maxDist, 0, 10)).toFixed(2);
+
+        span.style.fontVariationSettings = `'wght' ${wght}, 'wdth' ${wdth}, 'slnt' ${slnt}`;
+      });
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+  })();
+
+  // ── Carousel ────────────────────────────────────────────────
+  (function() {
+    const ITEMS = [
+      { title: 'Αεροπορικά + Διαμονή', desc: 'Round-trip από Ελλάδα. 2 εβδομάδες διαμονή στο SF. Δεν πληρώνεις τίποτα.', badge: '0€', variant: 'featured',
+        svg: '<path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.64A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke-linecap="round" stroke-linejoin="round"/>' },
+      { title: 'Day in the life — YC Startup', desc: 'Μια ολόκληρη μέρα inside ένα YC company. Βλέπεις πώς κινούνται οι καλύτεροι.', badge: 'Exclusive', variant: 'mint',
+        svg: '<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="9 22 9 12 15 12 15 22" stroke-linecap="round" stroke-linejoin="round"/>' },
+      { title: 'Network Silicon Valley', desc: 'Founders, operators, investors — όλο το δίκτυο του Hustle Hours, δικό σου.', badge: 'Network', variant: '',
+        svg: '<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke-linecap="round" stroke-linejoin="round"/>' },
+      { title: 'Top Universities', desc: 'Stanford, Berkeley — όχι ως τουρίστας. Ως κάποιος που ανήκει εκεί.', badge: 'Campus', variant: '',
+        svg: '<path d="M12 14l9-5-9-5-9 5 9 5zM12 14l6.16-3.422A12.083 12.083 0 0119.83 17M12 14L5.84 10.578A12.083 12.083 0 004.17 17M12 20v-6" stroke-linecap="round" stroke-linejoin="round"/>' },
+      { title: 'Co-working Space', desc: 'Δωρεάν access σε co-working space στο κέντρο του SF. Build something there.', badge: 'Daily access', variant: '',
+        svg: '<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4" stroke-linecap="round" stroke-linejoin="round"/>' },
+      { title: 'Events & Meetups', desc: 'Startup events, dinners, meetups — τα πράγματα που δεν βρίσκεις σε κανένα YouTube video.', badge: 'IRL', variant: 'mint',
+        svg: '<path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"/>' },
+      { title: 'Γυμναστήριο', desc: 'Δωρεάν συνδρομή. Γιατί το σώμα παίζει ρόλο όσο και το μυαλό.', badge: 'Δωρεάν', variant: '',
+        svg: '<path d="M6.5 6.5h11M6.5 17.5h11M4 12h16M2 9l2 3-2 3M22 9l-2 3 2 3" stroke-linecap="round" stroke-linejoin="round"/>' },
+      { title: 'Mentors & Founders', desc: 'Προσωπικές συναντήσεις με ανθρώπους που έχουν χτίσει. Όχι panel talks. Actual conversations.', badge: '1-on-1', variant: 'featured',
+        svg: '<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" stroke-linecap="round" stroke-linejoin="round"/>' }
+    ];
+
+    const GAP = 20;
+    const ITEM_W = 300;
+    const TRACK_OFF = ITEM_W + GAP;
+    const AUTOPLAY_DELAY = 2600;
+
+    const loopItems = [ITEMS[ITEMS.length - 1], ...ITEMS, ITEMS[0]];
+    let pos = 1;
+
+    let xCur, xVel = 0, xTgt;
+
+    function springTick(dt) {
+      const f = 600 * (xTgt - xCur) - 40 * xVel;
+      xVel += (f / 2) * dt;
+      xCur += xVel * dt;
+    }
+
+    const track = document.getElementById('carr-track');
+    const dotsEl = document.getElementById('carr-dots');
+    const outer  = document.getElementById('carr-outer');
+    if (!track || !dotsEl || !outer) return;
+
+    track.innerHTML = loopItems.map((item) => `
+      <div class="carr-item ${item.variant}" role="listitem">
+        <div>
+          <div class="carr-badge ${item.variant === 'mint' ? 'mint-b' : ''}">${item.badge}</div>
+          <h3 class="carr-title">${item.title}</h3>
+          <p class="carr-desc">${item.desc}</p>
+        </div>
+        <div class="carr-icon-wrap ${item.variant === 'mint' ? 'mint-i' : ''}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">${item.svg}</svg>
+        </div>
+      </div>
+    `).join('');
+
+    const cards = track.querySelectorAll('.carr-item');
+
+    dotsEl.innerHTML = ITEMS.map((_, i) =>
+      `<button class="carr-dot ${i === 0 ? 'active' : ''}" aria-label="Slide ${i+1}"></button>`
+    ).join('');
+    const dots = dotsEl.querySelectorAll('.carr-dot');
+
+    function activeIndex() {
+      return ((pos - 1) % ITEMS.length + ITEMS.length) % ITEMS.length;
+    }
+    function updateDots() {
+      const ai = activeIndex();
+      dots.forEach((d, i) => d.classList.toggle('active', i === ai));
+    }
+
+    function centerOffset() { return (outer.clientWidth - ITEM_W) / 2; }
+
+    function render() {
+      const off = centerOffset();
+      track.style.transform = `translateX(${(xCur + off).toFixed(2)}px)`;
+      track.style.perspectiveOrigin = `${(-xCur + ITEM_W / 2).toFixed(0)}px 50%`;
+      cards.forEach((card, i) => {
+        const norm = (xCur + i * TRACK_OFF) / TRACK_OFF;
+        const ry = Math.max(-90, Math.min(90, -norm * 90));
+        const scale = 1 - Math.min(Math.abs(norm), 1) * 0.06;
+        card.style.transform = `rotateY(${ry.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
+        card.style.borderColor = Math.abs(norm) < 0.15 ? 'rgba(212,168,67,0.5)' : '';
+      });
+    }
+
+    let lastTime = null, rafId = null;
+    function animLoop(ts) {
+      if (lastTime !== null) springTick(Math.min((ts - lastTime) / 1000, 0.05));
+      lastTime = ts;
+      render();
+      rafId = (Math.abs(xTgt - xCur) < 0.15 && Math.abs(xVel) < 0.15) ? null : requestAnimationFrame(animLoop);
+    }
+    function startAnim() { if (!rafId) { lastTime = null; rafId = requestAnimationFrame(animLoop); } }
+
+    function goTo(newPos) {
+      pos = newPos; xTgt = -pos * TRACK_OFF;
+      startAnim(); updateDots();
+    }
+
+    function checkLoop() {
+      if (Math.abs(xTgt - xCur) < 1 && Math.abs(xVel) < 1) {
+        if (pos === loopItems.length - 1) { pos = 1; xCur = xTgt = -pos * TRACK_OFF; xVel = 0; render(); updateDots(); }
+        else if (pos === 0)               { pos = ITEMS.length; xCur = xTgt = -pos * TRACK_OFF; xVel = 0; render(); updateDots(); }
+      }
+    }
+
+    let dragStartX, dragStartXCur, isDragging = false;
+    track.addEventListener('mousedown', e => { dragStartX = e.clientX; dragStartXCur = xCur; isDragging = true; clearInterval(timer); e.preventDefault(); });
+    window.addEventListener('mousemove', e => { if (!isDragging) return; xCur = dragStartXCur + (e.clientX - dragStartX); xTgt = xCur; xVel = 0; render(); });
+    window.addEventListener('mouseup',   e => { if (!isDragging) return; isDragging = false; const dx = e.clientX - dragStartX; goTo(Math.max(0, Math.min(pos + (dx < -50 ? 1 : dx > 50 ? -1 : 0), loopItems.length - 1))); setTimeout(checkLoop, 500); startTimer(); });
+    track.addEventListener('touchstart', e => { dragStartX = e.touches[0].clientX; dragStartXCur = xCur; isDragging = true; clearInterval(timer); }, { passive: true });
+    track.addEventListener('touchmove',  e => { if (!isDragging) return; xCur = dragStartXCur + (e.touches[0].clientX - dragStartX); xTgt = xCur; xVel = 0; render(); }, { passive: true });
+    track.addEventListener('touchend',   e => { if (!isDragging) return; isDragging = false; const dx = e.changedTouches[0].clientX - dragStartX; goTo(Math.max(0, Math.min(pos + (dx < -50 ? 1 : dx > 50 ? -1 : 0), loopItems.length - 1))); setTimeout(checkLoop, 500); startTimer(); });
+
+    dots.forEach((d, i) => d.addEventListener('click', () => { goTo(i + 1); clearInterval(timer); startTimer(); }));
+
+    let timer;
+    function startTimer() { clearInterval(timer); timer = setInterval(() => { goTo(pos + 1); setTimeout(checkLoop, 500); }, AUTOPLAY_DELAY); }
+    outer.addEventListener('mouseenter', () => clearInterval(timer));
+    outer.addEventListener('mouseleave', startTimer);
+
+    // Init
+    xCur = xTgt = -pos * TRACK_OFF;
+    render();
+    startTimer();
+    window.addEventListener('resize', render);
+  })();
+</script>
+
+</body>
+</html>
