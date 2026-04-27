@@ -799,37 +799,49 @@
     color: var(--text-2);
     margin-bottom: 2rem;
   }
-  .countdown-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(110px, 1fr));
-    gap: 0.85rem;
-    margin: 0 auto 1.5rem;
-  }
-  .countdown-unit {
-    min-height: 118px;
-    padding: 1.15rem 0.85rem;
-    border: 1px solid var(--gold-border);
-    border-radius: var(--r);
-    background: rgba(17,17,32,0.72);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  .countdown {
+    display: inline-flex;
     align-items: center;
-  }
-  .countdown-value {
-    font-family: var(--font-display);
-    font-size: clamp(2.3rem, 6vw, 4.4rem);
-    line-height: 1;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
     color: var(--gold-bright);
     font-variant-numeric: tabular-nums;
   }
-  .countdown-label {
-    margin-top: 0.65rem;
+  .days-large {
+    font-family: var(--font-display);
+    font-size: clamp(4.5rem, 18vw, 9rem);
+    font-weight: 700;
+    line-height: 1;
+    height: 1em;
+  }
+  .fraction-container {
+    position: relative;
+    height: clamp(4.5rem, 18vw, 9rem);
+    margin-left: clamp(0.35rem, 1.4vw, 0.8rem);
+    min-width: clamp(5.5rem, 17vw, 8rem);
+    text-align: left;
+  }
+  .days-fraction {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1;
+    transform: translateY(0.45em);
+  }
+  .days-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
     font-family: var(--font-mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.112em;
+    font-size: clamp(0.75rem, 2vw, 1.2rem);
+    letter-spacing: 0.084em;
     text-transform: uppercase;
     color: var(--text-3);
+    line-height: 1;
+    transform: translateY(-0.4em);
   }
   .deadline-note {
     font-family: var(--font-serif);
@@ -924,8 +936,6 @@
 .includes-header { flex-direction: column; align-items: flex-start; }
     .forwho-item:hover { padding-left: 0; }
     #deadline { padding: 4rem 1.25rem; }
-    .countdown-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .countdown-unit { min-height: 104px; }
     nav { padding: 0.9rem 1.25rem; }
     footer { flex-direction: column; align-items: flex-start; }
   }
@@ -1197,28 +1207,16 @@
 </section>
 
 <!-- ─────── DEADLINE ───────────────────────────────────────── -->
-<!-- Set data-deadline to the real close time, for example: 2026-05-31T23:59:59+03:00 -->
-<section id="deadline" aria-labelledby="deadline-h" data-deadline="">
+<section id="deadline" aria-labelledby="deadline-h" data-deadline="2026-06-01T00:00:00+03:00">
   <div class="deadline-inner">
     <h2 id="deadline-h" class="deadline-title r">Applications close soon</h2>
     <p class="deadline-copy r r1">Applications close in:</p>
 
-    <div class="countdown-grid r r2" id="countdown" role="timer" aria-live="polite">
-      <div class="countdown-unit">
-        <span class="countdown-value" data-unit="days">--</span>
-        <span class="countdown-label">Days</span>
-      </div>
-      <div class="countdown-unit">
-        <span class="countdown-value" data-unit="hours">--</span>
-        <span class="countdown-label">Hours</span>
-      </div>
-      <div class="countdown-unit">
-        <span class="countdown-value" data-unit="minutes">--</span>
-        <span class="countdown-label">Minutes</span>
-      </div>
-      <div class="countdown-unit">
-        <span class="countdown-value" data-unit="seconds">--</span>
-        <span class="countdown-label">Seconds</span>
+    <div class="countdown r r2" id="countdown" role="timer" aria-live="polite">
+      <span id="days-int" class="days-large">--</span>
+      <div class="fraction-container">
+        <span id="days-fraction" class="days-fraction">.0000000</span>
+        <span class="days-label">days</span>
       </div>
     </div>
 
@@ -1832,45 +1830,32 @@
   (function() {
     const section = document.getElementById('deadline');
     const countdown = document.getElementById('countdown');
-    if (!section || !countdown) return;
+    const daysIntEl = document.getElementById('days-int');
+    const daysFractionEl = document.getElementById('days-fraction');
+    if (!section || !countdown || !daysIntEl || !daysFractionEl) return;
 
     const targetAttr = section.getAttribute('data-deadline');
     const targetTime = targetAttr ? new Date(targetAttr).getTime() : NaN;
-    const values = {
-      days: countdown.querySelector('[data-unit="days"]'),
-      hours: countdown.querySelector('[data-unit="hours"]'),
-      minutes: countdown.querySelector('[data-unit="minutes"]'),
-      seconds: countdown.querySelector('[data-unit="seconds"]')
-    };
-
-    const setValues = (days, hours, minutes, seconds) => {
-      values.days.textContent = String(days).padStart(2, '0');
-      values.hours.textContent = String(hours).padStart(2, '0');
-      values.minutes.textContent = String(minutes).padStart(2, '0');
-      values.seconds.textContent = String(seconds).padStart(2, '0');
-    };
 
     if (Number.isNaN(targetTime)) return;
 
-    const tick = () => {
+    const updateCountdown = () => {
       const remaining = Math.max(0, targetTime - Date.now());
-      const totalSeconds = Math.floor(remaining / 1000);
-      const days = Math.floor(totalSeconds / 86400);
-      const hours = Math.floor((totalSeconds % 86400) / 3600);
-      const minutes = Math.floor((totalSeconds % 3600) / 60);
-      const seconds = totalSeconds % 60;
+      const daysDecimal = remaining / 86400000;
+      const daysInt = Math.floor(daysDecimal);
+      const daysFraction = (daysDecimal - daysInt).toFixed(7).slice(1);
 
-      setValues(days, hours, minutes, seconds);
+      daysIntEl.textContent = String(daysInt);
+      daysFractionEl.textContent = daysFraction;
       countdown.setAttribute(
         'aria-label',
-        `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`
+        `${daysDecimal.toFixed(3)} days remaining`
       );
 
-      if (remaining <= 0) clearInterval(timer);
+      if (remaining > 0) requestAnimationFrame(updateCountdown);
     };
 
-    const timer = setInterval(tick, 1000);
-    tick();
+    requestAnimationFrame(updateCountdown);
   })();
 
   // ── Carousel ────────────────────────────────────────────────
