@@ -574,8 +574,11 @@
   /* ─── CAROUSEL ───────────────────────────────────────────────── */
   .carr-outer {
     position: relative;
+    width: min(100%, 360px);
     overflow: hidden;
     margin-top: 3rem;
+    margin-left: auto;
+    margin-right: auto;
     padding: 1rem 0 2rem;
   }
   .carr-track {
@@ -584,13 +587,11 @@
     cursor: grab;
     user-select: none;
     will-change: transform;
-    perspective: 1000px;
-    transform-style: preserve-3d;
   }
   .carr-track:active { cursor: grabbing; }
   .carr-item {
     flex-shrink: 0;
-    width: clamp(260px, 78vw, 300px);
+    width: clamp(260px, 78vw, 360px);
     min-height: clamp(430px, 118vw, 500px);
     display: flex;
     flex-direction: column;
@@ -1942,15 +1943,12 @@
 
     function render() {
       const off = centerOffset();
-      const itemW = itemWidth();
       const offStep = trackOffset();
       track.style.transform = `translateX(${(xCur + off).toFixed(2)}px)`;
-      track.style.perspectiveOrigin = `${(-xCur + itemW / 2).toFixed(0)}px 50%`;
       cards.forEach((card, i) => {
         const norm = (xCur + i * offStep) / offStep;
-        const ry = Math.max(-90, Math.min(90, -norm * 90));
-        const scale = 1 - Math.min(Math.abs(norm), 1) * 0.06;
-        card.style.transform = `rotateY(${ry.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
+        const scale = 1 - Math.min(Math.abs(norm), 1) * 0.035;
+        card.style.transform = `scale(${scale.toFixed(3)})`;
         card.style.borderColor = Math.abs(norm) < 0.15 ? 'rgba(212,168,67,0.5)' : '';
       });
     }
