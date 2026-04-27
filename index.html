@@ -316,21 +316,11 @@
   .origin-left {
     position: sticky; top: 100px;
   }
-  .origin-num {
-    font-family: var(--font-display);
-    font-size: clamp(6rem, 12vw, 10rem);
-    line-height: 1;
-    color: transparent;
-    -webkit-text-stroke: 1px var(--text-3);
-    letter-spacing: 0.014em;
-    margin-bottom: 2rem;
-  }
   /* Photo pair in origin left column */
   .origin-photos {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.75rem;
-    margin-top: 1.5rem;
   }
 
   /* ── TiltedCard ─────────────────────────────────────────────── */
@@ -342,7 +332,6 @@
     justify-content: center;
     cursor: pointer;
   }
-  .tilted-card-figure:first-child { margin-top: 1.5rem; }
   .tilted-card-inner {
     position: relative;
     transform-style: preserve-3d;
@@ -601,8 +590,8 @@
   .carr-track:active { cursor: grabbing; }
   .carr-item {
     flex-shrink: 0;
-    width: 300px;
-    height: 500px;
+    width: clamp(260px, 78vw, 300px);
+    min-height: clamp(430px, 118vw, 500px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -652,11 +641,11 @@
   }
   .carr-title {
     font-family: var(--font-sans);
-    font-size: 1.75rem; font-weight: 700;
+    font-size: clamp(1.35rem, 5vw, 1.75rem); font-weight: 700;
     color: var(--text); margin: 0.75rem 0 0.6rem;
   }
   .carr-desc {
-    font-size: 1.2rem; line-height: 1.7;
+    font-size: clamp(1rem, 3.8vw, 1.2rem); line-height: 1.6;
     color: var(--text-2); flex: 1;
   }
   .carr-dots {
@@ -744,7 +733,106 @@
   }
   .forwho-note strong { color: var(--text); font-style: normal; }
 
+  /* ─── WHY SF ──────────────────────────────────────────────────── */
+  #why-sf {
+    background: transparent;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .why-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.6fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .why-left {
+    position: sticky;
+    top: 100px;
+  }
+  .why-kicker {
+    font-family: var(--font-serif);
+    font-size: clamp(1.25rem, 2.6vw, 1.8rem);
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--gold-bright);
+    margin-top: 2rem;
+  }
+  .why-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    margin: 2rem 0;
+    padding-left: 1.25rem;
+    border-left: 1px solid var(--gold-border);
+  }
+  .why-lines p {
+    color: rgba(242,237,224,0.92);
+  }
+
   /* ─── BRAIN BANNER ────────────────────────────────────────────── */
+
+  /* ─── DEADLINE ────────────────────────────────────────────────── */
+  #deadline {
+    border-top: 1px solid var(--border);
+    padding: 5rem 2rem;
+  }
+  .deadline-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .deadline-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 7vw, 5.5rem);
+    letter-spacing: 0.028em;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+  }
+  .deadline-copy {
+    font-size: 1.05rem;
+    color: var(--text-2);
+    margin-bottom: 2rem;
+  }
+  .countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(110px, 1fr));
+    gap: 0.85rem;
+    margin: 0 auto 1.5rem;
+  }
+  .countdown-unit {
+    min-height: 118px;
+    padding: 1.15rem 0.85rem;
+    border: 1px solid var(--gold-border);
+    border-radius: var(--r);
+    background: rgba(17,17,32,0.72);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .countdown-value {
+    font-family: var(--font-display);
+    font-size: clamp(2.3rem, 6vw, 4.4rem);
+    line-height: 1;
+    color: var(--gold-bright);
+    font-variant-numeric: tabular-nums;
+  }
+  .countdown-label {
+    margin-top: 0.65rem;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.112em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+  .deadline-note {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-style: italic;
+    color: rgba(242,237,224,0.82);
+  }
 
   /* ─── CTA ─────────────────────────────────────────────────────── */
   #cta {
@@ -815,13 +903,14 @@
   @media (max-width: 900px) {
     .origin-grid { grid-template-columns: 1fr; gap: 2rem; }
     .origin-left { position: static; }
-    .origin-num { font-size: 5rem; margin-bottom: 0; }
     .origin-photos { grid-template-columns: 1fr 1fr; max-width: 320px; }
 
     .def-left { padding: 3rem 1.5rem; }
 
     .forwho-grid { grid-template-columns: 1fr; gap: 3rem; }
     .forwho-left { position: static; }
+    .why-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .why-left { position: static; }
 
   }
 
@@ -830,6 +919,9 @@
     #includes { padding: 4rem 1.25rem; }
 .includes-header { flex-direction: column; align-items: flex-start; }
     .forwho-item:hover { padding-left: 0; }
+    #deadline { padding: 4rem 1.25rem; }
+    .countdown-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .countdown-unit { min-height: 104px; }
     nav { padding: 0.9rem 1.25rem; }
     footer { flex-direction: column; align-items: flex-start; }
   }
@@ -898,7 +990,6 @@
     <div class="origin-grid">
 
       <div class="origin-left r">
-        <div class="origin-num" aria-hidden="true">01</div>
         <div class="origin-photos">
           <figure class="tilted-card-figure" data-tilted style="aspect-ratio:3/4;" data-caption="Ντίνος">
             <div class="tilted-card-inner">
@@ -907,7 +998,7 @@
             </div>
             <div class="tilted-card-caption">Ντίνος</div>
           </figure>
-          <figure class="tilted-card-figure" data-tilted style="aspect-ratio:3/4;margin-top:1.5rem;" data-caption="Τάκης">
+          <figure class="tilted-card-figure" data-tilted style="aspect-ratio:3/4;" data-caption="Τάκης">
             <div class="tilted-card-inner">
               <img class="tilted-card-img" src="dinos-takis.jpeg" alt="Τάκης" style="object-position:82% center;" />
               <div class="tilted-card-overlay">Τάκης</div>
@@ -965,6 +1056,41 @@
   </div>
 </section>
 
+
+<!-- ─────── WHY SF ─────────────────────────────────────────── -->
+<section id="why-sf" aria-labelledby="why-sf-h">
+  <div class="section-wrap">
+    <div class="why-grid">
+      <div class="why-left r">
+        <p class="label">Γιατί εδώ</p>
+        <h2 id="why-sf-h" class="title">Γιατί<br><em>San Francisco</em>;</h2>
+        <p class="why-kicker">Το San Francisco δεν είναι απλώς μια πόλη με startups.</p>
+      </div>
+
+      <div class="body-text why-right">
+        <div class="why-lines">
+          <p class="r">Είναι ένα μέρος όπου το default είναι να χτίζεις.</p>
+          <p class="r r1">Όπου ένας 19χρονος μπορεί να μιλήσει με founder που μόλις σήκωσε funding.</p>
+          <p class="r r2">Όπου μια ιδέα που στην Ελλάδα ακούγεται “υπερβολική”, εδώ ακούγεται σαν αρχή.</p>
+          <p class="r r3">Όπου οι άνθρωποι δεν σε ρωτάνε μόνο “τι σπουδάζεις;”</p>
+          <p class="r r4">Σε ρωτάνε: “τι φτιάχνεις;”</p>
+        </div>
+
+        <p class="r">
+          Για δύο εβδομάδες, δεν έρχεσαι απλώς να δεις τη Silicon Valley. Έρχεσαι να αλλάξεις το μέτρο σύγκρισης που έχεις για τον εαυτό σου.
+        </p>
+
+        <p class="r r1">
+          Να δεις από κοντά πώς σκέφτονται, δουλεύουν, αποτυγχάνουν και κερδίζουν οι άνθρωποι που χτίζουν το μέλλον.
+        </p>
+
+        <p class="r r2">
+          Γιατί μερικές φορές, αυτό που σου λείπει δεν είναι άλλη μία συμβουλή. Είναι να μπεις στο σωστό δωμάτιο.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ─────── BENTO ─────────────────────────────────────────── -->
 <section aria-labelledby="includes-h">
@@ -1063,6 +1189,36 @@
         </a>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ─────── DEADLINE ───────────────────────────────────────── -->
+<!-- Set data-deadline to the real close time, for example: 2026-05-31T23:59:59+03:00 -->
+<section id="deadline" aria-labelledby="deadline-h" data-deadline="">
+  <div class="deadline-inner">
+    <h2 id="deadline-h" class="deadline-title r">Applications close soon</h2>
+    <p class="deadline-copy r r1">Οι αιτήσεις κλείνουν σε:</p>
+
+    <div class="countdown-grid r r2" id="countdown" role="timer" aria-live="polite">
+      <div class="countdown-unit">
+        <span class="countdown-value" data-unit="days">--</span>
+        <span class="countdown-label">Ημέρες</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-value" data-unit="hours">--</span>
+        <span class="countdown-label">Ώρες</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-value" data-unit="minutes">--</span>
+        <span class="countdown-label">Λεπτά</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-value" data-unit="seconds">--</span>
+        <span class="countdown-label">Δευτερόλεπτα</span>
+      </div>
+    </div>
+
+    <p class="deadline-note r r3">Περιορισμένες θέσεις.</p>
   </div>
 </section>
 
@@ -1658,6 +1814,51 @@
     animate();
   })();
 
+  // ── Countdown ─────────────────────────────────────────────────
+  (function() {
+    const section = document.getElementById('deadline');
+    const countdown = document.getElementById('countdown');
+    if (!section || !countdown) return;
+
+    const targetAttr = section.getAttribute('data-deadline');
+    const targetTime = targetAttr ? new Date(targetAttr).getTime() : NaN;
+    const values = {
+      days: countdown.querySelector('[data-unit="days"]'),
+      hours: countdown.querySelector('[data-unit="hours"]'),
+      minutes: countdown.querySelector('[data-unit="minutes"]'),
+      seconds: countdown.querySelector('[data-unit="seconds"]')
+    };
+
+    const setValues = (days, hours, minutes, seconds) => {
+      values.days.textContent = String(days).padStart(2, '0');
+      values.hours.textContent = String(hours).padStart(2, '0');
+      values.minutes.textContent = String(minutes).padStart(2, '0');
+      values.seconds.textContent = String(seconds).padStart(2, '0');
+    };
+
+    if (Number.isNaN(targetTime)) return;
+
+    const tick = () => {
+      const remaining = Math.max(0, targetTime - Date.now());
+      const totalSeconds = Math.floor(remaining / 1000);
+      const days = Math.floor(totalSeconds / 86400);
+      const hours = Math.floor((totalSeconds % 86400) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      setValues(days, hours, minutes, seconds);
+      countdown.setAttribute(
+        'aria-label',
+        `${days} ημέρες, ${hours} ώρες, ${minutes} λεπτά, ${seconds} δευτερόλεπτα`
+      );
+
+      if (remaining <= 0) clearInterval(timer);
+    };
+
+    const timer = setInterval(tick, 1000);
+    tick();
+  })();
+
   // ── Carousel ────────────────────────────────────────────────
   (function() {
     const ITEMS = [
@@ -1679,15 +1880,24 @@
         svg: '<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" stroke-linecap="round" stroke-linejoin="round"/>' }
     ];
 
-    const GAP = 20;
-    const ITEM_W = 300;
-    const TRACK_OFF = ITEM_W + GAP;
     const AUTOPLAY_DELAY = 2600;
 
     const loopItems = [ITEMS[ITEMS.length - 1], ...ITEMS, ITEMS[0]];
     let pos = 1;
 
     let xCur, xVel = 0, xTgt;
+
+    function itemWidth() {
+      return cards[0]?.offsetWidth || 300;
+    }
+
+    function trackGap() {
+      return parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 20;
+    }
+
+    function trackOffset() {
+      return itemWidth() + trackGap();
+    }
 
     function springTick(dt) {
       const f = 600 * (xTgt - xCur) - 40 * xVel;
@@ -1728,14 +1938,16 @@
       dots.forEach((d, i) => d.classList.toggle('active', i === ai));
     }
 
-    function centerOffset() { return (outer.clientWidth - ITEM_W) / 2; }
+    function centerOffset() { return (outer.clientWidth - itemWidth()) / 2; }
 
     function render() {
       const off = centerOffset();
+      const itemW = itemWidth();
+      const offStep = trackOffset();
       track.style.transform = `translateX(${(xCur + off).toFixed(2)}px)`;
-      track.style.perspectiveOrigin = `${(-xCur + ITEM_W / 2).toFixed(0)}px 50%`;
+      track.style.perspectiveOrigin = `${(-xCur + itemW / 2).toFixed(0)}px 50%`;
       cards.forEach((card, i) => {
-        const norm = (xCur + i * TRACK_OFF) / TRACK_OFF;
+        const norm = (xCur + i * offStep) / offStep;
         const ry = Math.max(-90, Math.min(90, -norm * 90));
         const scale = 1 - Math.min(Math.abs(norm), 1) * 0.06;
         card.style.transform = `rotateY(${ry.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
@@ -1748,42 +1960,61 @@
       if (lastTime !== null) springTick(Math.min((ts - lastTime) / 1000, 0.05));
       lastTime = ts;
       render();
-      rafId = (Math.abs(xTgt - xCur) < 0.15 && Math.abs(xVel) < 0.15) ? null : requestAnimationFrame(animLoop);
+      const settled = Math.abs(xTgt - xCur) < 0.15 && Math.abs(xVel) < 0.15;
+      if (settled) {
+        rafId = null;
+        normalizeLoop();
+        return;
+      }
+      rafId = requestAnimationFrame(animLoop);
     }
     function startAnim() { if (!rafId) { lastTime = null; rafId = requestAnimationFrame(animLoop); } }
 
     function goTo(newPos) {
-      pos = newPos; xTgt = -pos * TRACK_OFF;
+      pos = newPos; xTgt = -pos * trackOffset();
       startAnim(); updateDots();
     }
 
-    function checkLoop() {
-      if (Math.abs(xTgt - xCur) < 1 && Math.abs(xVel) < 1) {
-        if (pos === loopItems.length - 1) { pos = 1; xCur = xTgt = -pos * TRACK_OFF; xVel = 0; render(); updateDots(); }
-        else if (pos === 0)               { pos = ITEMS.length; xCur = xTgt = -pos * TRACK_OFF; xVel = 0; render(); updateDots(); }
+    function normalizeLoop() {
+      if (pos === loopItems.length - 1) {
+        pos = 1;
+        xCur = xTgt = -pos * trackOffset();
+        xVel = 0;
+        render();
+        updateDots();
+      } else if (pos === 0) {
+        pos = ITEMS.length;
+        xCur = xTgt = -pos * trackOffset();
+        xVel = 0;
+        render();
+        updateDots();
       }
     }
 
     let dragStartX, dragStartXCur, isDragging = false;
     track.addEventListener('mousedown', e => { dragStartX = e.clientX; dragStartXCur = xCur; isDragging = true; clearInterval(timer); e.preventDefault(); });
     window.addEventListener('mousemove', e => { if (!isDragging) return; xCur = dragStartXCur + (e.clientX - dragStartX); xTgt = xCur; xVel = 0; render(); });
-    window.addEventListener('mouseup',   e => { if (!isDragging) return; isDragging = false; const dx = e.clientX - dragStartX; goTo(Math.max(0, Math.min(pos + (dx < -50 ? 1 : dx > 50 ? -1 : 0), loopItems.length - 1))); setTimeout(checkLoop, 500); startTimer(); });
+    window.addEventListener('mouseup',   e => { if (!isDragging) return; isDragging = false; const dx = e.clientX - dragStartX; goTo(Math.max(0, Math.min(pos + (dx < -50 ? 1 : dx > 50 ? -1 : 0), loopItems.length - 1))); startTimer(); });
     track.addEventListener('touchstart', e => { dragStartX = e.touches[0].clientX; dragStartXCur = xCur; isDragging = true; clearInterval(timer); }, { passive: true });
     track.addEventListener('touchmove',  e => { if (!isDragging) return; xCur = dragStartXCur + (e.touches[0].clientX - dragStartX); xTgt = xCur; xVel = 0; render(); }, { passive: true });
-    track.addEventListener('touchend',   e => { if (!isDragging) return; isDragging = false; const dx = e.changedTouches[0].clientX - dragStartX; goTo(Math.max(0, Math.min(pos + (dx < -50 ? 1 : dx > 50 ? -1 : 0), loopItems.length - 1))); setTimeout(checkLoop, 500); startTimer(); });
+    track.addEventListener('touchend',   e => { if (!isDragging) return; isDragging = false; const dx = e.changedTouches[0].clientX - dragStartX; goTo(Math.max(0, Math.min(pos + (dx < -50 ? 1 : dx > 50 ? -1 : 0), loopItems.length - 1))); startTimer(); });
 
     dots.forEach((d, i) => d.addEventListener('click', () => { goTo(i + 1); clearInterval(timer); startTimer(); }));
 
     let timer;
-    function startTimer() { clearInterval(timer); timer = setInterval(() => { goTo(pos + 1); setTimeout(checkLoop, 500); }, AUTOPLAY_DELAY); }
+    function startTimer() { clearInterval(timer); timer = setInterval(() => { goTo(Math.min(pos + 1, loopItems.length - 1)); }, AUTOPLAY_DELAY); }
     outer.addEventListener('mouseenter', () => clearInterval(timer));
     outer.addEventListener('mouseleave', startTimer);
 
     // Init
-    xCur = xTgt = -pos * TRACK_OFF;
+    xCur = xTgt = -pos * trackOffset();
     render();
     startTimer();
-    window.addEventListener('resize', render);
+    window.addEventListener('resize', () => {
+      xVel = 0;
+      xCur = xTgt = -pos * trackOffset();
+      render();
+    });
   })();
 </script>
 
