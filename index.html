@@ -314,10 +314,9 @@
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 4rem;
-    align-items: start;
+    align-items: center;
   }
   .origin-left {
-    position: sticky; top: 100px;
   }
   /* Photo pair in origin left column */
   .origin-photos {
@@ -577,11 +576,9 @@
   /* ─── CAROUSEL ───────────────────────────────────────────────── */
   .carr-outer {
     position: relative;
-    width: min(100%, 360px);
+    width: 100%;
     overflow: hidden;
     margin-top: 3rem;
-    margin-left: auto;
-    margin-right: auto;
     padding: 1rem 0 2rem;
   }
   .carr-track {
@@ -594,8 +591,8 @@
   .carr-track:active { cursor: grabbing; }
   .carr-item {
     flex-shrink: 0;
-    width: clamp(260px, 78vw, 360px);
-    min-height: clamp(430px, 118vw, 500px);
+    width: clamp(220px, 28vw, 300px);
+    min-height: clamp(380px, 50vw, 460px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -607,8 +604,8 @@
     -webkit-backdrop-filter: blur(8px);
     overflow: hidden;
     position: relative;
-    transition: border-color 250ms;
-    will-change: transform;
+    transition: border-color 250ms, opacity 350ms ease, filter 350ms ease;
+    will-change: transform, opacity, filter;
   }
   .carr-item.featured {
     background: linear-gradient(135deg, rgba(212,168,67,0.12) 0%, rgba(17,17,32,0.72) 60%);
@@ -672,6 +669,8 @@
     background: transparent;
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
   }
   .forwho-grid {
     display: grid;
@@ -737,6 +736,106 @@
   }
   .forwho-note strong { color: var(--text); font-style: normal; }
 
+  /* ─── PHOTO COLLAGE ───────────────────────────────────────────── */
+  .collage {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .collage::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(9,9,15,0.35) 0%, rgba(9,9,15,0.2) 50%, rgba(9,9,15,0.35) 100%);
+    z-index: 1;
+  }
+  .collage img {
+    position: absolute;
+    object-fit: cover;
+    border-radius: 8px;
+    opacity: 0.95;
+    filter: grayscale(10%) sepia(10%);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  }
+  /* forwho collage — 5 photos */
+  #forwho .collage img:nth-child(1) {
+    width: clamp(150px, 18vw, 240px); aspect-ratio: 3/4;
+    top: 5%; left: 22%;
+    transform: rotate(-7deg);
+  }
+  #forwho .collage img:nth-child(2) {
+    width: clamp(130px, 15vw, 200px); aspect-ratio: 3/4;
+    top: 42%; left: 27%;
+    transform: rotate(4deg);
+  }
+  #forwho .collage img:nth-child(3) {
+    width: clamp(155px, 19vw, 250px); aspect-ratio: 3/4;
+    top: 4%; right: 22%;
+    transform: rotate(6deg);
+  }
+  #forwho .collage img:nth-child(4) {
+    width: clamp(140px, 17vw, 220px); aspect-ratio: 3/4;
+    bottom: 5%; right: 26%;
+    transform: rotate(-5deg);
+  }
+  #forwho .collage img:nth-child(5) {
+    width: clamp(135px, 16vw, 210px); aspect-ratio: 3/4;
+    bottom: 8%; left: 40%;
+    transform: rotate(3deg);
+  }
+
+  /* cta collage — 5 photos */
+  #cta .collage img:nth-child(1) {
+    width: clamp(150px, 18vw, 240px); aspect-ratio: 3/4;
+    top: 5%; left: 22%;
+    transform: rotate(5deg);
+  }
+  #cta .collage img:nth-child(2) {
+    width: clamp(140px, 17vw, 220px); aspect-ratio: 3/4;
+    bottom: 5%; left: 26%;
+    transform: rotate(-6deg);
+  }
+  #cta .collage img:nth-child(3) {
+    width: clamp(155px, 19vw, 245px); aspect-ratio: 3/4;
+    top: 4%; right: 22%;
+    transform: rotate(-5deg);
+  }
+  #cta .collage img:nth-child(4) {
+    width: clamp(135px, 16vw, 210px); aspect-ratio: 3/4;
+    bottom: 5%; right: 26%;
+    transform: rotate(4deg);
+  }
+  #cta .collage img:nth-child(5) {
+    width: clamp(130px, 15vw, 200px); aspect-ratio: 3/4;
+    top: 28%; left: 40%;
+    transform: rotate(-3deg);
+  }
+
+  .forwho-grid, .cta-inner { position: relative; z-index: 1; }
+
+  /* ── Text legibility over collage ── */
+  #forwho h2.title,
+  #forwho .label,
+  #forwho .age-label,
+  #forwho .age-range {
+    color: #fff;
+    text-shadow: 0 2px 20px rgba(0,0,0,1), 0 0 40px rgba(0,0,0,0.8);
+  }
+  #forwho .forwho-item .txt,
+  #forwho .forwho-item .txt strong,
+  #forwho .forwho-note p {
+    color: #fff;
+    text-shadow: 0 1px 16px rgba(0,0,0,1), 0 0 30px rgba(0,0,0,0.9);
+  }
+  #cta .cta-title {
+    color: #fff;
+    text-shadow: 0 2px 24px rgba(0,0,0,1), 0 0 50px rgba(0,0,0,0.9);
+  }
+  #cta .cta-subtitle,
+  #cta .cta-eyebrow {
+    color: #fff;
+    text-shadow: 0 1px 16px rgba(0,0,0,1), 0 0 30px rgba(0,0,0,0.9);
+  }
+
   /* ─── WHY SF ──────────────────────────────────────────────────── */
   #why-sf {
     background: transparent;
@@ -762,6 +861,62 @@
     color: var(--gold-bright);
     margin-top: 2rem;
   }
+  .why-map {
+    margin-top: 2rem;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(212,168,67,0.2);
+    width: 100%;
+    max-width: 460px;
+    cursor: zoom-in;
+  }
+  .why-map img {
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
+  }
+  .why-map:hover img { opacity: 1; }
+
+  /* ── Map modal ── */
+  .map-modal {
+    position: fixed; inset: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(5,3,15,0);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease, background 0.35s ease;
+  }
+  .map-modal.open {
+    opacity: 1;
+    pointer-events: all;
+    background: rgba(5,3,15,0.85);
+  }
+  .map-modal-inner {
+    max-width: min(90vw, 820px);
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(212,168,67,0.3);
+    transform: scale(0.88);
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .map-modal.open .map-modal-inner {
+    transform: scale(1);
+  }
+  .map-modal-inner img {
+    width: 100%; display: block;
+  }
+  .map-modal-close {
+    position: absolute; top: 1.25rem; right: 1.5rem;
+    background: rgba(255,255,255,0.1); border: none;
+    color: #fff; font-size: 1.5rem; cursor: pointer;
+    border-radius: 50%; width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .map-modal-close:hover { background: rgba(255,255,255,0.2); }
   .why-lines {
     display: flex;
     flex-direction: column;
@@ -772,6 +927,7 @@
   }
   .why-lines p {
     color: rgba(242,237,224,0.92);
+    font-weight: 600;
   }
 
   /* ─── BRAIN BANNER ────────────────────────────────────────────── */
@@ -788,8 +944,9 @@
   }
   .deadline-title {
     font-family: var(--font-display);
-    font-size: clamp(2.6rem, 7vw, 5.5rem);
+    font-size: clamp(1.8rem, 4vw, 3.5rem);
     letter-spacing: 0.028em;
+    white-space: nowrap;
     line-height: 1;
     color: var(--text);
     margin-bottom: 1.25rem;
@@ -856,6 +1013,7 @@
     text-align: center;
     position: relative;
     overflow: hidden;
+    isolation: isolate;
   }
   #cta::before {
     content: '';
@@ -933,11 +1091,42 @@
   @media (max-width: 600px) {
     .section-wrap { padding: 4rem 1.25rem; }
     #includes { padding: 4rem 1.25rem; }
-.includes-header { flex-direction: column; align-items: flex-start; }
+    .includes-header { flex-direction: column; align-items: flex-start; }
     .forwho-item:hover { padding-left: 0; }
     #deadline { padding: 4rem 1.25rem; }
     nav { padding: 0.9rem 1.25rem; }
     footer { flex-direction: column; align-items: flex-start; }
+
+    /* Carousel: one card visible at a time */
+    .carr-item { width: 78vw; min-height: 400px; }
+
+    /* Hero */
+    .hero-def { padding: 0 1.25rem; }
+    .def-text { font-size: 1rem; }
+
+    /* Why SF map */
+    .why-map img { max-width: 100%; }
+
+    /* Collage: pull images inward on small screens */
+    #forwho .collage img { opacity: 0.55; }
+    #cta .collage img { opacity: 0.55; }
+
+    /* Deadline title no-wrap fix */
+    .deadline-title { font-size: clamp(1.5rem, 7vw, 2.5rem) !important; white-space: normal !important; }
+
+    /* Tilted cards on mobile */
+    .tilted-card { width: min(260px, 80vw); }
+
+    /* Origin photos */
+    .origin-photos { grid-template-columns: 1fr 1fr; }
+
+    /* CTA title */
+    .cta-title { font-size: clamp(2.5rem, 12vw, 5rem) !important; }
+  }
+
+  @media (max-width: 400px) {
+    .carr-item { width: 86vw; }
+    nav .nav-logo .name { font-size: 0.75rem; }
   }
   /* ─── VARIABLE PROXIMITY ─────────────────────────────────────── */
   .sr-word {
@@ -1007,14 +1196,14 @@
         <div class="origin-photos">
           <figure class="tilted-card-figure" data-tilted style="aspect-ratio:3/4;" data-caption="Dinos">
             <div class="tilted-card-inner">
-              <img class="tilted-card-img" src="/dinos-takis.jpeg" alt="Dinos" style="object-position:18% center;" />
+              <img class="tilted-card-img" src="dinos-takis.jpeg" alt="Dinos" style="object-position:18% center;" />
               <div class="tilted-card-overlay">Dinos</div>
             </div>
             <div class="tilted-card-caption">Dinos</div>
           </figure>
           <figure class="tilted-card-figure" data-tilted style="aspect-ratio:3/4;" data-caption="Takis">
             <div class="tilted-card-inner">
-              <img class="tilted-card-img" src="/dinos-takis.jpeg" alt="Takis" style="object-position:82% center;" />
+              <img class="tilted-card-img" src="dinos-takis.jpeg" alt="Takis" style="object-position:82% center;" />
               <div class="tilted-card-overlay">Takis</div>
             </div>
             <div class="tilted-card-caption">Takis</div>
@@ -1024,9 +1213,15 @@
         <!-- Second photo full width -->
         <div class="origin-photo-wide">
           <div class="origin-photo-wide-img">
-            <img src="/dinos-takis-2.jpeg" alt="Dinos and Takis on the podcast" />
+            <img src="dinos-takis-2.jpeg" alt="Dinos and Takis on the podcast" />
           </div>
           <p class="origin-photo-caption">Two young kids with big dreams</p>
+        </div>
+        <div class="origin-photo-wide">
+          <div class="origin-photo-wide-img">
+            <img src="dinos-takis-3.png" alt="Dinos and Takis on the podcast" />
+          </div>
+          <p class="origin-photo-caption">3 years later, still chasing the dream...</p>
         </div>
       </div>
 
@@ -1077,8 +1272,10 @@
     <div class="why-grid">
       <div class="why-left r">
         <p class="label">Why here</p>
-        <h2 id="why-sf-h" class="title">Why<br><em>San Francisco</em>?</h2>
-        <p class="why-kicker">San Francisco is not just a city with startups.</p>
+        <h2 id="why-sf-h" class="title">Why <em>San Francisco</em>?</h2>
+        <div class="why-map">
+          <img src="sf-map.png" alt="San Francisco company map" />
+        </div>
       </div>
 
       <div class="body-text why-right">
@@ -1114,9 +1311,6 @@
         <p class="label" style="margin-bottom:0.5rem;">What it includes</p>
         <h2 id="includes-h" class="title" style="margin-bottom:0;">Our <em>hospitality</em></h2>
       </div>
-      <p style="font-size:0.875rem; color:var(--text-2); max-width:240px; line-height:1.6;">
-        100% free for selected participants. Nothing hidden, nothing paid.
-      </p>
     </div>
 
     <div class="carr-outer" id="carr-outer">
@@ -1130,6 +1324,13 @@
 
 <!-- ─────── FOR WHOM ─────────────────────────────────────── -->
 <section id="forwho" aria-labelledby="forwho-h">
+  <div class="collage" aria-hidden="true">
+    <img src="bezosyoung.jpg" alt="" />
+    <img src="billyoung.jpg" alt="" />
+    <img src="steveyoung.jpg" alt="" />
+    <img src="jensen.jpg" alt="" />
+    <img src="sama.jpg" alt="" />
+  </div>
   <div class="section-wrap">
     <div class="forwho-grid">
 
@@ -1182,10 +1383,17 @@
 <!-- ─────── CTA ────────────────────────────────────────────── -->
 <section id="apply" aria-labelledby="cta-h">
   <div id="cta">
+    <div class="collage" aria-hidden="true">
+      <img src="markyoung.jpg" alt="" />
+      <img src="elonyoung.jpg" alt="" />
+      <img src="goog.jpg" alt="" />
+      <img src="elonagain.jpg" alt="" />
+      <img src="stevebill.jpg" alt="" />
+    </div>
     <div class="cta-inner">
       <p class="cta-eyebrow r">The invitation</p>
       <h2 id="cta-h" class="cta-title r r1">
-        THE DOOR<br>IS<br>OPEN.
+        THE DOOR IS<br>OPEN.
       </h2>
       <p class="cta-subtitle r r2">
         At one point, we just wanted someone to open a door for us.<br>
@@ -1210,7 +1418,7 @@
 <section id="deadline" aria-labelledby="deadline-h" data-deadline="2026-06-01T00:00:00+03:00">
   <div class="deadline-inner">
     <h2 id="deadline-h" class="deadline-title r">Applications close soon</h2>
-    <p class="deadline-copy r r1">Applications close in:</p>
+    <p class="deadline-copy r r1">Applications close in</p>
 
     <div class="countdown r r2" id="countdown" role="timer" aria-live="polite">
       <span id="days-int" class="days-large">--</span>
@@ -1945,9 +2153,16 @@
       track.style.transform = `translateX(${(xCur + off).toFixed(2)}px)`;
       cards.forEach((card, i) => {
         const norm = (xCur + i * offStep) / offStep;
-        const scale = 1 - Math.min(Math.abs(norm), 1) * 0.035;
+        const dist = Math.abs(norm);
+        const isPrimary = dist < 0.15;
+        const isAdjacent = dist < 1.15;
+        const scale = isPrimary ? 1 : 1 - Math.min(dist, 1) * 0.06;
+        const opacity = isPrimary ? 1 : isAdjacent ? 0.45 : 0.15;
+        const blur = isPrimary ? 0 : isAdjacent ? 3 : 6;
         card.style.transform = `scale(${scale.toFixed(3)})`;
-        card.style.borderColor = Math.abs(norm) < 0.15 ? 'rgba(212,168,67,0.5)' : '';
+        card.style.opacity = opacity.toFixed(2);
+        card.style.filter = blur > 0 ? `blur(${blur}px)` : '';
+        card.style.borderColor = isPrimary ? 'rgba(212,168,67,0.5)' : '';
       });
     }
 
@@ -2011,6 +2226,26 @@
       xCur = xTgt = -pos * trackOffset();
       render();
     });
+  })();
+
+  // ── Map modal ─────────────────────────────────────────────────
+  (function() {
+    const modal = document.createElement('div');
+    modal.className = 'map-modal';
+    modal.innerHTML = `
+      <button class="map-modal-close" aria-label="Close">✕</button>
+      <div class="map-modal-inner">
+        <img src="sf-map.png" alt="San Francisco company map" />
+      </div>`;
+    document.body.appendChild(modal);
+
+    const open = () => { modal.classList.add('open'); document.body.style.overflow = 'hidden'; };
+    const close = () => { modal.classList.remove('open'); document.body.style.overflow = ''; };
+
+    document.querySelector('.why-map').addEventListener('click', open);
+    modal.querySelector('.map-modal-close').addEventListener('click', close);
+    modal.addEventListener('click', e => { if (e.target === modal) close(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
   })();
 </script>
 

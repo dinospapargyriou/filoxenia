@@ -10,9 +10,11 @@
   <link rel="alternate" hreflang="x-default" href="/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Roboto+Flex:opsz,slnt,wdth,wght@8..144,-10..0,25..151,100..1000&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=JetBrains+Mono:wght@400;500&family=Roboto+Flex:opsz,slnt,wdth,wght@8..144,-10..0,25..151,100..1000&display=swap" rel="stylesheet" />
 
   <style>
+  @import url('https://fonts.googleapis.com/css2?family=GFS+Didot&display=swap');
+
   /* ─── TOKENS ──────────────────────────────────────────────────── */
   :root {
     --bg:          #09090F;
@@ -314,10 +316,9 @@
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 4rem;
-    align-items: start;
+    align-items: center;
   }
   .origin-left {
-    position: sticky; top: 100px;
   }
   /* Photo pair in origin left column */
   .origin-photos {
@@ -514,26 +515,18 @@
   }
   .tp-container {
     width: 100%;
-    height: clamp(80px, 14vw, 140px);
     margin-bottom: 0.5rem;
-    position: relative;
   }
-  .tp-title {
-    font-family: 'Roboto Flex', sans-serif;
-    text-transform: uppercase;
-    font-weight: 100;
-    width: 100%;
-    margin: 0;
+  .tp-greek-title {
+    font-family: 'GFS Didot', Georgia, serif !important;
+    font-size: clamp(7rem, 29vw, 21rem) !important;
+    font-weight: 400;
+    color: #D4A843;
     text-align: center;
-    user-select: none;
-    white-space: nowrap;
-    position: absolute;
-    top: 0; left: 0;
-    text-shadow: 0 2px 40px rgba(0,0,0,0.5);
-  }
-  .tp-flex {
-    display: flex;
-    justify-content: space-between;
+    margin: 0 0 0.05em;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-shadow: 0 0 80px rgba(212,168,67,0.4), 0 2px 40px rgba(0,0,0,0.8);
   }
   .def-phonetic {
     font-family: var(--font-mono);
@@ -577,11 +570,9 @@
   /* ─── CAROUSEL ───────────────────────────────────────────────── */
   .carr-outer {
     position: relative;
-    width: min(100%, 360px);
+    width: 100%;
     overflow: hidden;
     margin-top: 3rem;
-    margin-left: auto;
-    margin-right: auto;
     padding: 1rem 0 2rem;
   }
   .carr-track {
@@ -594,8 +585,8 @@
   .carr-track:active { cursor: grabbing; }
   .carr-item {
     flex-shrink: 0;
-    width: clamp(260px, 78vw, 360px);
-    min-height: clamp(430px, 118vw, 500px);
+    width: clamp(220px, 28vw, 300px);
+    min-height: clamp(380px, 50vw, 460px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -607,8 +598,8 @@
     -webkit-backdrop-filter: blur(8px);
     overflow: hidden;
     position: relative;
-    transition: border-color 250ms;
-    will-change: transform;
+    transition: border-color 250ms, opacity 350ms ease, filter 350ms ease;
+    will-change: transform, opacity, filter;
   }
   .carr-item.featured {
     background: linear-gradient(135deg, rgba(212,168,67,0.12) 0%, rgba(17,17,32,0.72) 60%);
@@ -672,6 +663,8 @@
     background: transparent;
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
   }
   .forwho-grid {
     display: grid;
@@ -737,6 +730,106 @@
   }
   .forwho-note strong { color: var(--text); font-style: normal; }
 
+  /* ─── PHOTO COLLAGE ───────────────────────────────────────────── */
+  .collage {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .collage::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(9,9,15,0.35) 0%, rgba(9,9,15,0.2) 50%, rgba(9,9,15,0.35) 100%);
+    z-index: 1;
+  }
+  .collage img {
+    position: absolute;
+    object-fit: cover;
+    border-radius: 8px;
+    opacity: 0.95;
+    filter: grayscale(10%) sepia(10%);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  }
+  /* forwho collage — 5 photos */
+  #forwho .collage img:nth-child(1) {
+    width: clamp(150px, 18vw, 240px); aspect-ratio: 3/4;
+    top: 5%; left: 22%;
+    transform: rotate(-7deg);
+  }
+  #forwho .collage img:nth-child(2) {
+    width: clamp(130px, 15vw, 200px); aspect-ratio: 3/4;
+    top: 42%; left: 27%;
+    transform: rotate(4deg);
+  }
+  #forwho .collage img:nth-child(3) {
+    width: clamp(155px, 19vw, 250px); aspect-ratio: 3/4;
+    top: 4%; right: 22%;
+    transform: rotate(6deg);
+  }
+  #forwho .collage img:nth-child(4) {
+    width: clamp(140px, 17vw, 220px); aspect-ratio: 3/4;
+    bottom: 5%; right: 26%;
+    transform: rotate(-5deg);
+  }
+  #forwho .collage img:nth-child(5) {
+    width: clamp(135px, 16vw, 210px); aspect-ratio: 3/4;
+    bottom: 8%; left: 40%;
+    transform: rotate(3deg);
+  }
+
+  /* cta collage — 5 photos */
+  #cta .collage img:nth-child(1) {
+    width: clamp(150px, 18vw, 240px); aspect-ratio: 3/4;
+    top: 5%; left: 22%;
+    transform: rotate(5deg);
+  }
+  #cta .collage img:nth-child(2) {
+    width: clamp(140px, 17vw, 220px); aspect-ratio: 3/4;
+    bottom: 5%; left: 26%;
+    transform: rotate(-6deg);
+  }
+  #cta .collage img:nth-child(3) {
+    width: clamp(155px, 19vw, 245px); aspect-ratio: 3/4;
+    top: 4%; right: 22%;
+    transform: rotate(-5deg);
+  }
+  #cta .collage img:nth-child(4) {
+    width: clamp(135px, 16vw, 210px); aspect-ratio: 3/4;
+    bottom: 5%; right: 26%;
+    transform: rotate(4deg);
+  }
+  #cta .collage img:nth-child(5) {
+    width: clamp(130px, 15vw, 200px); aspect-ratio: 3/4;
+    top: 28%; left: 40%;
+    transform: rotate(-3deg);
+  }
+
+  .forwho-grid, .cta-inner { position: relative; z-index: 1; }
+
+  /* ── Text legibility over collage ── */
+  #forwho h2.title,
+  #forwho .label,
+  #forwho .age-label,
+  #forwho .age-range {
+    color: #fff;
+    text-shadow: 0 2px 20px rgba(0,0,0,1), 0 0 40px rgba(0,0,0,0.8);
+  }
+  #forwho .forwho-item .txt,
+  #forwho .forwho-item .txt strong,
+  #forwho .forwho-note p {
+    color: #fff;
+    text-shadow: 0 1px 16px rgba(0,0,0,1), 0 0 30px rgba(0,0,0,0.9);
+  }
+  #cta .cta-title {
+    color: #fff;
+    text-shadow: 0 2px 24px rgba(0,0,0,1), 0 0 50px rgba(0,0,0,0.9);
+  }
+  #cta .cta-subtitle,
+  #cta .cta-eyebrow {
+    color: #fff;
+    text-shadow: 0 1px 16px rgba(0,0,0,1), 0 0 30px rgba(0,0,0,0.9);
+  }
+
   /* ─── WHY SF ──────────────────────────────────────────────────── */
   #why-sf {
     background: transparent;
@@ -762,6 +855,62 @@
     color: var(--gold-bright);
     margin-top: 2rem;
   }
+  .why-map {
+    margin-top: 2rem;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(212,168,67,0.2);
+    width: 100%;
+    max-width: 460px;
+    cursor: zoom-in;
+  }
+  .why-map img {
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
+  }
+  .why-map:hover img { opacity: 1; }
+
+  /* ── Map modal ── */
+  .map-modal {
+    position: fixed; inset: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(5,3,15,0);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease, background 0.35s ease;
+  }
+  .map-modal.open {
+    opacity: 1;
+    pointer-events: all;
+    background: rgba(5,3,15,0.85);
+  }
+  .map-modal-inner {
+    max-width: min(90vw, 820px);
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(212,168,67,0.3);
+    transform: scale(0.88);
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .map-modal.open .map-modal-inner {
+    transform: scale(1);
+  }
+  .map-modal-inner img {
+    width: 100%; display: block;
+  }
+  .map-modal-close {
+    position: absolute; top: 1.25rem; right: 1.5rem;
+    background: rgba(255,255,255,0.1); border: none;
+    color: #fff; font-size: 1.5rem; cursor: pointer;
+    border-radius: 50%; width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .map-modal-close:hover { background: rgba(255,255,255,0.2); }
   .why-lines {
     display: flex;
     flex-direction: column;
@@ -772,6 +921,7 @@
   }
   .why-lines p {
     color: rgba(242,237,224,0.92);
+    font-weight: 600;
   }
 
   /* ─── BRAIN BANNER ────────────────────────────────────────────── */
@@ -788,8 +938,9 @@
   }
   .deadline-title {
     font-family: var(--font-display);
-    font-size: clamp(2.6rem, 7vw, 5.5rem);
+    font-size: clamp(1.8rem, 4vw, 3.5rem);
     letter-spacing: 0.028em;
+    white-space: nowrap;
     line-height: 1;
     color: var(--text);
     margin-bottom: 1.25rem;
@@ -856,6 +1007,7 @@
     text-align: center;
     position: relative;
     overflow: hidden;
+    isolation: isolate;
   }
   #cta::before {
     content: '';
@@ -933,11 +1085,44 @@
   @media (max-width: 600px) {
     .section-wrap { padding: 4rem 1.25rem; }
     #includes { padding: 4rem 1.25rem; }
-.includes-header { flex-direction: column; align-items: flex-start; }
+    .includes-header { flex-direction: column; align-items: flex-start; }
     .forwho-item:hover { padding-left: 0; }
     #deadline { padding: 4rem 1.25rem; }
     nav { padding: 0.9rem 1.25rem; }
     footer { flex-direction: column; align-items: flex-start; }
+
+    /* Carousel: one card visible at a time */
+    .carr-item { width: 78vw; min-height: 400px; }
+
+    /* Hero */
+    .hero-def { padding: 0 1.25rem; }
+    .tp-greek-title { font-size: clamp(4rem, 18vw, 8rem) !important; }
+    .def-text { font-size: 1rem; }
+
+    /* Why SF map */
+    .why-map img { max-width: 100%; }
+
+    /* Collage */
+    #forwho .collage img { opacity: 0.55; }
+    #cta .collage img { opacity: 0.55; }
+
+    /* Deadline */
+    .deadline-title { font-size: clamp(1.5rem, 7vw, 2.5rem) !important; white-space: normal !important; }
+
+    /* Tilted cards */
+    .tilted-card { width: min(260px, 80vw); }
+
+    /* Origin photos */
+    .origin-photos { grid-template-columns: 1fr 1fr; }
+
+    /* CTA title */
+    .cta-title { font-size: clamp(2.5rem, 12vw, 5rem) !important; }
+  }
+
+  @media (max-width: 400px) {
+    .carr-item { width: 86vw; }
+    .tp-greek-title { font-size: clamp(3.2rem, 15vw, 6rem) !important; }
+    nav .nav-logo .name { font-size: 0.75rem; }
   }
   /* ─── VARIABLE PROXIMITY ─────────────────────────────────────── */
   .sr-word {
@@ -983,15 +1168,17 @@
 <section id="hero" aria-labelledby="hero-h">
 
   <div class="hero-def">
-    <div class="tp-container" id="tp-filoxenia" role="heading" aria-level="1" aria-label="ΦΙΛΟΞΕΝΊΑ"></div>
-    <div class="def-phonetic">/filo·kse·ˈni·a/</div>
-    <div class="def-pos">ουσιαστικό, θηλυκό</div>
-    <p class="def-text">Η επιθυμία να ανοίγεις το σπίτι σου, το δίκτυό σου, τον χρόνο σου σε κάποιον που ξεκινάει από εκεί που ξεκίνησες κι εσύ.</p>
-    <p class="def-text">Να θυμάσαι πόσο μόνος ένιωθες όταν δεν ήξερες από πού να αρχίσεις και να λες: «εσύ δεν χρειάζεται να δυσκολευτείς το ίδιο.»</p>
-    <div class="def-origin">
+    <div class=”tp-container”>
+      <h1 class=”tp-greek-title”>Φιλοξενία</h1>
+    </div>
+    <div class=”def-phonetic”>/filo·kse·ˈni·a/</div>
+    <div class=”def-pos”>ουσιαστικό, θηλυκό</div>
+    <p class=”def-text”>Η επιθυμία να ανοίγεις το σπίτι σου, το δίκτυό σου, τον χρόνο σου σε κάποιον που ξεκινάει από εκεί που ξεκίνησες κι εσύ.</p>
+    <p class=”def-text”>Να θυμάσαι πόσο μόνος ένιωθες όταν δεν ήξερες από πού να αρχίσεις και να λες: «εσύ δεν χρειάζεται να δυσκολευτείς το ίδιο.»</p>
+    <div class=”def-origin”>
       Ελληνική λέξη · Αρχαία ρίζα<br>
       <span>φίλος (φίλος) + ξένος (ξένος)</span><br>
-      <span>Κυριολεκτικά: "αγάπη για τον ξένο"</span>
+      <span>Κυριολεκτικά: “αγάπη για τον ξένο”</span>
     </div>
   </div>
 
@@ -1007,14 +1194,14 @@
         <div class="origin-photos">
           <figure class="tilted-card-figure" data-tilted style="aspect-ratio:3/4;" data-caption="Ντίνος">
             <div class="tilted-card-inner">
-              <img class="tilted-card-img" src="/dinos-takis.jpeg" alt="Ντίνος" style="object-position:18% center;" />
+              <img class="tilted-card-img" src="../dinos-takis.jpeg" alt="Ντίνος" style="object-position:18% center;" />
               <div class="tilted-card-overlay">Ντίνος</div>
             </div>
             <div class="tilted-card-caption">Ντίνος</div>
           </figure>
           <figure class="tilted-card-figure" data-tilted style="aspect-ratio:3/4;" data-caption="Τάκης">
             <div class="tilted-card-inner">
-              <img class="tilted-card-img" src="/dinos-takis.jpeg" alt="Τάκης" style="object-position:82% center;" />
+              <img class="tilted-card-img" src="../dinos-takis.jpeg" alt="Τάκης" style="object-position:82% center;" />
               <div class="tilted-card-overlay">Τάκης</div>
             </div>
             <div class="tilted-card-caption">Τάκης</div>
@@ -1024,9 +1211,15 @@
         <!-- Second photo full width -->
         <div class="origin-photo-wide">
           <div class="origin-photo-wide-img">
-            <img src="/dinos-takis-2.jpeg" alt="Ντίνος και Τάκης στο podcast" />
+            <img src="../dinos-takis-2.jpeg" alt="Ντίνος και Τάκης στο podcast" />
           </div>
           <p class="origin-photo-caption">Two young kids with big dreams</p>
+        </div>
+        <div class="origin-photo-wide">
+          <div class="origin-photo-wide-img">
+            <img src="../dinos-takis-3.png" alt="Ντίνος και Τάκης στο podcast" />
+          </div>
+          <p class="origin-photo-caption">3 χρόνια μετά, ακόμα κυνηγάμε το όνειρο...</p>
         </div>
       </div>
 
@@ -1078,27 +1271,29 @@
       <div class="why-left r">
         <p class="label">Γιατί εδώ</p>
         <h2 id="why-sf-h" class="title">Γιατί<br><em>San Francisco</em>;</h2>
-        <p class="why-kicker">Το San Francisco δεν είναι απλώς μια πόλη με startups.</p>
+        <div class="why-map">
+          <img src="../sf-map.png" alt="Χάρτης Σαν Φρανσίσκο" />
+        </div>
       </div>
 
       <div class="body-text why-right">
-        <div class="why-lines">
-          <p class="r">Είναι ένα μέρος όπου το default είναι να χτίζεις.</p>
-          <p class="r r1">Όπου ένας 19χρονος μπορεί να μιλήσει με founder που μόλις σήκωσε funding.</p>
-          <p class="r r2">Όπου μια ιδέα που στην Ελλάδα ακούγεται “υπερβολική”, εδώ ακούγεται σαν αρχή.</p>
-          <p class="r r3">Όπου οι άνθρωποι δεν σε ρωτάνε μόνο “τι σπουδάζεις;”</p>
-          <p class="r r4">Σε ρωτάνε: “τι φτιάχνεις;”</p>
+        <div class=”why-lines”>
+          <p class=”r”>Είναι ένα μέρος όπου το default είναι να χτίζεις.</p>
+          <p class=”r r1”>Όπου ένας 19χρονος μπορεί να μιλήσει με founder που μόλις σήκωσε funding.</p>
+          <p class=”r r2”>Όπου μια ιδέα που στην Ελλάδα ακούγεται “υπερβολική”, εδώ ακούγεται σαν αρχή.</p>
+          <p class=”r r3”>Όπου οι άνθρωποι δεν σε ρωτάνε μόνο “τι σπουδάζεις;”</p>
+          <p class=”r r4”>Σε ρωτάνε: “τι φτιάχνεις;”</p>
         </div>
 
-        <p class="r">
+        <p class=”r”>
           Για δύο εβδομάδες, δεν έρχεσαι απλώς να δεις τη Silicon Valley. Έρχεσαι να αλλάξεις το μέτρο σύγκρισης που έχεις για τον εαυτό σου.
         </p>
 
-        <p class="r r1">
+        <p class=”r r1”>
           Να δεις από κοντά πώς σκέφτονται, δουλεύουν, αποτυγχάνουν και κερδίζουν οι άνθρωποι που χτίζουν το μέλλον.
         </p>
 
-        <p class="r r2">
+        <p class=”r r2”>
           Γιατί μερικές φορές, αυτό που σου λείπει δεν είναι άλλη μία συμβουλή. Είναι να μπεις στο σωστό δωμάτιο.
         </p>
       </div>
@@ -1130,6 +1325,13 @@
 
 <!-- ─────── FOR WHOM ─────────────────────────────────────── -->
 <section id="forwho" aria-labelledby="forwho-h">
+  <div class="collage" aria-hidden="true">
+    <img src="../bezosyoung.jpg" alt="" />
+    <img src="../billyoung.jpg" alt="" />
+    <img src="../steveyoung.jpg" alt="" />
+    <img src="../jensen.jpg" alt="" />
+    <img src="../sama.jpg" alt="" />
+  </div>
   <div class="section-wrap">
     <div class="forwho-grid">
 
@@ -1182,6 +1384,13 @@
 <!-- ─────── CTA ────────────────────────────────────────────── -->
 <section id="apply" aria-labelledby="cta-h">
   <div id="cta">
+    <div class="collage" aria-hidden="true">
+      <img src="../markyoung.jpg" alt="" />
+      <img src="../elonyoung.jpg" alt="" />
+      <img src="../goog.jpg" alt="" />
+      <img src="../elonagain.jpg" alt="" />
+      <img src="../stevebill.jpg" alt="" />
+    </div>
     <div class="cta-inner">
       <p class="cta-eyebrow r">Η πρόσκληση</p>
       <h2 id="cta-h" class="cta-title r r1">
@@ -1209,7 +1418,7 @@
 <!-- ─────── DEADLINE ───────────────────────────────────────── -->
 <section id="deadline" aria-labelledby="deadline-h" data-deadline="2026-06-01T00:00:00+03:00">
   <div class="deadline-inner">
-    <h2 id="deadline-h" class="deadline-title r">Applications close soon</h2>
+    <h2 id="deadline-h" class="deadline-title r">Οι αιτήσεις κλείνουν σύντομα</h2>
     <p class="deadline-copy r r1">Οι αιτήσεις κλείνουν σε:</p>
 
     <div class="countdown r r2" id="countdown" role="timer" aria-live="polite">
@@ -1523,7 +1732,7 @@
     if (stmtSection) stmtStartObserver.observe(stmtSection);
   })();
 
-  // ScrollReveal for "Τους λείπει η πρόσβαση."
+  // ScrollReveal for access statement
   // Waits for GSAP + ScrollTrigger to load (they're deferred)
   window.addEventListener('load', function() {
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
@@ -1747,84 +1956,6 @@
 
   });
 
-  // ── TextPressure ─────────────────────────────────────────────
-  (function() {
-    const container = document.getElementById('tp-filoxenia');
-    if (!container) return;
-
-    const TEXT = 'ΦΙΛΟΞΕΝΙΑ';
-    const chars = [...TEXT];
-
-    const h1 = document.createElement('h1');
-    h1.className = 'tp-title tp-flex';
-    h1.setAttribute('aria-hidden', 'true');
-
-    const spans = chars.map(ch => {
-      const s = document.createElement('span');
-      s.textContent = ch;
-      s.style.cssText = 'display:inline-block;color:#ffffff;';
-      h1.appendChild(s);
-      return s;
-    });
-    container.appendChild(h1);
-
-    function setSize() {
-      const w = Math.max(0, container.getBoundingClientRect().width - 32);
-      h1.style.left = '16px';
-      h1.style.width = w + 'px';
-      const fs = Math.max(42, Math.min(120, w / (chars.length * 0.72)));
-      h1.style.fontSize = fs + 'px';
-      h1.style.lineHeight = '1';
-
-      requestAnimationFrame(() => {
-        const totalWidth = spans.reduce((sum, span) => sum + span.getBoundingClientRect().width, 0);
-        if (totalWidth > w) {
-          h1.style.fontSize = Math.max(38, fs * (w / totalWidth) * 0.96) + 'px';
-        }
-      });
-    }
-    setSize();
-    window.addEventListener('resize', setSize);
-
-    const mouse  = { x: 0, y: 0 };
-    const cursor = { x: 0, y: 0 };
-
-    // Init to center of container
-    const r0 = container.getBoundingClientRect();
-    mouse.x = cursor.x = r0.left + r0.width  / 2;
-    mouse.y = cursor.y = r0.top  + r0.height / 2;
-
-    window.addEventListener('mousemove', e => { cursor.x = e.clientX; cursor.y = e.clientY; });
-    window.addEventListener('touchmove', e => { cursor.x = e.touches[0].clientX; cursor.y = e.touches[0].clientY; }, { passive: true });
-
-    function getAttr(d, maxDist, minVal, maxVal) {
-      return Math.max(minVal, maxVal - Math.abs(maxVal * d / maxDist) + minVal);
-    }
-
-    function animate() {
-      mouse.x += (cursor.x - mouse.x) / 15;
-      mouse.y += (cursor.y - mouse.y) / 15;
-
-      const tr = h1.getBoundingClientRect();
-      const maxDist = tr.width / 2;
-
-      spans.forEach(span => {
-        const sr = span.getBoundingClientRect();
-        const dx = mouse.x - (sr.left + sr.width  / 2);
-        const dy = mouse.y - (sr.top  + sr.height / 2);
-        const d  = Math.sqrt(dx * dx + dy * dy);
-
-        const wght = Math.floor(getAttr(d, maxDist, 100, 900));
-        const wdth = Math.floor(getAttr(d, maxDist, 25,  151));
-        const slnt = -(getAttr(d, maxDist, 0, 10)).toFixed(2);
-
-        span.style.fontVariationSettings = `'wght' ${wght}, 'wdth' ${wdth}, 'slnt' ${slnt}`;
-      });
-
-      requestAnimationFrame(animate);
-    }
-    animate();
-  })();
 
   // ── Countdown ─────────────────────────────────────────────────
   (function() {
@@ -1945,9 +2076,16 @@
       track.style.transform = `translateX(${(xCur + off).toFixed(2)}px)`;
       cards.forEach((card, i) => {
         const norm = (xCur + i * offStep) / offStep;
-        const scale = 1 - Math.min(Math.abs(norm), 1) * 0.035;
+        const dist = Math.abs(norm);
+        const isPrimary = dist < 0.15;
+        const isAdjacent = dist < 1.15;
+        const scale = isPrimary ? 1 : 1 - Math.min(dist, 1) * 0.06;
+        const opacity = isPrimary ? 1 : isAdjacent ? 0.45 : 0.15;
+        const blur = isPrimary ? 0 : isAdjacent ? 3 : 6;
         card.style.transform = `scale(${scale.toFixed(3)})`;
-        card.style.borderColor = Math.abs(norm) < 0.15 ? 'rgba(212,168,67,0.5)' : '';
+        card.style.opacity = opacity.toFixed(2);
+        card.style.filter = blur > 0 ? `blur(${blur}px)` : '';
+        card.style.borderColor = isPrimary ? 'rgba(212,168,67,0.5)' : '';
       });
     }
 
@@ -2011,6 +2149,26 @@
       xCur = xTgt = -pos * trackOffset();
       render();
     });
+  })();
+
+  // ── Map modal ─────────────────────────────────────────────────
+  (function() {
+    const modal = document.createElement('div');
+    modal.className = 'map-modal';
+    modal.innerHTML = `
+      <button class="map-modal-close" aria-label="Κλείσιμο">✕</button>
+      <div class="map-modal-inner">
+        <img src="../sf-map.png" alt="Χάρτης Σαν Φρανσίσκο" />
+      </div>`;
+    document.body.appendChild(modal);
+
+    const open = () => { modal.classList.add('open'); document.body.style.overflow = 'hidden'; };
+    const close = () => { modal.classList.remove('open'); document.body.style.overflow = ''; };
+
+    document.querySelector('.why-map').addEventListener('click', open);
+    modal.querySelector('.map-modal-close').addEventListener('click', close);
+    modal.addEventListener('click', e => { if (e.target === modal) close(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
   })();
 </script>
 
