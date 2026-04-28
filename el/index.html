@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Filoxenia by Hustle Hours</title>
+  <title>Philoxenia by Hustle Hours</title>
   <meta name="description" content="Δύο εβδομάδες στη Silicon Valley, δωρεάν, για τους επόμενους builders της Ελλάδας." />
   <link rel="alternate" hreflang="en" href="/" />
   <link rel="alternate" hreflang="el" href="/el/" />
@@ -133,6 +133,10 @@
     background-image: url('https://images.unsplash.com/photo-1449034446853-66c86144b0ad?auto=format&fit=crop&w=1920&q=85');
     background-size: cover;
     background-position: center 40%;
+    color: #ffffff;
+    --text: #ffffff;
+    --text-2: #ffffff;
+    --text-3: #ffffff;
   }
   .hero-def {
     position: relative;
@@ -147,7 +151,7 @@
     content: '';
     position: absolute; inset: 0; z-index: 1;
     pointer-events: none;
-    background: rgba(5,3,15,0.72);
+    background: rgba(5,3,15,0.88);
   }
   .hero-content {
     display: flex; flex-direction: column;
@@ -168,7 +172,7 @@
     margin-bottom: 2.5rem;
     font-family: var(--font-mono);
     font-size: 0.65rem; letter-spacing: 0.084em; text-transform: uppercase;
-    color: var(--gold);
+    color: #ffffff;
   }
   .hero-meta svg { width: 12px; height: 12px; flex-shrink: 0; }
 
@@ -521,39 +525,41 @@
     font-family: 'GFS Didot', Georgia, serif !important;
     font-size: clamp(7rem, 29vw, 21rem) !important;
     font-weight: 400;
-    color: #D4A843;
+    color: #ffffff;
     text-align: center;
     margin: 0 0 0.05em;
     line-height: 1;
     letter-spacing: 0.02em;
-    text-shadow: 0 0 80px rgba(212,168,67,0.4), 0 2px 40px rgba(0,0,0,0.8);
+    text-shadow: 0 2px 40px rgba(0,0,0,0.5);
   }
   .def-phonetic {
     font-family: var(--font-mono);
-    font-size: 0.85rem; color: rgba(255,255,255,0.7); letter-spacing: 0.056em;
+    font-size: 0.85rem; color: #ffffff !important; letter-spacing: 0.056em;
     margin-bottom: 0.75rem;
   }
   .def-pos {
     font-family: var(--font-serif);
     font-style: italic; font-size: 1rem;
-    color: var(--gold); margin-bottom: 2rem;
+    color: #ffffff !important; margin-bottom: 2rem;
   }
   .def-text {
     font-family: var(--font-sans);
     font-size: 1.05rem;
-    color: rgba(255,255,255,0.75);
+    color: #ffffff !important;
     line-height: 1.7;
     margin-bottom: 1.25rem;
     max-width: 560px;
+    text-align: center;
   }
   .def-origin {
     margin-top: 2.5rem; padding-top: 1.5rem;
     border-top: 1px solid rgba(255,255,255,0.15);
     font-family: var(--font-mono);
     font-size: 0.72rem; letter-spacing: 0.07em; text-transform: uppercase;
-    color: rgba(255,255,255,0.45); line-height: 1.9;
+    color: #ffffff !important; line-height: 1.9;
+    text-align: center;
   }
-  .def-origin span { color: rgba(255,255,255,0.65); }
+  .def-origin span { color: #ffffff !important; }
 
   /* ─── BENTO ───────────────────────────────────────────────────── */
   #includes {
@@ -1070,8 +1076,9 @@
   /* ─── RESPONSIVE ──────────────────────────────────────────────── */
   @media (max-width: 900px) {
     .origin-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .origin-left { position: static; }
+    .origin-left { position: static; display: flex; flex-direction: column; align-items: center; }
     .origin-photos { grid-template-columns: 1fr 1fr; max-width: 320px; }
+    .origin-photo-wide { width: 100%; max-width: 320px; }
 
     .def-left { padding: 3rem 1.5rem; }
 
@@ -1154,7 +1161,7 @@
 <nav id="nav" aria-label="Κύρια πλοήγηση">
   <a href="/el/" class="nav-logo">
     <span class="sup">Hustle Hours</span>
-    <span class="name">FILOXENIA</span>
+    <span class="name">PHILOXENIA</span>
   </a>
   <a href="https://hustlehours.com" class="nav-link" aria-label="Επιστροφή στο Hustle Hours">
     <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
@@ -1167,18 +1174,17 @@
 <!-- ─────── HERO ─────────────────────────────────────────── -->
 <section id="hero" aria-labelledby="hero-h">
 
-  <div class="hero-def">
-    <div class=”tp-container”>
-      <h1 class=”tp-greek-title”>Φιλοξενία</h1>
-    </div>
-    <div class=”def-phonetic”>/filo·kse·ˈni·a/</div>
-    <div class=”def-pos”>ουσιαστικό, θηλυκό</div>
-    <p class=”def-text”>Η επιθυμία να ανοίγεις το σπίτι σου, το δίκτυό σου, τον χρόνο σου σε κάποιον που ξεκινάει από εκεί που ξεκίνησες κι εσύ.</p>
-    <p class=”def-text”>Να θυμάσαι πόσο μόνος ένιωθες όταν δεν ήξερες από πού να αρχίσεις και να λες: «εσύ δεν χρειάζεται να δυσκολευτείς το ίδιο.»</p>
-    <div class=”def-origin”>
+  <div style=”position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;gap:1.5rem;text-align:center;max-width:640px;width:100%;padding:3rem 2rem;”>
+    <div style=”font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:white;font-family:monospace;”>φιλοξενία</div>
+    <h1 style=”font-family:'GFS Didot',Georgia,serif;font-size:clamp(5rem,20vw,14rem);font-weight:400;color:white;line-height:1;letter-spacing:0.02em;”>Φιλοξενία</h1>
+    <div style=”font-family:monospace;font-size:0.85rem;letter-spacing:0.05em;color:white;”>/filo·kse·ˈni·a/</div>
+    <div style=”font-style:italic;font-size:1rem;color:white;”>ουσιαστικό, θηλυκό</div>
+    <p style=”font-size:1.05rem;line-height:1.7;max-width:520px;margin:0;color:white;”>Η επιθυμία να ανοίγεις το σπίτι σου, το δίκτυό σου, τον χρόνο σου σε κάποιον που ξεκινάει από εκεί που ξεκίνησες κι εσύ.</p>
+    <p style=”font-size:1.05rem;line-height:1.7;max-width:520px;margin:0;color:white;”>Να θυμάσαι πόσο μόνος ένιωθες όταν δεν ήξερες από πού να αρχίσεις και να λες: «εσύ δεν χρειάζεται να δυσκολευτείς το ίδιο.»</p>
+    <div style=”font-family:monospace;font-size:0.72rem;letter-spacing:0.07em;text-transform:uppercase;line-height:1.9;border-top:1px solid rgba(255,255,255,0.4);padding-top:1.5rem;width:100%;color:white;”>
       Ελληνική λέξη · Αρχαία ρίζα<br>
-      <span>φίλος (φίλος) + ξένος (ξένος)</span><br>
-      <span>Κυριολεκτικά: “αγάπη για τον ξένο”</span>
+      <span style=”color:white;”>φίλος (φίλος) + ξένος (ξένος)</span><br>
+      <span style=”color:white;”>Κυριολεκτικά: “αγάπη για τον ξένο”</span>
     </div>
   </div>
 
@@ -1232,11 +1238,11 @@
           </p>
 
           <p class="r r3">
-            Χωρίς access, χωρίς network, χωρίς λεφτά, χωρίς κανέναν που να ξέρει τι είναι YC ή accelerator. Εμείς δεν είχαμε τίποτα από αυτά. Είχαμε όμως <strong>μια εμμονή που δεν έσβηνε.</strong>
+            Χωρίς access, χωρίς network, χωρίς λεφτά, χωρίς κανέναν που να ξέρει τι είναι YC ή accelerator. Είχαμε όμως <strong>μια εμμονή που δεν έσβηνε.</strong>
           </p>
 
           <p class="r r4">
-            Τρία χρόνια αργότερα, με αποτυχίες, λάθη, emails που δεν απαντήθηκαν ποτέ, πόρτες που έκλεισαν και λίγες που τελικά άνοιξαν — η ομάδα μας βρίσκεται πλέον permanently στη Silicon Valley.
+            Τρία χρόνια αργότερα, με αποτυχίες, λάθη, emails που δεν απαντήθηκαν ποτέ, πόρτες που έκλεισαν και λίγες που τελικά άνοιξαν. Η ομάδα μας βρίσκεται πλέον permanently στη Silicon Valley.
           </p>
 
           <p class="r r4">
@@ -1251,7 +1257,6 @@
 <!-- ─────── STATEMENT ────────────────────────────────────── -->
 <section id="statement" aria-labelledby="statement-h">
   <div class="statement-inner">
-    <p class="statement-prefix r">Η αλήθεια</p>
     <h2 id="statement-h" class="sr-only">Τι τους λείπει</h2>
     <div class="statement-rotate-line r" aria-live="polite">
       <span class="statement-static">Δεν μας λείπει η</span>
@@ -1269,7 +1274,6 @@
   <div class="section-wrap">
     <div class="why-grid">
       <div class="why-left r">
-        <p class="label">Γιατί εδώ</p>
         <h2 id="why-sf-h" class="title">Γιατί<br><em>San Francisco</em>;</h2>
         <div class="why-map">
           <img src="../sf-map.png" alt="Χάρτης Σαν Φρανσίσκο" />
@@ -1309,9 +1313,6 @@
         <p class="label" style="margin-bottom:0.5rem;">Τι περιλαμβάνει</p>
         <h2 id="includes-h" class="title" style="margin-bottom:0;">Η <em>φιλοξενία</em> μας</h2>
       </div>
-      <p style="font-size:0.875rem; color:var(--text-2); max-width:240px; line-height:1.6;">
-        100% δωρεάν για τους επιλεγμένους. Τίποτα κρυφό, τίποτα που πληρώνεται.
-      </p>
     </div>
 
     <div class="carr-outer" id="carr-outer">
@@ -1336,45 +1337,30 @@
     <div class="forwho-grid">
 
       <div class="forwho-left r">
-        <p class="label">Για ποιον</p>
         <h2 id="forwho-h" class="title">Μήπως<br>μιλάμε<br><em>για σένα</em>;</h2>
 
-        <div class="age-block" aria-label="Ηλικία 15 έως 25 ετών">
-          <span class="age-label">Ηλικία</span>
-          <div class="age-range">15–25</div>
-          <p class="age-sub">χρονών, από οπουδήποτε στην Ελλάδα</p>
-        </div>
       </div>
 
       <div class="forwho-right">
         <ul class="forwho-list" aria-label="Χαρακτηριστικά υποψηφίων">
           <li class="forwho-item r">
             <span class="idx" aria-hidden="true">01</span>
-            <span class="txt">Νιώθεις ότι σκέφτεσαι διαφορετικά και στην Ελλάδα <strong>σε κοιτάνε λίγο περίεργα</strong> για τις φιλοδοξίες σου</span>
+            <span class="txt">Είσαι από 15 έως 25 χρονών οπουδήποτε στην Ελλάδα;</span>
           </li>
           <li class="forwho-item r r1">
             <span class="idx" aria-hidden="true">02</span>
-            <span class="txt">Γράφεις κώδικα, χτίζεις projects, <strong>αποτυγχάνεις και ξαναδοκιμάζεις</strong> — γιατί δεν μπορείς να σταματήσεις</span>
+            <span class="txt">Νιώθεις ότι σκέφτεσαι διαφορετικά και στην Ελλάδα <strong>σε κοιτάνε λίγο περίεργα</strong> για τις φιλοδοξίες σου</span>
           </li>
           <li class="forwho-item r r2">
             <span class="idx" aria-hidden="true">03</span>
-            <span class="txt">Βαριέσαι τις μικρές κουβέντες και θέλεις να βρεθείς σε δωμάτιο με <strong>ανθρώπους που παίζουν σε άλλο επίπεδο</strong></span>
+            <span class="txt">Γράφεις κώδικα, χτίζεις projects, <strong>αποτυγχάνεις και ξαναδοκιμάζεις</strong> γιατί δεν μπορείς να σταματήσεις</span>
           </li>
           <li class="forwho-item r r3">
             <span class="idx" aria-hidden="true">04</span>
-            <span class="txt">Δεν κυνηγάς τίτλους, status και επιφανειακή επιβεβαίωση — <strong>θέλεις να λύσεις πραγματικά προβλήματα</strong></span>
-          </li>
-          <li class="forwho-item r r4">
-            <span class="idx" aria-hidden="true">05</span>
-            <span class="txt">Είσαι έτοιμος να γυρίσεις πίσω <strong>διαφορετικός</strong> — και να κάνεις κάτι με αυτό που θα ζήσεις</span>
+            <span class="txt">Δεν κυνηγάς τίτλους, status και επιφανειακή επιβεβαίωση, <strong>θέλεις να λύσεις πραγματικά προβλήματα</strong></span>
           </li>
         </ul>
 
-        <div class="forwho-note r r4">
-          <p>
-            Δεν είστε περίεργοι. Απλώς ίσως βρίσκεστε ακόμα <strong>στο λάθος δωμάτιο</strong>. Εμείς θέλουμε να σας φέρουμε σε ένα δωμάτιο όπου η φιλοδοξία είναι η κοινή γλώσσα.
-          </p>
-        </div>
       </div>
 
     </div>
@@ -1392,7 +1378,6 @@
       <img src="../stevebill.jpg" alt="" />
     </div>
     <div class="cta-inner">
-      <p class="cta-eyebrow r">Η πρόσκληση</p>
       <h2 id="cta-h" class="cta-title r r1">
         Η ΠΟΡΤΑ<br>ΕΙΝΑΙ<br>ΑΝΟΙΧΤΗ.
       </h2>
@@ -1401,14 +1386,11 @@
         Τώρα που βρισκόμαστε εδώ, ήρθε η σειρά μας.
       </p>
       <div class="cta-buttons r r3">
-        <a href="https://hustlehours.com" class="btn-gold" aria-label="Κάνε αίτηση για το Filoxenia">
-          Κάνε αίτηση τώρα
+        <a href="https://hustlehours.com" class="btn-gold" aria-label="Κάνε αίτηση για το Philoxenia">
+          Apply Now
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-        </a>
-        <a href="https://hustlehours.com" class="btn-ghost" aria-label="Μάθε περισσότερα για το Hustle Hours">
-          Hustle Hours →
         </a>
       </div>
     </div>
@@ -1419,7 +1401,6 @@
 <section id="deadline" aria-labelledby="deadline-h" data-deadline="2026-06-01T00:00:00+03:00">
   <div class="deadline-inner">
     <h2 id="deadline-h" class="deadline-title r">Οι αιτήσεις κλείνουν σύντομα</h2>
-    <p class="deadline-copy r r1">Οι αιτήσεις κλείνουν σε:</p>
 
     <div class="countdown r r2" id="countdown" role="timer" aria-live="polite">
       <span id="days-int" class="days-large">--</span>
@@ -1436,11 +1417,9 @@
 <!-- ─────── FOOTER ────────────────────────────────────────── -->
 <footer>
   <p class="footer-brand">
-    <span>Filoxenia</span> × Hustle Hours &nbsp;·&nbsp; Μια ελληνική αξία, για το μέλλον της τεχνολογίας.
+    <span>Philoxenia</span>
   </p>
   <ul class="footer-links">
-    <li><a href="https://hustlehours.com">hustlehours.com</a></li>
-    <li><a href="#apply">Αίτηση</a></li>
     <li><a href="/">English</a></li>
   </ul>
 </footer>
@@ -1645,9 +1624,8 @@
   revealEls.forEach(el => io.observe(el));
 
   // Immediately reveal hero elements (above fold)
-  document.querySelectorAll('#hero .hero-def > *').forEach((el, i) => {
-    el.style.opacity = '0'; el.style.transform = 'translateY(18px)';
-    setTimeout(() => { el.style.transition = 'opacity 600ms ease, transform 600ms ease'; el.style.opacity = '1'; el.style.transform = 'none'; }, 120 + i * 130);
+  document.querySelectorAll('#hero .hero-def > *').forEach((el) => {
+    el.style.opacity = '1'; el.style.transform = 'none';
   });
   document.querySelectorAll('#hero .r').forEach((el, i) => {
     setTimeout(() => { el.classList.add('on'); }, 80 + i * 130);
@@ -1994,15 +1972,15 @@
     const ITEMS = [
       { title: 'Αεροπορικά + Διαμονή', desc: 'Round-trip από Ελλάδα. 2 εβδομάδες διαμονή στο SF. Δεν πληρώνεις τίποτα.', badge: '0€', variant: 'featured',
         svg: '<path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.64A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke-linecap="round" stroke-linejoin="round"/>' },
-      { title: 'Day in the life — YC Startup', desc: 'Μια ολόκληρη μέρα inside ένα YC company. Βλέπεις πώς κινούνται οι καλύτεροι.', badge: 'Exclusive', variant: 'mint',
+      { title: 'Day in the life: YC Startup', desc: 'Μια ολόκληρη μέρα inside ένα YC company. Βλέπεις πώς κινούνται οι καλύτεροι.', badge: 'Exclusive', variant: 'mint',
         svg: '<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="9 22 9 12 15 12 15 22" stroke-linecap="round" stroke-linejoin="round"/>' },
-      { title: 'Network Silicon Valley', desc: 'Founders, operators, investors — όλο το δίκτυο του Hustle Hours, δικό σου.', badge: 'Network', variant: '',
+      { title: 'Network Silicon Valley', desc: 'Founders, operators, investors. Όλο το δίκτυο του Hustle Hours, δικό σου.', badge: 'Network', variant: '',
         svg: '<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke-linecap="round" stroke-linejoin="round"/>' },
-      { title: 'Top Universities', desc: 'Stanford, Berkeley — όχι ως τουρίστας. Ως κάποιος που ανήκει εκεί.', badge: 'Campus', variant: '',
+      { title: 'Top Universities', desc: 'Stanford, Berkeley. Όχι ως τουρίστας. Ως κάποιος που ανήκει εκεί.', badge: 'Campus', variant: '',
         svg: '<path d="M12 14l9-5-9-5-9 5 9 5zM12 14l6.16-3.422A12.083 12.083 0 0119.83 17M12 14L5.84 10.578A12.083 12.083 0 004.17 17M12 20v-6" stroke-linecap="round" stroke-linejoin="round"/>' },
       { title: 'Co-working Space', desc: 'Δωρεάν access σε co-working space στο κέντρο του SF. Build something there.', badge: 'Daily access', variant: '',
         svg: '<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4" stroke-linecap="round" stroke-linejoin="round"/>' },
-      { title: 'Events & Meetups', desc: 'Startup events, dinners, meetups — τα πράγματα που δεν βρίσκεις σε κανένα YouTube video.', badge: 'IRL', variant: 'mint',
+      { title: 'Events & Meetups', desc: 'Startup events, dinners, meetups. Τα πράγματα που δεν βρίσκεις σε κανένα YouTube video.', badge: 'IRL', variant: 'mint',
         svg: '<path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"/>' },
       { title: 'Γυμναστήριο', desc: 'Δωρεάν συνδρομή. Γιατί το σώμα παίζει ρόλο όσο και το μυαλό.', badge: 'Δωρεάν', variant: '',
         svg: '<path d="M6.5 6.5h11M6.5 17.5h11M4 12h16M2 9l2 3-2 3M22 9l-2 3 2 3" stroke-linecap="round" stroke-linejoin="round"/>' },
@@ -2010,7 +1988,7 @@
         svg: '<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" stroke-linecap="round" stroke-linejoin="round"/>' }
     ];
 
-    const AUTOPLAY_DELAY = 2600;
+    const AUTOPLAY_DELAY = 5000;
 
     const loopItems = [ITEMS[ITEMS.length - 1], ...ITEMS, ITEMS[0]];
     let pos = 1;
@@ -2030,7 +2008,7 @@
     }
 
     function springTick(dt) {
-      const f = 600 * (xTgt - xCur) - 40 * xVel;
+      const f = 250 * (xTgt - xCur) - 28 * xVel;
       xVel += (f / 2) * dt;
       xCur += xVel * dt;
     }
@@ -2172,5 +2150,28 @@
   })();
 </script>
 
+<style>
+  #hero, #hero * {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+  }
+  #hero .hero-meta {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+  }
+</style>
+<script>
+  (function() {
+    function forceWhite() {
+      document.querySelectorAll('#hero, #hero *').forEach(function(el) {
+        el.style.setProperty('color', '#ffffff', 'important');
+        el.style.setProperty('-webkit-text-fill-color', '#ffffff', 'important');
+        el.style.setProperty('opacity', '1', 'important');
+      });
+    }
+    forceWhite();
+    window.addEventListener('load', forceWhite);
+  })();
+</script>
 </body>
 </html>

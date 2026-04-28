@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Filoxenia by Hustle Hours</title>
+  <title>Philoxenia by Hustle Hours</title>
   <meta name="description" content="Two weeks in Silicon Valley, free, for Greece's next builders." />
   <link rel="alternate" hreflang="en" href="/" />
   <link rel="alternate" hreflang="el" href="/el/" />
@@ -1076,8 +1076,9 @@
   /* ─── RESPONSIVE ──────────────────────────────────────────────── */
   @media (max-width: 900px) {
     .origin-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .origin-left { position: static; }
+    .origin-left { position: static; display: flex; flex-direction: column; align-items: center; }
     .origin-photos { grid-template-columns: 1fr 1fr; max-width: 320px; }
+    .origin-photo-wide { width: 100%; max-width: 320px; }
 
     .def-left { padding: 3rem 1.5rem; }
 
@@ -1158,7 +1159,7 @@
 <nav id="nav" aria-label="Main navigation">
   <a href="/" class="nav-logo">
     <span class="sup">Hustle Hours</span>
-    <span class="name">FILOXENIA</span>
+    <span class="name">PHILOXENIA</span>
   </a>
   <a href="https://hustlehours.com" class="nav-link" aria-label="Back to Hustle Hours">
     <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
@@ -1172,7 +1173,7 @@
 <section id="hero" aria-labelledby="hero-h">
 
   <div class="hero-def">
-    <div class="tp-container" id="tp-filoxenia" role="heading" aria-level="1" aria-label="FILOXENIA"></div>
+    <div class="tp-container" id="tp-filoxenia" role="heading" aria-level="1" aria-label="PHILOXENIA"></div>
     <div class="def-phonetic">/filo·kse·ˈni·a/</div>
     <div class="def-pos">noun, feminine</div>
     <p class="def-text">The desire to open your home, your network, and your time to someone starting from the same place you once did.</p>
@@ -1253,7 +1254,6 @@
 <!-- ─────── STATEMENT ────────────────────────────────────── -->
 <section id="statement" aria-labelledby="statement-h">
   <div class="statement-inner">
-    <p class="statement-prefix r">The truth</p>
     <h2 id="statement-h" class="sr-only">What is missing</h2>
     <div class="statement-rotate-line r" aria-live="polite">
       <span class="statement-static">We do not lack</span>
@@ -1271,7 +1271,6 @@
   <div class="section-wrap">
     <div class="why-grid">
       <div class="why-left r">
-        <p class="label">Why here</p>
         <h2 id="why-sf-h" class="title">Why <em>San Francisco</em>?</h2>
         <div class="why-map">
           <img src="sf-map.png" alt="San Francisco company map" />
@@ -1308,8 +1307,7 @@
   <div id="includes">
     <div class="includes-header r">
       <div>
-        <p class="label" style="margin-bottom:0.5rem;">What it includes</p>
-        <h2 id="includes-h" class="title" style="margin-bottom:0;">Our <em>hospitality</em></h2>
+        <h2 id="includes-h" class="title" style="margin-bottom:0;">Our <em>Philoxenia</em></h2>
       </div>
     </div>
 
@@ -1335,45 +1333,30 @@
     <div class="forwho-grid">
 
       <div class="forwho-left r">
-        <p class="label">For whom</p>
         <h2 id="forwho-h" class="title">Could this<br>be<br><em>you</em>?</h2>
 
-        <div class="age-block" aria-label="Age 15 to 25">
-          <span class="age-label">Age</span>
-          <div class="age-range">15–25</div>
-          <p class="age-sub">years old, from anywhere in Greece</p>
-        </div>
       </div>
 
       <div class="forwho-right">
         <ul class="forwho-list" aria-label="Candidate traits">
           <li class="forwho-item r">
             <span class="idx" aria-hidden="true">01</span>
-            <span class="txt">You feel like you think differently, and in Greece people <strong>look at you a little strangely</strong> for your ambition</span>
+            <span class="txt">If you're between 15 and 25 years old wherever in Greece</span>
           </li>
           <li class="forwho-item r r1">
             <span class="idx" aria-hidden="true">02</span>
-            <span class="txt">You write code, build projects, <strong>fail and try again</strong>, because you cannot stop</span>
+            <span class="txt">You feel like you think differently, and in Greece people <strong>look at you a little strangely</strong> for your ambition</span>
           </li>
           <li class="forwho-item r r2">
             <span class="idx" aria-hidden="true">03</span>
-            <span class="txt">You are bored by small talk and want to be in a room with <strong>people playing at another level</strong></span>
+            <span class="txt">You write code, build projects, <strong>fail and try again</strong>, because you cannot stop</span>
           </li>
           <li class="forwho-item r r3">
             <span class="idx" aria-hidden="true">04</span>
             <span class="txt">You are not chasing titles, status, or surface-level validation. <strong>You want to solve real problems</strong></span>
           </li>
-          <li class="forwho-item r r4">
-            <span class="idx" aria-hidden="true">05</span>
-            <span class="txt">You are ready to come back <strong>different</strong>, and do something with what you experience</span>
-          </li>
         </ul>
 
-        <div class="forwho-note r r4">
-          <p>
-            You are not weird. Maybe you are just still <strong>in the wrong room</strong>. We want to bring you into a room where ambition is the common language.
-          </p>
-        </div>
       </div>
 
     </div>
@@ -1391,7 +1374,6 @@
       <img src="stevebill.jpg" alt="" />
     </div>
     <div class="cta-inner">
-      <p class="cta-eyebrow r">The invitation</p>
       <h2 id="cta-h" class="cta-title r r1">
         THE DOOR IS<br>OPEN.
       </h2>
@@ -1400,14 +1382,11 @@
         Now that we are here, it is our turn.
       </p>
       <div class="cta-buttons r r3">
-        <a href="https://hustlehours.com" class="btn-gold" aria-label="Apply for Filoxenia">
+        <a href="https://hustlehours.com" class="btn-gold" aria-label="Apply for Philoxenia">
           Apply now
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-        </a>
-        <a href="https://hustlehours.com" class="btn-ghost" aria-label="Learn more about Hustle Hours">
-          Hustle Hours →
         </a>
       </div>
     </div>
@@ -1418,7 +1397,6 @@
 <section id="deadline" aria-labelledby="deadline-h" data-deadline="2026-06-01T00:00:00+03:00">
   <div class="deadline-inner">
     <h2 id="deadline-h" class="deadline-title r">Applications close soon</h2>
-    <p class="deadline-copy r r1">Applications close in</p>
 
     <div class="countdown r r2" id="countdown" role="timer" aria-live="polite">
       <span id="days-int" class="days-large">--</span>
@@ -1428,18 +1406,15 @@
       </div>
     </div>
 
-    <p class="deadline-note r r3">Limited spots.</p>
   </div>
 </section>
 
 <!-- ─────── FOOTER ────────────────────────────────────────── -->
 <footer>
   <p class="footer-brand">
-    <span>Filoxenia</span> × Hustle Hours &nbsp;·&nbsp; A Greek value, for the future of technology.
+    <span>Philoxenia</span>
   </p>
   <ul class="footer-links">
-    <li><a href="https://hustlehours.com">hustlehours.com</a></li>
-    <li><a href="#apply">Apply</a></li>
     <li><a href="/el/">Ελληνικά</a></li>
   </ul>
 </footer>
@@ -1960,7 +1935,7 @@
     const container = document.getElementById('tp-filoxenia');
     if (!container) return;
 
-    const TEXT = 'FILOXENIA';
+    const TEXT = 'PHILOXENIA';
     const chars = [...TEXT];
 
     const h1 = document.createElement('h1');
