@@ -389,7 +389,23 @@
     border-radius: 10px;
     overflow: hidden;
     border: 1px solid var(--border);
+    position: relative;
   }
+  .origin-photo-name {
+    position: absolute;
+    bottom: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(0,0,0,0.45);
+    padding: 0.2em 0.5em;
+    border-radius: 4px;
+    pointer-events: none;
+  }
+  .origin-photo-name.left  { left: 0.75rem; }
+  .origin-photo-name.right { right: 0.75rem; }
   .origin-photo-wide-img img {
     width: 100%; height: 100%;
     object-fit: cover;
@@ -471,7 +487,7 @@
     border-bottom: 1px solid var(--border-2);
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 0.22em;
   }
   .statement-static {
@@ -494,7 +510,7 @@
     line-height: 1.15;
     padding-bottom: 0.08em;
   }
-  .rt-char { display: inline-block; }
+  .rt-char { display: inline-block; white-space: pre; }
 
   /* ─── DEFINITION ──────────────────────────────────────────────── */
   #definition {
@@ -920,7 +936,7 @@
   .why-lines {
     display: flex;
     flex-direction: column;
-    gap: 1.4rem;
+    gap: 2rem;
     margin: 2rem 0;
     padding-left: 1.25rem;
     border-left: 1px solid var(--gold-border);
@@ -929,6 +945,8 @@
     color: rgba(242,237,224,0.92);
     font-weight: 600;
   }
+  .why-right p { margin-bottom: 2rem; }
+  .why-right p:last-child { margin-bottom: 0; }
 
   /* ─── BRAIN BANNER ────────────────────────────────────────────── */
 
@@ -1112,8 +1130,16 @@
     #forwho .collage img { opacity: 0.55; }
     #cta .collage img { opacity: 0.55; }
 
+    /* Collage: hide excess photos on mobile to avoid overlap */
+    #forwho .collage img:nth-child(n+3),
+    #cta .collage img:nth-child(n+3) { display: none; }
+
     /* Deadline title no-wrap fix */
     .deadline-title { font-size: clamp(1.5rem, 7vw, 2.5rem) !important; white-space: normal !important; }
+
+    /* Statement line: wrap consistently — rotating word always on its own line */
+    .statement-rotate-line { flex-wrap: wrap; }
+    .rt-word { flex-basis: 100%; }
 
     /* Tilted cards on mobile */
     .tilted-card { width: min(260px, 80vw); }
@@ -1195,26 +1221,14 @@
 
       <div class="origin-left r">
         <div class="origin-photos">
-          <figure class="tilted-card-figure" data-tilted style="aspect-ratio:3/4;" data-caption="Dinos">
-            <div class="tilted-card-inner">
-              <img class="tilted-card-img" src="dinos-takis.jpeg" alt="Dinos" style="object-position:18% center;" />
-              <div class="tilted-card-overlay">Dinos</div>
-            </div>
-            <div class="tilted-card-caption">Dinos</div>
-          </figure>
-          <figure class="tilted-card-figure" data-tilted style="aspect-ratio:3/4;" data-caption="Takis">
-            <div class="tilted-card-inner">
-              <img class="tilted-card-img" src="dinos-takis.jpeg" alt="Takis" style="object-position:82% center;" />
-              <div class="tilted-card-overlay">Takis</div>
-            </div>
-            <div class="tilted-card-caption">Takis</div>
-          </figure>
         </div>
 
         <!-- Second photo full width -->
         <div class="origin-photo-wide">
           <div class="origin-photo-wide-img">
             <img src="dinos-takis-2.jpeg" alt="Dinos and Takis on the podcast" />
+            <span class="origin-photo-name left">Dinos</span>
+            <span class="origin-photo-name right">Takis</span>
           </div>
           <p class="origin-photo-caption">Two young kids with big dreams</p>
         </div>
@@ -1230,21 +1244,13 @@
         <h2 id="origin-h" class="origin-story-label r" data-vp>Quick story time:</h2>
 
         <div class="body-text" id="vp-origin-body">
-          <p class="r r2">
-            When Dinos and Takis were 19, they had an idea that sounded impossible: move to San Francisco. Not for vacation, but to be at the heart of technology. The place where everything starts.
-          </p>
+          <p class="r r2">When Dinos and Takis were 19, they had an idea that sounded impossible: move to San Francisco. Not for vacation, but to be at the heart of technology. The place where everything starts.</p>
 
-          <p class="r r3">
-            No access, no network, no money, and no one who knew what YC or an accelerator even was. We had none of that. But we did have <strong>an obsession that would not go away.</strong>
-          </p>
+          <p class="r r3">No access, no network, no money, and no one who knew what YC or an accelerator even was. We had none of that. But we did have <strong>an obsession that would not go away.</strong></p>
 
-          <p class="r r4">
-            Three years later, after failures, mistakes, unanswered emails, closed doors, and a few that finally opened, our team is now permanently in Silicon Valley.
-          </p>
+          <p class="r r4">Three years later, after failures, mistakes, unanswered emails, closed doors, and a few that finally opened, our team is now permanently in Silicon Valley.</p>
 
-          <p class="r r4">
-            But the longer we live here, the more one thing bothers us: <strong>it should not be this hard</strong> for a young person from Greece to get close to this world.
-          </p>
+          <p class="r r4">But the longer we live here, the more one thing bothers us: <strong>it should not be this hard</strong> for a young person from Greece to get close to this world.</p>
         </div>
       </div>
     </div>
@@ -1278,25 +1284,26 @@
       </div>
 
       <div class="body-text why-right">
-        <div class="why-lines">
-          <p class="r">It is a place where the default is to build.</p>
-          <p class="r r1">Where a 19-year-old can talk to a founder who just raised funding.</p>
-          <p class="r r2">Where an idea that sounds “too much” in Greece sounds like a starting point here.</p>
-          <p class="r r3">Where people do not only ask “what are you studying?”</p>
-          <p class="r r4">They ask: “what are you building?”</p>
+        <div class=”why-lines”>
+          <p class=”r”>It is a place where the default is to build.</p>
+          <div style="height:0.5rem"></div>
+          <p class=”r r1”>Where a 19-year-old can talk to a founder who just raised funding.</p>
+          <div style="height:0.5rem"></div>
+          <p class=”r r2”>Where an idea that sounds “too much” in Greece sounds like a starting point here.</p>
+          <div style="height:0.5rem"></div>
+          <p class=”r r3”>Where people do not only ask “what are you studying?”</p>
+          <div style="height:0.5rem"></div>
+          <p class=”r r4”>They ask: “what are you building?”</p>
         </div>
 
-        <p class="r">
-          For two weeks, you are not just coming to see Silicon Valley. You are coming to change the benchmark you have for yourself.
-        </p>
-
-        <p class="r r1">
-          To see up close how the people building the future think, work, fail, and win.
-        </p>
-
-        <p class="r r2">
-          Because sometimes what you are missing is not one more piece of advice. It is entering the right room.
-        </p>
+        <div style="height:0.5rem"></div>
+        <p class=”r”>For two weeks, you will spend days and nights with YC founders and even work next to them in order to learn the best practices.</p>
+        <div style="height:0.5rem"></div>
+        <p class=”r r1”>You will get the chance to visit and have a tour of the very famous headquarters of Apple, Facebook, Google, OpenAI and many more...</p>
+        <div style="height:0.5rem"></div>
+        <p class=”r r2”>Touring Stanford and Berkeley with local students. 2 of the most prestigious universities in the world.</p>
+        <div style="height:0.5rem"></div>
+        <p class=”r r3”>We're tired of events and panel discussions. You have tons of inspirational speeches in mind. Time to take a step ahead and chase those dreams. <strong>Probably the only thing you're missing is the chance to be in the right room for the first time.</strong></p>
       </div>
     </div>
   </div>
@@ -1382,7 +1389,7 @@
         Now that we are here, it is our turn.
       </p>
       <div class="cta-buttons r r3">
-        <a href="https://hustlehours.com" class="btn-gold" aria-label="Apply for Philoxenia">
+        <a href="https://forms.fillout.com/t/5S4jtESvhyus" class="btn-gold" target="_blank" rel="noopener" aria-label="Apply for Philoxenia">
           Apply now
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/>

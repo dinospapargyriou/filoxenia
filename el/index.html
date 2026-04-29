@@ -395,7 +395,23 @@
     border-radius: 10px;
     overflow: hidden;
     border: 1px solid var(--border);
+    position: relative;
   }
+  .origin-photo-name {
+    position: absolute;
+    bottom: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(0,0,0,0.45);
+    padding: 0.2em 0.5em;
+    border-radius: 4px;
+    pointer-events: none;
+  }
+  .origin-photo-name.left  { left: 0.75rem; }
+  .origin-photo-name.right { right: 0.75rem; }
   .origin-photo-wide-img img {
     width: 100%; height: 100%;
     object-fit: cover;
@@ -477,7 +493,7 @@
     border-bottom: 1px solid var(--border-2);
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 0.22em;
   }
   .statement-static {
@@ -485,7 +501,7 @@
   }
   .rt-word {
     display: inline-flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     background: var(--gold);
     color: #07070D;
@@ -493,14 +509,16 @@
     padding: 0.04em 0.28em 0.08em;
     min-height: 1.15em;
     min-width: 2em;
+    font-size: 0.78em;
   }
   .rt-clip {
     display: inline-block;
     overflow: hidden;
     line-height: 1.15;
     padding-bottom: 0.08em;
+    white-space: nowrap;
   }
-  .rt-char { display: inline-block; }
+  .rt-char { display: inline-block; white-space: pre; }
 
   /* ─── DEFINITION ──────────────────────────────────────────────── */
   #definition {
@@ -920,7 +938,7 @@
   .why-lines {
     display: flex;
     flex-direction: column;
-    gap: 1.4rem;
+    gap: 2rem;
     margin: 2rem 0;
     padding-left: 1.25rem;
     border-left: 1px solid var(--gold-border);
@@ -929,6 +947,8 @@
     color: rgba(242,237,224,0.92);
     font-weight: 600;
   }
+  .why-right p { margin-bottom: 2rem; }
+  .why-right p:last-child { margin-bottom: 0; }
 
   /* ─── BRAIN BANNER ────────────────────────────────────────────── */
 
@@ -1113,8 +1133,16 @@
     #forwho .collage img { opacity: 0.55; }
     #cta .collage img { opacity: 0.55; }
 
+    /* Collage: hide excess photos on mobile to avoid overlap */
+    #forwho .collage img:nth-child(n+3),
+    #cta .collage img:nth-child(n+3) { display: none; }
+
     /* Deadline */
     .deadline-title { font-size: clamp(1.5rem, 7vw, 2.5rem) !important; white-space: normal !important; }
+
+    /* Statement line: wrap consistently — rotating word always on its own line */
+    .statement-rotate-line { flex-wrap: wrap; }
+    .rt-word { flex-basis: 100%; }
 
     /* Tilted cards */
     .tilted-card { width: min(260px, 80vw); }
@@ -1175,7 +1203,6 @@
 <section id="hero" aria-labelledby="hero-h">
 
   <div style=”position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;gap:1.5rem;text-align:center;max-width:640px;width:100%;padding:3rem 2rem;”>
-    <div style=”font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:white;font-family:monospace;”>φιλοξενία</div>
     <h1 style=”font-family:'GFS Didot',Georgia,serif;font-size:clamp(5rem,20vw,14rem);font-weight:400;color:white;line-height:1;letter-spacing:0.02em;”>Φιλοξενία</h1>
     <div style=”font-family:monospace;font-size:0.85rem;letter-spacing:0.05em;color:white;”>/filo·kse·ˈni·a/</div>
     <div style=”font-style:italic;font-size:1rem;color:white;”>ουσιαστικό, θηλυκό</div>
@@ -1198,26 +1225,14 @@
 
       <div class="origin-left r">
         <div class="origin-photos">
-          <figure class="tilted-card-figure" data-tilted style="aspect-ratio:3/4;" data-caption="Ντίνος">
-            <div class="tilted-card-inner">
-              <img class="tilted-card-img" src="../dinos-takis.jpeg" alt="Ντίνος" style="object-position:18% center;" />
-              <div class="tilted-card-overlay">Ντίνος</div>
-            </div>
-            <div class="tilted-card-caption">Ντίνος</div>
-          </figure>
-          <figure class="tilted-card-figure" data-tilted style="aspect-ratio:3/4;" data-caption="Τάκης">
-            <div class="tilted-card-inner">
-              <img class="tilted-card-img" src="../dinos-takis.jpeg" alt="Τάκης" style="object-position:82% center;" />
-              <div class="tilted-card-overlay">Τάκης</div>
-            </div>
-            <div class="tilted-card-caption">Τάκης</div>
-          </figure>
         </div>
 
         <!-- Second photo full width -->
         <div class="origin-photo-wide">
           <div class="origin-photo-wide-img">
             <img src="../dinos-takis-2.jpeg" alt="Ντίνος και Τάκης στο podcast" />
+            <span class="origin-photo-name left">Ντίνος</span>
+            <span class="origin-photo-name right">Τάκης</span>
           </div>
           <p class="origin-photo-caption">Two young kids with big dreams</p>
         </div>
@@ -1233,21 +1248,13 @@
         <h2 id="origin-h" class="origin-story-label r" data-vp>Quick story time:</h2>
 
         <div class="body-text" id="vp-origin-body">
-          <p class="r r2">
-            Ο Ντίνος και ο Τάκης όταν ήταν 19 χρονών είχαν τότε μια ιδέα που έμοιαζε απίθανη... Να μετακομίσουν στο Σαν Φρανσίσκο. Όχι για διακοπές, αλλά για να βρεθούν στην καρδιά της τεχνολογίας. Εκεί που ξεκινούν όλα.
-          </p>
+          <p class="r r2">Ο Ντίνος και ο Τάκης όταν ήταν 19 χρονών είχαν τότε μια ιδέα που έμοιαζε απίθανη... Να μετακομίσουν στο Σαν Φρανσίσκο. Όχι για διακοπές, αλλά για να βρεθούν στην καρδιά της τεχνολογίας. Εκεί που ξεκινούν όλα.</p>
 
-          <p class="r r3">
-            Χωρίς access, χωρίς network, χωρίς λεφτά, χωρίς κανέναν που να ξέρει τι είναι YC ή accelerator. Είχαμε όμως <strong>μια εμμονή που δεν έσβηνε.</strong>
-          </p>
+          <p class="r r3">Χωρίς access, χωρίς network, χωρίς λεφτά, χωρίς κανέναν που να ξέρει τι είναι YC ή accelerator. Είχαμε όμως <strong>μια εμμονή που δεν έσβηνε.</strong></p>
 
-          <p class="r r4">
-            Τρία χρόνια αργότερα, με αποτυχίες, λάθη, emails που δεν απαντήθηκαν ποτέ, πόρτες που έκλεισαν και λίγες που τελικά άνοιξαν. Η ομάδα μας βρίσκεται πλέον permanently στη Silicon Valley.
-          </p>
+          <p class="r r4">Τρία χρόνια αργότερα, με αποτυχίες, λάθη, emails που δεν απαντήθηκαν ποτέ, πόρτες που έκλεισαν και λίγες που τελικά άνοιξαν. Η ομάδα μας βρίσκεται πλέον permanently στη Silicon Valley.</p>
 
-          <p class="r r4">
-            Αλλά όσο περισσότερο ζούμε εδώ, τόσο περισσότερο μας πονάει κάτι: <strong>δεν θα έπρεπε να είναι τόσο δύσκολο</strong> για ένα νέο παιδί από την Ελλάδα να έρθει σε επαφή με αυτόν τον κόσμο.
-          </p>
+          <p class="r r4">Αλλά όσο περισσότερο ζούμε εδώ, τόσο περισσότερο μας πονάει κάτι: <strong>δεν θα έπρεπε να είναι τόσο δύσκολο</strong> για ένα νέο παιδί από την Ελλάδα να έρθει σε επαφή με αυτόν τον κόσμο.</p>
         </div>
       </div>
     </div>
@@ -1280,26 +1287,27 @@
         </div>
       </div>
 
-      <div class="body-text why-right">
+      <div class=”body-text why-right”>
         <div class=”why-lines”>
           <p class=”r”>Είναι ένα μέρος όπου το default είναι να χτίζεις.</p>
-          <p class=”r r1”>Όπου ένας 19χρονος μπορεί να μιλήσει με founder που μόλις σήκωσε funding.</p>
-          <p class=”r r2”>Όπου μια ιδέα που στην Ελλάδα ακούγεται “υπερβολική”, εδώ ακούγεται σαν αρχή.</p>
-          <p class=”r r3”>Όπου οι άνθρωποι δεν σε ρωτάνε μόνο “τι σπουδάζεις;”</p>
-          <p class=”r r4”>Σε ρωτάνε: “τι φτιάχνεις;”</p>
+          <br><br>
+          <p class=”r r1”>Όπου ένας 19χρονος μπορεί να μιλήσει με έναν founder που μόλις σήκωσε funding.</p>
+          <br><br>
+          <p class=”r r2”>Όπου μια ιδέα που στην Ελλάδα ακούγεται “πολύ μεγάλη” ακούγεται εδώ σαν αφετηρία.</p>
+          <br><br>
+          <p class=”r r3”>Όπου οι άνθρωποι δεν ρωτάνε μόνο “τι σπουδάζεις;”</p>
+          <br><br>
+          <p class=”r r4”>Ρωτάνε: “τι χτίζεις;”</p>
         </div>
 
-        <p class=”r”>
-          Για δύο εβδομάδες, δεν έρχεσαι απλώς να δεις τη Silicon Valley. Έρχεσαι να αλλάξεις το μέτρο σύγκρισης που έχεις για τον εαυτό σου.
-        </p>
-
-        <p class=”r r1”>
-          Να δεις από κοντά πώς σκέφτονται, δουλεύουν, αποτυγχάνουν και κερδίζουν οι άνθρωποι που χτίζουν το μέλλον.
-        </p>
-
-        <p class=”r r2”>
-          Γιατί μερικές φορές, αυτό που σου λείπει δεν είναι άλλη μία συμβουλή. Είναι να μπεις στο σωστό δωμάτιο.
-        </p>
+        <br><br>
+        <p class=”r”>Για δύο εβδομάδες, θα περνάς μέρες και νύχτες με YC founders και θα δουλεύεις δίπλα τους για να μάθεις τις καλύτερες πρακτικές.</p>
+        <br><br>
+        <p class=”r r1”>Θα έχεις την ευκαιρία να επισκεφτείς και να κάνεις tour στα πολύ διάσημα headquarters της Apple, Facebook, Google, OpenAI και πολλών άλλων...</p>
+        <br><br>
+        <p class=”r r2”>Tour στο Stanford και το Berkeley με τοπικούς φοιτητές. 2 από τα πιο διάσημα πανεπιστήμια στον κόσμο.</p>
+        <br><br>
+        <p class=”r r3”>Έχουμε κουραστεί από events και panel discussions. Έχεις στο μυαλό σου τόνους από inspirational speeches. Ήρθε η ώρα να κάνεις ένα βήμα μπροστά και να κυνηγήσεις αυτά τα όνειρα. <strong>Μάλλον το μόνο που σου λείπει είναι η ευκαιρία να βρεθείς στο σωστό δωμάτιο για πρώτη φορά.</strong></p>
       </div>
     </div>
   </div>
@@ -1386,7 +1394,7 @@
         Τώρα που βρισκόμαστε εδώ, ήρθε η σειρά μας.
       </p>
       <div class="cta-buttons r r3">
-        <a href="https://hustlehours.com" class="btn-gold" aria-label="Κάνε αίτηση για το Philoxenia">
+        <a href="https://forms.fillout.com/t/5S4jtESvhyus" class="btn-gold" target="_blank" rel="noopener" aria-label="Κάνε αίτηση για το Philoxenia">
           Apply Now
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1420,7 +1428,7 @@
     <span>Philoxenia</span>
   </p>
   <ul class="footer-links">
-    <li><a href="/">English</a></li>
+    <li><a href="../">English</a></li>
   </ul>
 </footer>
 
@@ -1633,7 +1641,7 @@
 
   // RotatingText for #statement section
   (function() {
-    const words = ['εξυπνάδα', 'δουλειά', 'ελπίδα'];
+    const words = ['εξυπνάδα', 'σκληρή δουλειά', 'ελπίδα'];
     const clip = document.getElementById('rt-clip');
     const wordEl = document.getElementById('rt-word');
     if (!clip || !wordEl) return;
