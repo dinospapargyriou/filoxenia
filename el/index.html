@@ -5,12 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Philoxenia by Hustle Hours</title>
   <meta name="description" content="Δύο εβδομάδες στη Silicon Valley, δωρεάν, για τους επόμενους builders της Ελλάδας." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Philoxenia by Hustle Hours" />
+  <meta property="og:description" content="Δύο εβδομάδες στη Silicon Valley, δωρεάν, για τους επόμενους builders της Ελλάδας." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1449034446853-66c86144b0ad?auto=format&fit=crop&w=1200&h=630&q=80" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Philoxenia by Hustle Hours" />
+  <meta name="twitter:description" content="Δύο εβδομάδες στη Silicon Valley, δωρεάν, για τους επόμενους builders της Ελλάδας." />
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1449034446853-66c86144b0ad?auto=format&fit=crop&w=1200&h=630&q=80" />
   <link rel="alternate" hreflang="en" href="/" />
   <link rel="alternate" hreflang="el" href="/el/" />
   <link rel="alternate" hreflang="x-default" href="/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=JetBrains+Mono:wght@400;500&family=Roboto+Flex:opsz,slnt,wdth,wght@8..144,-10..0,25..151,100..1000&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=JetBrains+Mono:wght@400;500&family=Roboto:ital,wght@0,100;0,400;0,500;0,600;0,700;1,400;1,500&family=Roboto+Flex:opsz,slnt,wdth,wght@8..144,-10..0,25..151,100..1000&display=swap" rel="stylesheet" />
 
   <style>
   @import url('https://fonts.googleapis.com/css2?family=GFS+Didot&display=swap');
@@ -38,9 +46,9 @@
     --border:      rgba(255,255,255,0.07);
     --border-2:    rgba(255,255,255,0.04);
 
-    --font-display: "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
-    --font-serif:   "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
-    --font-sans:    "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
+    --font-display: "Roboto", "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
+    --font-serif:   "Roboto", "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
+    --font-sans:    "Roboto", "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
     --font-mono:    'JetBrains Mono', 'Courier New', monospace;
 
     --r: 8px;
@@ -57,6 +65,7 @@
     background: transparent;
     color: var(--text);
     font-family: var(--font-sans);
+    font-weight: 500;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
@@ -120,6 +129,17 @@
   }
   .nav-link:hover { color: var(--text); }
   .nav-link svg { width: 12px; height: 12px; }
+  .nav-byproduct {
+    font-family: var(--font-mono);
+    font-size: 0.7rem; letter-spacing: 0.07em;
+    color: var(--text-2);
+  }
+  .nav-hh-link {
+    color: var(--gold);
+    transition: color 200ms;
+    text-decoration: none;
+  }
+  .nav-hh-link:hover { color: var(--text); }
 
   /* ─── HERO ────────────────────────────────────────────────────── */
   #hero {
@@ -143,7 +163,7 @@
     z-index: 2;
     max-width: 640px;
     width: 100%;
-    padding: 3rem 2rem;
+    padding: 2rem 2rem;
     text-align: center;
   }
   /* Dark overlay — full coverage for readability */
@@ -169,7 +189,7 @@
     background: var(--gold-dim);
     border-radius: 100px;
     padding: 0.35rem 1rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
     font-family: var(--font-mono);
     font-size: 0.65rem; letter-spacing: 0.084em; text-transform: uppercase;
     color: #ffffff;
@@ -265,7 +285,7 @@
   .marquee-sep { color: var(--text-3); flex-shrink: 0; font-size: 0.5rem; }
 
   /* ─── SECTION UTILITY ─────────────────────────────────────────── */
-  .section-wrap { padding: 6rem 2rem; max-width: 1120px; margin: 0 auto; }
+  .section-wrap { padding: 4rem 2rem; max-width: 1120px; margin: 0 auto; }
   .section-wrap.narrow { max-width: 760px; }
   .section-wrap.full { max-width: none; padding-left: 0; padding-right: 0; }
 
@@ -288,7 +308,7 @@
     font-size: clamp(2.5rem, 6vw, 5rem);
     letter-spacing: 0.021em; line-height: 1;
     color: var(--text);
-    margin-bottom: 2rem;
+    margin-bottom: 1.25rem;
   }
   h2.title em {
     font-family: var(--font-serif);
@@ -297,10 +317,10 @@
   }
 
   .body-text {
-    font-size: 1.0625rem; line-height: 1.8;
+    font-size: 1.0625rem; line-height: 1.6;
     color: rgba(242,237,224,0.88);
   }
-  .body-text p { margin-bottom: 1.4rem; }
+  .body-text p { margin-bottom: 1rem; }
   .body-text p:last-child { margin-bottom: 0; }
   .body-text strong { color: var(--text); font-weight: 600; }
 
@@ -319,7 +339,7 @@
   .origin-grid {
     display: grid;
     grid-template-columns: 1fr 2fr;
-    gap: 4rem;
+    gap: 2.5rem;
     align-items: center;
   }
   .origin-left {
@@ -467,7 +487,7 @@
 
   /* ─── STATEMENT SECTION ───────────────────────────────────────── */
   #statement {
-    padding: 5rem 2rem;
+    padding: 3.5rem 2rem;
     background: transparent;
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
@@ -477,7 +497,7 @@
   .statement-prefix {
     font-family: var(--font-mono);
     font-size: 0.65rem; letter-spacing: 0.105em; text-transform: uppercase;
-    color: var(--text-3); margin-bottom: 3rem;
+    color: var(--text-3); margin-bottom: 2rem;
     display: flex; align-items: center; gap: 1rem;
   }
   .statement-prefix::after { content: ''; flex: 1; height: 1px; background: var(--border); }
@@ -509,6 +529,7 @@
     padding: 0.04em 0.28em 0.08em;
     min-height: 1.15em;
     min-width: 2em;
+    max-width: 100%;
     font-size: 0.78em;
   }
   .rt-clip {
@@ -579,108 +600,83 @@
   }
   .def-origin span { color: #ffffff !important; }
 
-  /* ─── BENTO ───────────────────────────────────────────────────── */
-  #includes {
-    padding: 6rem 2rem;
+  /* ─── STATS ───────────────────────────────────────────────────── */
+  #stats {
+    padding: 4rem 2rem;
     max-width: 1120px;
     margin: 0 auto;
   }
-  .includes-header {
-    display: flex; align-items: flex-end; justify-content: space-between;
-    margin-bottom: 3rem; gap: 2rem;
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 4rem;
+    align-items: center;
   }
-  .includes-header .label { margin-bottom: 0.5rem; }
-
-  /* ─── CAROUSEL ───────────────────────────────────────────────── */
-  .carr-outer {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    margin-top: 3rem;
-    padding: 1rem 0 2rem;
-  }
-  .carr-track {
-    display: flex;
-    gap: 20px;
-    cursor: grab;
-    user-select: none;
-    will-change: transform;
-  }
-  .carr-track:active { cursor: grabbing; }
-  .carr-item {
-    flex-shrink: 0;
-    width: clamp(220px, 28vw, 300px);
-    min-height: clamp(380px, 50vw, 460px);
+  .stat-list {
+    list-style: none;
+    margin-top: 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 1.5rem;
-    border-radius: 16px;
-    border: 1px solid var(--border);
-    background: rgba(17,17,32,0.72);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    overflow: hidden;
-    position: relative;
-    transition: border-color 250ms, opacity 350ms ease, filter 350ms ease;
-    will-change: transform, opacity, filter;
   }
-  .carr-item.featured {
-    background: linear-gradient(135deg, rgba(212,168,67,0.12) 0%, rgba(17,17,32,0.72) 60%);
+  .stat-row {
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--border);
   }
-  .carr-item.mint {
-    background: linear-gradient(135deg, rgba(61,255,192,0.07) 0%, rgba(17,17,32,0.72) 60%);
-  }
-  .carr-badge {
-    font-family: var(--font-mono);
-    font-size: 0.58rem; letter-spacing: 0.07em; text-transform: uppercase;
-    padding: 0.22rem 0.6rem; border-radius: 100px;
-    background: var(--gold-dim); color: var(--gold);
-    border: 1px solid var(--gold-border);
-    width: fit-content;
-  }
-  .carr-badge.mint-b {
-    background: var(--mint-dim); color: var(--mint);
-    border-color: var(--mint-border);
-  }
-  .carr-icon-wrap {
-    width: 40px; height: 40px;
-    background: rgba(23,23,42,0.9);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .carr-icon-wrap svg { width: 20px; height: 20px; color: var(--gold); }
-  .carr-icon-wrap.mint-i svg { color: var(--mint); }
-  .carr-big-num {
+  .stat-row:first-child { padding-top: 0; }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-num {
     font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    color: var(--gold); letter-spacing: 0.028em; line-height: 1;
+    font-size: clamp(2.25rem, 5vw, 3.25rem);
+    font-weight: 700;
+    color: var(--gold-bright);
+    line-height: 1;
+    flex-shrink: 0;
+    min-width: 2.2ch;
   }
-  .carr-title {
-    font-family: var(--font-sans);
-    font-size: clamp(1.35rem, 5vw, 1.75rem); font-weight: 700;
-    color: var(--text); margin: 0.75rem 0 0.6rem;
+  .stat-text {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: rgba(242,237,224,0.88);
   }
-  .carr-desc {
-    font-size: clamp(1rem, 3.8vw, 1.2rem); line-height: 1.6;
-    color: var(--text-2); flex: 1;
+  .photo-collage-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.6rem;
+    padding: 0.5rem 1.25rem;
   }
-  .carr-dots {
-    display: flex; justify-content: center; gap: 8px;
-    margin-top: 1.75rem;
+  .photo-collage-grid figure {
+    position: relative;
+    margin: 0;
+    aspect-ratio: 3 / 4;
+    border-radius: 7px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+    transition: transform 300ms var(--ease), box-shadow 300ms;
+    z-index: 1;
   }
-  .carr-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: rgba(255,255,255,0.2);
-    cursor: pointer; transition: background 150ms, transform 150ms;
-    border: none; padding: 0;
+  .photo-collage-grid figure:hover {
+    transform: rotate(0deg) scale(1.18) !important;
+    box-shadow: 0 12px 26px rgba(0,0,0,0.6);
+    z-index: 5;
   }
-  .carr-dot.active {
-    background: var(--gold);
-    transform: scale(1.25);
+  .photo-collage-grid figure:nth-child(6n+1) { transform: rotate(-5deg); }
+  .photo-collage-grid figure:nth-child(6n+2) { transform: rotate(4deg); }
+  .photo-collage-grid figure:nth-child(6n+3) { transform: rotate(-3deg); }
+  .photo-collage-grid figure:nth-child(6n+4) { transform: rotate(5deg); }
+  .photo-collage-grid figure:nth-child(6n+5) { transform: rotate(-4deg); }
+  .photo-collage-grid figure:nth-child(6n) { transform: rotate(3deg); }
+  .photo-collage-grid img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(12%) sepia(8%);
+    transition: filter 300ms;
   }
+  .photo-collage-grid figure:hover img { filter: grayscale(0%) sepia(0%); }
 
   /* ─── FOR WHOM ────────────────────────────────────────────────── */
   #forwho {
@@ -693,12 +689,12 @@
   .forwho-grid {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
-    gap: 5rem;
+    gap: 3rem;
     align-items: start;
   }
   .forwho-left { position: sticky; top: 100px; }
   .age-block {
-    margin-top: 2.5rem;
+    margin-top: 1.5rem;
     padding: 1.5rem;
     border: 1px solid var(--gold-border);
     border-radius: var(--r);
@@ -721,7 +717,7 @@
 
   .forwho-list { list-style: none; }
   .forwho-item {
-    padding: 1.25rem 0;
+    padding: 0.9rem 0;
     border-bottom: 1px solid var(--border);
     display: flex; align-items: flex-start; gap: 1rem;
     transition: padding-left 200ms;
@@ -741,7 +737,7 @@
   .forwho-item .txt strong { color: var(--text); font-weight: 600; }
 
   .forwho-note {
-    margin-top: 3rem; padding: 1.5rem;
+    margin-top: 2rem; padding: 1.5rem;
     background: rgba(23,23,42,0.7);
     border-radius: var(--r);
     border: 1px solid var(--border);
@@ -864,7 +860,7 @@
   .why-grid {
     display: grid;
     grid-template-columns: 0.9fr 1.6fr;
-    gap: 5rem;
+    gap: 3rem;
     align-items: start;
   }
   .why-left {
@@ -938,8 +934,8 @@
   .why-lines {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    margin: 2rem 0;
+    gap: 0.85rem;
+    margin: 1.25rem 0;
     padding-left: 1.25rem;
     border-left: 1px solid var(--gold-border);
   }
@@ -947,7 +943,7 @@
     color: rgba(242,237,224,0.92);
     font-weight: 600;
   }
-  .why-right p { margin-bottom: 2rem; }
+  .why-right p { margin-bottom: 1rem; }
   .why-right p:last-child { margin-bottom: 0; }
 
   /* ─── BRAIN BANNER ────────────────────────────────────────────── */
@@ -955,7 +951,7 @@
   /* ─── DEADLINE ────────────────────────────────────────────────── */
   #deadline {
     border-top: 1px solid var(--border);
-    padding: 5rem 2rem;
+    padding: 3.5rem 2rem;
   }
   .deadline-inner {
     max-width: 900px;
@@ -1029,7 +1025,7 @@
 
   /* ─── CTA ─────────────────────────────────────────────────────── */
   #cta {
-    padding: 8rem 2rem;
+    padding: 5rem 2rem;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -1064,14 +1060,14 @@
     font-family: var(--font-serif);
     font-size: clamp(1rem, 2.2vw, 1.35rem);
     font-style: italic; color: var(--text-2);
-    margin-bottom: 3rem; line-height: 1.5;
+    margin-bottom: 2rem; line-height: 1.5;
   }
   .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
   /* ─── FOOTER ──────────────────────────────────────────────────── */
   footer {
     border-top: 1px solid var(--border);
-    padding: 2.5rem 2rem;
+    padding: 1.75rem 2rem;
     max-width: 1120px; margin: 0 auto;
     display: flex; align-items: center; justify-content: space-between;
     flex-wrap: wrap; gap: 1.25rem;
@@ -1089,6 +1085,27 @@
     color: var(--text-3); transition: color 200ms;
   }
   .footer-links a:hover { color: var(--text-2); }
+  .lang-toggle {
+    display: flex; align-items: center; gap: 0.15rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.25rem 0.4rem;
+  }
+  .lang-flag {
+    font-size: 1.1rem; line-height: 1;
+    padding: 0.2rem 0.35rem;
+    border-radius: 999px;
+    transition: background 200ms;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .lang-flag.active {
+    background: rgba(255,255,255,0.12);
+  }
+  .lang-flag:not(.active):hover {
+    background: rgba(255,255,255,0.07);
+  }
 
   /* ─── FOCUS ───────────────────────────────────────────────────── */
   :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 3px; }
@@ -1107,19 +1124,15 @@
     .why-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     .why-left { position: static; }
 
+    .stats-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   }
 
   @media (max-width: 600px) {
     .section-wrap { padding: 4rem 1.25rem; }
-    #includes { padding: 4rem 1.25rem; }
-    .includes-header { flex-direction: column; align-items: flex-start; }
     .forwho-item:hover { padding-left: 0; }
     #deadline { padding: 4rem 1.25rem; }
     nav { padding: 0.9rem 1.25rem; }
     footer { flex-direction: column; align-items: flex-start; }
-
-    /* Carousel: one card visible at a time */
-    .carr-item { width: 78vw; min-height: 400px; }
 
     /* Hero */
     .hero-def { padding: 0 1.25rem; }
@@ -1155,7 +1168,6 @@
   }
 
   @media (max-width: 400px) {
-    .carr-item { width: 86vw; }
     .tp-greek-title { font-size: clamp(3.2rem, 15vw, 6rem) !important; }
     nav .nav-logo .name { font-size: 0.75rem; }
   }
@@ -1191,27 +1203,22 @@
     <span class="sup">Hustle Hours</span>
     <span class="name">PHILOXENIA</span>
   </a>
-  <a href="https://hustlehours.com" class="nav-link" aria-label="Επιστροφή στο Hustle Hours">
-    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-      <path d="M8 9L5 6l3-3" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    hustlehours.com
-  </a>
+  <span class="nav-byproduct">A byproduct of <a href="https://hustlehours.com" class="nav-hh-link" target="_blank" rel="noopener noreferrer">Hustle Hours</a></span>
 </nav>
 
 <!-- ─────── HERO ─────────────────────────────────────────── -->
 <section id="hero" aria-labelledby="hero-h">
 
-  <div style=”position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;gap:1.5rem;text-align:center;max-width:640px;width:100%;padding:3rem 2rem;”>
-    <h1 style=”font-family:'GFS Didot',Georgia,serif;font-size:clamp(5rem,20vw,14rem);font-weight:400;color:white;line-height:1;letter-spacing:0.02em;”>Φιλοξενία</h1>
-    <div style=”font-family:monospace;font-size:0.85rem;letter-spacing:0.05em;color:white;”>/filo·kse·ˈni·a/</div>
-    <div style=”font-style:italic;font-size:1rem;color:white;”>ουσιαστικό, θηλυκό</div>
-    <p style=”font-size:1.05rem;line-height:1.7;max-width:520px;margin:0;color:white;”>Η επιθυμία να ανοίγεις το σπίτι σου, το δίκτυό σου, τον χρόνο σου σε κάποιον που ξεκινάει από εκεί που ξεκίνησες κι εσύ.</p>
-    <p style=”font-size:1.05rem;line-height:1.7;max-width:520px;margin:0;color:white;”>Να θυμάσαι πόσο μόνος ένιωθες όταν δεν ήξερες από πού να αρχίσεις και να λες: «εσύ δεν χρειάζεται να δυσκολευτείς το ίδιο.»</p>
-    <div style=”font-family:monospace;font-size:0.72rem;letter-spacing:0.07em;text-transform:uppercase;line-height:1.9;border-top:1px solid rgba(255,255,255,0.4);padding-top:1.5rem;width:100%;color:white;”>
+  <div style="position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;gap:1.5rem;text-align:center;max-width:640px;width:100%;padding:3rem 2rem;">
+    <h1 style="font-family:'GFS Didot',Georgia,serif;font-size:clamp(5rem,20vw,14rem);font-weight:400;color:white;line-height:1;letter-spacing:0.02em;">Φιλοξενία</h1>
+    <div style="font-family:monospace;font-size:0.85rem;letter-spacing:0.05em;color:white;">/filo·kse·ˈni·a/</div>
+    <div style="font-style:italic;font-size:1rem;color:white;">ουσιαστικό, θηλυκό</div>
+    <p style="font-size:1.05rem;line-height:1.7;max-width:520px;margin:0;color:white;">Η επιθυμία να ανοίγεις το σπίτι σου, το δίκτυό σου, τον χρόνο σου σε κάποιον που ξεκινάει από εκεί που ξεκίνησες κι εσύ.</p>
+    <p style="font-size:1.05rem;line-height:1.7;max-width:520px;margin:0;color:white;">Να θυμάσαι πόσο μόνος ένιωθες όταν δεν ήξερες από πού να αρχίσεις και να λες: «εσύ δεν χρειάζεται να δυσκολευτείς το ίδιο.»</p>
+    <div style="font-family:monospace;font-size:0.72rem;letter-spacing:0.07em;text-transform:uppercase;line-height:1.9;border-top:1px solid rgba(255,255,255,0.4);padding-top:1.5rem;width:100%;color:white;">
       Ελληνική λέξη · Αρχαία ρίζα<br>
-      <span style=”color:white;”>φίλος (φίλος) + ξένος (ξένος)</span><br>
-      <span style=”color:white;”>Κυριολεκτικά: “αγάπη για τον ξένο”</span>
+      <span style="color:white;">φίλος (φίλος) + ξένος (ξένος)</span><br>
+      <span style="color:white;">Κυριολεκτικά: “αγάπη για τον ξένο”</span>
     </div>
   </div>
 
@@ -1287,46 +1294,55 @@
         </div>
       </div>
 
-      <div class=”body-text why-right”>
-        <div class=”why-lines”>
-          <p class=”r”>Είναι ένα μέρος όπου το default είναι να χτίζεις.</p>
-          <br><br>
-          <p class=”r r1”>Όπου ένας 19χρονος μπορεί να μιλήσει με έναν founder που μόλις σήκωσε funding.</p>
-          <br><br>
-          <p class=”r r2”>Όπου μια ιδέα που στην Ελλάδα ακούγεται “πολύ μεγάλη” ακούγεται εδώ σαν αφετηρία.</p>
-          <br><br>
-          <p class=”r r3”>Όπου οι άνθρωποι δεν ρωτάνε μόνο “τι σπουδάζεις;”</p>
-          <br><br>
-          <p class=”r r4”>Ρωτάνε: “τι χτίζεις;”</p>
+      <div class="body-text why-right">
+        <div class="why-lines">
+          <p class="r">Είναι ένα μέρος όπου το default είναι να χτίζεις.</p>
+          <p class="r r1">Όπου ένας 19χρονος μπορεί να μιλήσει με έναν founder που μόλις σήκωσε funding.</p>
+          <p class="r r2">Όπου μια ιδέα που στην Ελλάδα ακούγεται “πολύ μεγάλη” ακούγεται εδώ σαν αφετηρία.</p>
+          <p class="r r3">Όπου οι άνθρωποι δεν ρωτάνε μόνο “τι σπουδάζεις;”</p>
+          <p class="r r4">Ρωτάνε: “τι χτίζεις;”</p>
         </div>
 
-        <br><br>
-        <p class=”r”>Για δύο εβδομάδες, θα περνάς μέρες και νύχτες με YC founders και θα δουλεύεις δίπλα τους για να μάθεις τις καλύτερες πρακτικές.</p>
-        <br><br>
-        <p class=”r r1”>Θα έχεις την ευκαιρία να επισκεφτείς και να κάνεις tour στα πολύ διάσημα headquarters της Apple, Facebook, Google, OpenAI και πολλών άλλων...</p>
-        <br><br>
-        <p class=”r r2”>Tour στο Stanford και το Berkeley με τοπικούς φοιτητές. 2 από τα πιο διάσημα πανεπιστήμια στον κόσμο.</p>
-        <br><br>
-        <p class=”r r3”>Έχουμε κουραστεί από events και panel discussions. Έχεις στο μυαλό σου τόνους από inspirational speeches. Ήρθε η ώρα να κάνεις ένα βήμα μπροστά και να κυνηγήσεις αυτά τα όνειρα. <strong>Μάλλον το μόνο που σου λείπει είναι η ευκαιρία να βρεθείς στο σωστό δωμάτιο για πρώτη φορά.</strong></p>
+        <p class="r">Για δύο εβδομάδες, θα περνάς μέρες και νύχτες με YC founders και θα δουλεύεις δίπλα τους για να μάθεις τις καλύτερες πρακτικές.</p>
+        <p class="r r1">Θα έχεις την ευκαιρία να επισκεφτείς και να κάνεις tour στα πολύ διάσημα headquarters της Apple, Facebook, Google, OpenAI και πολλών άλλων...</p>
+        <p class="r r2">Tour στο Stanford και το Berkeley με τοπικούς φοιτητές. 2 από τα πιο διάσημα πανεπιστήμια στον κόσμο.</p>
+        <p class="r r3">Έχουμε κουραστεί από events και panel discussions. Έχεις στο μυαλό σου τόνους από inspirational speeches. Ήρθε η ώρα να κάνεις ένα βήμα μπροστά και να κυνηγήσεις αυτά τα όνειρα. <strong>Μάλλον το μόνο που σου λείπει είναι η ευκαιρία να βρεθείς στο σωστό δωμάτιο για πρώτη φορά.</strong></p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─────── BENTO ─────────────────────────────────────────── -->
-<section aria-labelledby="includes-h">
-  <div id="includes">
-    <div class="includes-header r">
-      <div>
-        <p class="label" style="margin-bottom:0.5rem;">Τι περιλαμβάνει</p>
-        <h2 id="includes-h" class="title" style="margin-bottom:0;">Η <em>φιλοξενία</em> μας</h2>
+<!-- ─────── STATS ─────────────────────────────────────────── -->
+<section id="stats" aria-labelledby="stats-h">
+  <div class="section-wrap">
+    <div class="stats-grid">
+      <div class="stats-left">
+        <div class="label r">Οι αριθμοί</div>
+        <h2 id="stats-h" class="title r r1">Το Philoxenia <em>μέχρι σήμερα</em></h2>
+        <ul class="stat-list">
+          <li class="stat-row r r1"><span class="stat-num" data-target="5">0</span><span class="stat-text">batches ολοκληρώθηκαν</span></li>
+          <li class="stat-row r r2"><span class="stat-num" data-target="23">0</span><span class="stat-text">Ευρωπαίοι επισκέφτηκαν το San Francisco για 2 εβδομάδες</span></li>
+          <li class="stat-row r r3"><span class="stat-num" data-target="3">0</span><span class="stat-text">βρήκαν internship σε startups</span></li>
+          <li class="stat-row r r4"><span class="stat-num" data-target="3">0</span><span class="stat-text">κάνουν ενεργά fundraising</span></li>
+        </ul>
+      </div>
+      <div class="stats-right r r2">
+        <div class="photo-collage-grid">
+          <figure><img src="../alumni-1.jpg" alt="Απόφοιτος του Philoxenia στο Σαν Φρανσίσκο" loading="lazy" /></figure>
+          <figure><img src="../alumni-2.jpg" alt="Απόφοιτος του Philoxenia στο Σαν Φρανσίσκο" loading="lazy" /></figure>
+          <figure><img src="../alumni-3.jpg" alt="Απόφοιτος του Philoxenia στο Σαν Φρανσίσκο" loading="lazy" /></figure>
+          <figure><img src="../alumni-4.jpg" alt="Απόφοιτοι του Philoxenia στο Σαν Φρανσίσκο" loading="lazy" /></figure>
+          <figure><img src="../alumni-5.jpg" alt="Απόφοιτος του Philoxenia στο Σαν Φρανσίσκο" loading="lazy" /></figure>
+          <figure><img src="../alumni-6.jpg" alt="Απόφοιτοι του Philoxenia στο Σαν Φρανσίσκο" loading="lazy" /></figure>
+          <figure><img src="../alumni-7.jpg" alt="Απόφοιτοι του Philoxenia στο Σαν Φρανσίσκο" loading="lazy" /></figure>
+          <figure><img src="../alumni-8.jpg" alt="Απόφοιτος του Philoxenia στο Σαν Φρανσίσκο" loading="lazy" /></figure>
+          <figure><img src="../alumni-9.jpg" alt="Απόφοιτος του Philoxenia στο Σαν Φρανσίσκο" loading="lazy" /></figure>
+          <figure><img src="../alumni-10.jpg" alt="Απόφοιτοι του Philoxenia στο Σαν Φρανσίσκο" loading="lazy" /></figure>
+          <figure><img src="../alumni-11.jpg" alt="Απόφοιτος του Philoxenia στο Σαν Φρανσίσκο" loading="lazy" /></figure>
+          <figure><img src="../alumni-12.jpg" alt="Απόφοιτοι του Philoxenia στο Σαν Φρανσίσκο" loading="lazy" /></figure>
+        </div>
       </div>
     </div>
-
-    <div class="carr-outer" id="carr-outer">
-      <div class="carr-track" id="carr-track"></div>
-    </div>
-    <div class="carr-dots" id="carr-dots"></div>
   </div>
 </section>
 
@@ -1427,9 +1443,10 @@
   <p class="footer-brand">
     <span>Philoxenia</span>
   </p>
-  <ul class="footer-links">
-    <li><a href="../">English</a></li>
-  </ul>
+  <div class="lang-toggle" role="group" aria-label="Επιλογή γλώσσας">
+    <a href="/" class="lang-flag" aria-label="Switch to English">🇺🇸</a>
+    <span class="lang-flag active" aria-label="Ελληνικά (τρέχουσα)" aria-current="true">🇬🇷</span>
+  </div>
 </footer>
 
 <!-- Visually hidden for a11y -->
@@ -1975,167 +1992,36 @@
     requestAnimationFrame(updateCountdown);
   })();
 
-  // ── Carousel ────────────────────────────────────────────────
+  // ── Stat count-up ─────────────────────────────────────────────
   (function() {
-    const ITEMS = [
-      { title: 'Διαμονή', desc: '2 εβδομάδες διαμονή στο SF. Δεν πληρώνεις τίποτα.', badge: '0€', variant: 'featured',
-        svg: '<path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.64A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke-linecap="round" stroke-linejoin="round"/>' },
-      { title: 'Day in the life: YC Startup', desc: 'Μια ολόκληρη μέρα inside ένα YC company. Βλέπεις πώς κινούνται οι καλύτεροι.', badge: 'Exclusive', variant: 'mint',
-        svg: '<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="9 22 9 12 15 12 15 22" stroke-linecap="round" stroke-linejoin="round"/>' },
-      { title: 'Network Silicon Valley', desc: 'Founders, operators, investors. Όλο το δίκτυο του Hustle Hours, δικό σου.', badge: 'Network', variant: '',
-        svg: '<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke-linecap="round" stroke-linejoin="round"/>' },
-      { title: 'Top Universities', desc: 'Stanford, Berkeley. Όχι ως τουρίστας. Ως κάποιος που ανήκει εκεί.', badge: 'Campus', variant: '',
-        svg: '<path d="M12 14l9-5-9-5-9 5 9 5zM12 14l6.16-3.422A12.083 12.083 0 0119.83 17M12 14L5.84 10.578A12.083 12.083 0 004.17 17M12 20v-6" stroke-linecap="round" stroke-linejoin="round"/>' },
-      { title: 'Co-working Space', desc: 'Δωρεάν access σε co-working space στο κέντρο του SF. Build something there.', badge: 'Daily access', variant: '',
-        svg: '<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4" stroke-linecap="round" stroke-linejoin="round"/>' },
-      { title: 'Events & Meetups', desc: 'Startup events, dinners, meetups. Τα πράγματα που δεν βρίσκεις σε κανένα YouTube video.', badge: 'IRL', variant: 'mint',
-        svg: '<path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"/>' },
-      { title: 'Γυμναστήριο', desc: 'Δωρεάν συνδρομή. Γιατί το σώμα παίζει ρόλο όσο και το μυαλό.', badge: 'Δωρεάν', variant: '',
-        svg: '<path d="M6.5 6.5h11M6.5 17.5h11M4 12h16M2 9l2 3-2 3M22 9l-2 3 2 3" stroke-linecap="round" stroke-linejoin="round"/>' },
-      { title: 'Mentors & Founders', desc: 'Προσωπικές συναντήσεις με ανθρώπους που έχουν χτίσει. Όχι panel talks. Actual conversations.', badge: '1-on-1', variant: 'featured',
-        svg: '<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" stroke-linecap="round" stroke-linejoin="round"/>' }
-    ];
+    const nums = document.querySelectorAll('.stat-num');
+    if (!nums.length) return;
 
-    const AUTOPLAY_DELAY = 5000;
-
-    const loopItems = [ITEMS[ITEMS.length - 1], ...ITEMS, ITEMS[0]];
-    let pos = 1;
-
-    let xCur, xVel = 0, xTgt;
-
-    function itemWidth() {
-      return cards[0]?.offsetWidth || 300;
+    function animateCount(el) {
+      const target = parseInt(el.dataset.target, 10) || 0;
+      const duration = 1400;
+      const start = performance.now();
+      function tick(now) {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(eased * target);
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
     }
 
-    function trackGap() {
-      return parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 20;
-    }
-
-    function trackOffset() {
-      return itemWidth() + trackGap();
-    }
-
-    function springTick(dt) {
-      const f = 250 * (xTgt - xCur) - 28 * xVel;
-      xVel += (f / 2) * dt;
-      xCur += xVel * dt;
-    }
-
-    const track = document.getElementById('carr-track');
-    const dotsEl = document.getElementById('carr-dots');
-    const outer  = document.getElementById('carr-outer');
-    if (!track || !dotsEl || !outer) return;
-
-    track.innerHTML = loopItems.map((item) => `
-      <div class="carr-item ${item.variant}" role="listitem">
-        <div>
-          <div class="carr-badge ${item.variant === 'mint' ? 'mint-b' : ''}">${item.badge}</div>
-          <h3 class="carr-title">${item.title}</h3>
-          <p class="carr-desc">${item.desc}</p>
-        </div>
-        <div class="carr-icon-wrap ${item.variant === 'mint' ? 'mint-i' : ''}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">${item.svg}</svg>
-        </div>
-      </div>
-    `).join('');
-
-    const cards = track.querySelectorAll('.carr-item');
-
-    dotsEl.innerHTML = ITEMS.map((_, i) =>
-      `<button class="carr-dot ${i === 0 ? 'active' : ''}" aria-label="Slide ${i+1}"></button>`
-    ).join('');
-    const dots = dotsEl.querySelectorAll('.carr-dot');
-
-    function activeIndex() {
-      return ((pos - 1) % ITEMS.length + ITEMS.length) % ITEMS.length;
-    }
-    function updateDots() {
-      const ai = activeIndex();
-      dots.forEach((d, i) => d.classList.toggle('active', i === ai));
-    }
-
-    function centerOffset() { return (outer.clientWidth - itemWidth()) / 2; }
-
-    function render() {
-      const off = centerOffset();
-      const offStep = trackOffset();
-      track.style.transform = `translateX(${(xCur + off).toFixed(2)}px)`;
-      cards.forEach((card, i) => {
-        const norm = (xCur + i * offStep) / offStep;
-        const dist = Math.abs(norm);
-        const isPrimary = dist < 0.15;
-        const isAdjacent = dist < 1.15;
-        const scale = isPrimary ? 1 : 1 - Math.min(dist, 1) * 0.06;
-        const opacity = isPrimary ? 1 : isAdjacent ? 0.45 : 0.15;
-        const blur = isPrimary ? 0 : isAdjacent ? 3 : 6;
-        card.style.transform = `scale(${scale.toFixed(3)})`;
-        card.style.opacity = opacity.toFixed(2);
-        card.style.filter = blur > 0 ? `blur(${blur}px)` : '';
-        card.style.borderColor = isPrimary ? 'rgba(212,168,67,0.5)' : '';
+    const statObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          statObserver.unobserve(entry.target);
+        }
       });
-    }
+    }, { threshold: 0.4 });
 
-    let lastTime = null, rafId = null;
-    function animLoop(ts) {
-      if (lastTime !== null) springTick(Math.min((ts - lastTime) / 1000, 0.05));
-      lastTime = ts;
-      render();
-      const settled = Math.abs(xTgt - xCur) < 0.15 && Math.abs(xVel) < 0.15;
-      if (settled) {
-        rafId = null;
-        normalizeLoop();
-        return;
-      }
-      rafId = requestAnimationFrame(animLoop);
-    }
-    function startAnim() { if (!rafId) { lastTime = null; rafId = requestAnimationFrame(animLoop); } }
-
-    function goTo(newPos) {
-      pos = newPos; xTgt = -pos * trackOffset();
-      startAnim(); updateDots();
-    }
-
-    function normalizeLoop() {
-      if (pos === loopItems.length - 1) {
-        pos = 1;
-        xCur = xTgt = -pos * trackOffset();
-        xVel = 0;
-        render();
-        updateDots();
-      } else if (pos === 0) {
-        pos = ITEMS.length;
-        xCur = xTgt = -pos * trackOffset();
-        xVel = 0;
-        render();
-        updateDots();
-      }
-    }
-
-    let dragStartX, dragStartXCur, isDragging = false;
-    track.addEventListener('mousedown', e => { dragStartX = e.clientX; dragStartXCur = xCur; isDragging = true; clearInterval(timer); e.preventDefault(); });
-    window.addEventListener('mousemove', e => { if (!isDragging) return; xCur = dragStartXCur + (e.clientX - dragStartX); xTgt = xCur; xVel = 0; render(); });
-    window.addEventListener('mouseup',   e => { if (!isDragging) return; isDragging = false; const dx = e.clientX - dragStartX; goTo(Math.max(0, Math.min(pos + (dx < -50 ? 1 : dx > 50 ? -1 : 0), loopItems.length - 1))); startTimer(); });
-    track.addEventListener('touchstart', e => { dragStartX = e.touches[0].clientX; dragStartXCur = xCur; isDragging = true; clearInterval(timer); }, { passive: true });
-    track.addEventListener('touchmove',  e => { if (!isDragging) return; xCur = dragStartXCur + (e.touches[0].clientX - dragStartX); xTgt = xCur; xVel = 0; render(); }, { passive: true });
-    track.addEventListener('touchend',   e => { if (!isDragging) return; isDragging = false; const dx = e.changedTouches[0].clientX - dragStartX; goTo(Math.max(0, Math.min(pos + (dx < -50 ? 1 : dx > 50 ? -1 : 0), loopItems.length - 1))); startTimer(); });
-
-    dots.forEach((d, i) => d.addEventListener('click', () => { goTo(i + 1); clearInterval(timer); startTimer(); }));
-
-    let timer;
-    function startTimer() { clearInterval(timer); timer = setInterval(() => { goTo(Math.min(pos + 1, loopItems.length - 1)); }, AUTOPLAY_DELAY); }
-    outer.addEventListener('mouseenter', () => clearInterval(timer));
-    outer.addEventListener('mouseleave', startTimer);
-
-    // Init
-    xCur = xTgt = -pos * trackOffset();
-    render();
-    startTimer();
-    window.addEventListener('resize', () => {
-      xVel = 0;
-      xCur = xTgt = -pos * trackOffset();
-      render();
-    });
+    nums.forEach(el => statObserver.observe(el));
   })();
+
 
   // ── Map modal ─────────────────────────────────────────────────
   (function() {
@@ -2155,30 +2041,6 @@
     modal.querySelector('.map-modal-close').addEventListener('click', close);
     modal.addEventListener('click', e => { if (e.target === modal) close(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
-  })();
-</script>
-
-<style>
-  #hero, #hero * {
-    color: #ffffff !important;
-    -webkit-text-fill-color: #ffffff !important;
-  }
-  #hero .hero-meta {
-    color: #ffffff !important;
-    -webkit-text-fill-color: #ffffff !important;
-  }
-</style>
-<script>
-  (function() {
-    function forceWhite() {
-      document.querySelectorAll('#hero, #hero *').forEach(function(el) {
-        el.style.setProperty('color', '#ffffff', 'important');
-        el.style.setProperty('-webkit-text-fill-color', '#ffffff', 'important');
-        el.style.setProperty('opacity', '1', 'important');
-      });
-    }
-    forceWhite();
-    window.addEventListener('load', forceWhite);
   })();
 </script>
 </body>
